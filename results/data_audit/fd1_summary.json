@@ -1,0 +1,16 @@
+{
+  "dataset": "KU Leuven FD-I",
+  "sampling_rate_hz": 64,
+  "participants": 34,
+  "total_hours": 251.7013107638889,
+  "total_eating_runs": 4568,
+  "total_drinking_runs": 1100,
+  "participants_with_left_right_length_mismatch": [],
+  "unexpected_labels": [],
+  "readme_reference": {
+    "participants": 34,
+    "hours": 251.7,
+    "eating_gestures": 4568,
+    "drinking_gestures": 1100
+  }
+}

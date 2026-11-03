@@ -1,0 +1,63 @@
+{
+  "dataset": "Clemson All-day Dataset",
+  "provider": "Clemson University",
+  "page_url": "https://cecas.clemson.edu/~ahoover/allday/",
+  "links": [
+    {
+      "text": "",
+      "url": "https://cecas.clemson.edu/~ahoover/allday/shimmer3.png"
+    },
+    {
+      "text": "",
+      "url": "https://cecas.clemson.edu/~ahoover/allday/eat-clock.png"
+    },
+    {
+      "text": "Eating Detection Project",
+      "url": "https://www.cecas.clemson.edu/~ahoover/eat-detect"
+    },
+    {
+      "text": "paper",
+      "url": "https://www.cecas.clemson.edu/~ahoover/bite-counter/Sharma-ACM-2020.pdf"
+    },
+    {
+      "text": "",
+      "url": "https://cecas.clemson.edu/~ahoover/allday/P2001-breakfast.png"
+    },
+    {
+      "text": "here",
+      "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/ShimmerDemographics.xlsx"
+    },
+    {
+      "text": "here",
+      "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/SHMfiles.zip"
+    },
+    {
+      "text": "this program",
+      "url": "https://cecas.clemson.edu/ahoover/bite-counter/EatMon-installer.msi"
+    },
+    {
+      "text": "here",
+      "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/EVENTfiles.zip"
+    },
+    {
+      "text": "here",
+      "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/CSV1.zip"
+    },
+    {
+      "text": "here",
+      "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/CSV2.zip"
+    },
+    {
+      "text": "here",
+      "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/CSV3.zip"
+    },
+    {
+      "text": "here",
+      "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/CSV4.zip"
+    },
+    {
+      "text": "here",
+      "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/CSV5.zip"
+    }
+  ]
+}

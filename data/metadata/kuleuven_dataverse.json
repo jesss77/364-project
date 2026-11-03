@@ -1,0 +1,439 @@
+{
+  "status": "OK",
+  "data": {
+    "id": 676,
+    "datasetId": 160449,
+    "datasetPersistentId": "doi:10.48804/CN8VBB",
+    "datasetType": "dataset",
+    "storageIdentifier": "s3://10.48804/CN8VBB",
+    "versionNumber": 1,
+    "internalVersionNumber": 7,
+    "versionMinorNumber": 1,
+    "versionState": "RELEASED",
+    "latestVersionPublishingState": "RELEASED",
+    "deaccessionLink": "",
+    "lastUpdateTime": "2026-06-26T07:20:08Z",
+    "releaseTime": "2024-10-08T07:58:47Z",
+    "createTime": "2024-10-05T16:52:20Z",
+    "publicationDate": "2024-03-05",
+    "citationDate": "2024-03-05",
+    "license": {
+      "name": "CC-BY-NC-ND-4.0",
+      "uri": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "iconUri": "https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png",
+      "rightsIdentifier": "CC-BY-NC-ND-4.0",
+      "rightsIdentifierScheme": "SPDX",
+      "schemeUri": "https://spdx.org/licenses/",
+      "languageCode": "en"
+    },
+    "fileAccessRequest": true,
+    "metadataBlocks": {
+      "citation": {
+        "displayName": "Citation Metadata",
+        "name": "citation",
+        "fields": [
+          {
+            "typeName": "title",
+            "multiple": false,
+            "typeClass": "primitive",
+            "value": "Replication Data for: Eating Speed Measurement Using Wrist-Worn IMU Sensors Towards Free-Living Environments"
+          },
+          {
+            "typeName": "author",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "authorName": {
+                  "typeName": "authorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Wang, Chunzhuo"
+                },
+                "authorAffiliation": {
+                  "typeName": "authorAffiliation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Associatie KU Leuven"
+                },
+                "authorIdentifierScheme": {
+                  "typeName": "authorIdentifierScheme",
+                  "multiple": false,
+                  "typeClass": "controlledVocabulary",
+                  "value": "ORCID"
+                },
+                "authorIdentifier": {
+                  "typeName": "authorIdentifier",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "0000-0002-6992-7344"
+                }
+              },
+              {
+                "authorName": {
+                  "typeName": "authorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Kumar, T. Sunil"
+                }
+              },
+              {
+                "authorName": {
+                  "typeName": "authorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "De Raedt, Walter"
+                }
+              },
+              {
+                "authorName": {
+                  "typeName": "authorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Camps, Guido"
+                }
+              },
+              {
+                "authorName": {
+                  "typeName": "authorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Hallez, Hans"
+                },
+                "authorAffiliation": {
+                  "typeName": "authorAffiliation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Associatie KU Leuven"
+                },
+                "authorIdentifierScheme": {
+                  "typeName": "authorIdentifierScheme",
+                  "multiple": false,
+                  "typeClass": "controlledVocabulary",
+                  "value": "ORCID"
+                },
+                "authorIdentifier": {
+                  "typeName": "authorIdentifier",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "0000-0003-2623-9055"
+                }
+              },
+              {
+                "authorName": {
+                  "typeName": "authorName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Vanrumste, Bart"
+                },
+                "authorAffiliation": {
+                  "typeName": "authorAffiliation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Associatie KU Leuven"
+                },
+                "authorIdentifierScheme": {
+                  "typeName": "authorIdentifierScheme",
+                  "multiple": false,
+                  "typeClass": "controlledVocabulary",
+                  "value": "ORCID"
+                },
+                "authorIdentifier": {
+                  "typeName": "authorIdentifier",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "0000-0002-9409-935X"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "departmentFaculty",
+            "multiple": true,
+            "typeClass": "controlledVocabulary",
+            "value": [
+              "Department of Electrical Engineering (ESAT)",
+              "Faculty of Engineering Technology"
+            ]
+          },
+          {
+            "typeName": "datasetContact",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "datasetContactName": {
+                  "typeName": "datasetContactName",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Wang, Chunzhuo"
+                },
+                "datasetContactAffiliation": {
+                  "typeName": "datasetContactAffiliation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Associatie KU Leuven"
+                },
+                "datasetContactEmail": {
+                  "typeName": "datasetContactEmail",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "chunzhuo.wang@kuleuven.be"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "dsDescription",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "dsDescriptionValue": {
+                  "typeName": "dsDescriptionValue",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "The IMU-based food intake monitoring dataset contains 513 h data collected from 61 participants in free-living environments. The dataset is used for bite detection, eating episodes detection, and eating speed measurement."
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "subject",
+            "multiple": true,
+            "typeClass": "controlledVocabulary",
+            "value": [
+              "Computer engineering, information technology and mathematical engineering",
+              "Electrical and electronic engineering",
+              "Health sciences"
+            ]
+          },
+          {
+            "typeName": "keyword",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "keywordValue": {
+                  "typeName": "keywordValue",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Eating Speed"
+                }
+              },
+              {
+                "keywordValue": {
+                  "typeName": "keywordValue",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Food Intake Monitoring"
+                }
+              },
+              {
+                "keywordValue": {
+                  "typeName": "keywordValue",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "IMU Sensor"
+                }
+              },
+              {
+                "keywordValue": {
+                  "typeName": "keywordValue",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Eating Gesture Detection"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "publication",
+            "multiple": true,
+            "typeClass": "compound",
+            "value": [
+              {
+                "publicationCitation": {
+                  "typeName": "publicationCitation",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "Wang, C., Kumar, T.S., De Raedt, W., Camps, G., Hallez, H., Vanrumste, B. (2024). Eating Speed Measurement Using Wrist-Worn IMU Sensors Towards Free-Living Environments. <i>IEEE Journal Of Biomedical And Health Informatics</i>, <i>28</i> (10), 5816-5828. doi: 10.1109/JBHI.2024.3422875"
+                },
+                "publicationIDType": {
+                  "typeName": "publicationIDType",
+                  "multiple": false,
+                  "typeClass": "controlledVocabulary",
+                  "value": "doi"
+                },
+                "publicationIDNumber": {
+                  "typeName": "publicationIDNumber",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "10.1109/JBHI.2024.3422875"
+                },
+                "liriasSourceID": {
+                  "typeName": "liriasSourceID",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "4138278"
+                },
+                "publicationURL": {
+                  "typeName": "publicationURL",
+                  "multiple": false,
+                  "typeClass": "primitive",
+                  "value": "https://doi.org/10.1109/JBHI.2024.3422875"
+                }
+              }
+            ]
+          },
+          {
+            "typeName": "technicalFormat",
+            "multiple": false,
+            "typeClass": "primitive",
+            "value": "pkl, npy, txt"
+          },
+          {
+            "typeName": "access",
+            "multiple": false,
+            "typeClass": "compound",
+            "value": {
+              "accessRights": {
+                "typeName": "accessRights",
+                "multiple": false,
+                "typeClass": "controlledVocabulary",
+                "value": "open"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "files": [
+      {
+        "label": "00_ReadMe.txt",
+        "restricted": false,
+        "version": 1,
+        "datasetVersionId": 676,
+        "dataFile": {
+          "id": 160783,
+          "persistentId": "",
+          "filename": "00_ReadMe.txt",
+          "contentType": "text/plain",
+          "friendlyType": "Plain Text",
+          "filesize": 6754,
+          "storageIdentifier": "s3://dataverse:18e062b17bd-235a129351d4",
+          "rootDataFileId": -1,
+          "md5": "dbe836478ce276d32776a526d11fea46",
+          "checksum": {
+            "type": "MD5",
+            "value": "dbe836478ce276d32776a526d11fea46"
+          },
+          "tabularData": false,
+          "creationDate": "2024-03-03",
+          "publicationDate": "2024-03-05",
+          "fileAccessRequest": true
+        }
+      },
+      {
+        "label": "FD-I.zip",
+        "restricted": false,
+        "version": 1,
+        "datasetVersionId": 676,
+        "dataFile": {
+          "id": 160779,
+          "persistentId": "",
+          "filename": "FD-I.zip",
+          "contentType": "application/zip",
+          "friendlyType": "ZIP Archive",
+          "filesize": 2730709146,
+          "storageIdentifier": "s3://dataverse:18e0476524a-7092f441f72d",
+          "rootDataFileId": -1,
+          "md5": "e5adb4c6f3caa8f52c215658228917dd",
+          "checksum": {
+            "type": "MD5",
+            "value": "e5adb4c6f3caa8f52c215658228917dd"
+          },
+          "tabularData": false,
+          "creationDate": "2024-03-03",
+          "publicationDate": "2024-03-05",
+          "fileAccessRequest": true
+        }
+      },
+      {
+        "label": "FD-II.zip",
+        "restricted": false,
+        "version": 1,
+        "datasetVersionId": 676,
+        "dataFile": {
+          "id": 160780,
+          "persistentId": "",
+          "filename": "FD-II.zip",
+          "contentType": "application/zip",
+          "friendlyType": "ZIP Archive",
+          "filesize": 3010599995,
+          "storageIdentifier": "s3://dataverse:18e047d48e9-7d1539b72406",
+          "rootDataFileId": -1,
+          "md5": "4c7b2f43560f7f9488643bbe0a9d3dce",
+          "checksum": {
+            "type": "MD5",
+            "value": "4c7b2f43560f7f9488643bbe0a9d3dce"
+          },
+          "tabularData": false,
+          "creationDate": "2024-03-03",
+          "publicationDate": "2024-03-05",
+          "fileAccessRequest": true
+        }
+      },
+      {
+        "label": "FD1_7_fold_id_list.zip",
+        "restricted": false,
+        "version": 1,
+        "datasetVersionId": 676,
+        "dataFile": {
+          "id": 160781,
+          "persistentId": "",
+          "filename": "FD1_7_fold_id_list.zip",
+          "contentType": "application/zip",
+          "friendlyType": "ZIP Archive",
+          "filesize": 5253,
+          "storageIdentifier": "s3://dataverse:18e049ae3b1-563bac641535",
+          "rootDataFileId": -1,
+          "md5": "9c2e7a9ca4cc3cf5c217a5865d8f2306",
+          "checksum": {
+            "type": "MD5",
+            "value": "9c2e7a9ca4cc3cf5c217a5865d8f2306"
+          },
+          "tabularData": false,
+          "creationDate": "2024-03-03",
+          "publicationDate": "2024-03-05",
+          "fileAccessRequest": true
+        }
+      },
+      {
+        "label": "MO.zip",
+        "restricted": false,
+        "version": 1,
+        "datasetVersionId": 676,
+        "dataFile": {
+          "id": 160778,
+          "persistentId": "",
+          "filename": "MO.zip",
+          "contentType": "application/zip",
+          "friendlyType": "ZIP Archive",
+          "filesize": 145937807,
+          "storageIdentifier": "s3://dataverse:18e046e135b-a85b1f465c48",
+          "rootDataFileId": -1,
+          "md5": "e3f29b0f43431186c49c4d537f943eee",
+          "checksum": {
+            "type": "MD5",
+            "value": "e3f29b0f43431186c49c4d537f943eee"
+          },
+          "tabularData": false,
+          "creationDate": "2024-03-03",
+          "publicationDate": "2024-03-05",
+          "fileAccessRequest": true
+        }
+      }
+    ]
+  }
+}

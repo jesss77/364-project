@@ -1,0 +1,1105 @@
+{
+  "total_files": 354,
+  "files_with_start": 300,
+  "files_without_start": 54,
+  "files_with_end": 300,
+  "files_without_end": 54,
+  "missing_start_with_end": 0,
+  "missing_start_without_end": 54,
+  "event_lines_in_missing_start_files": 272,
+  "missing_start_first_tokens": {
+    "START": 54
+  },
+  "missing_start_files": [
+    {
+      "filename": "P2011/P2011-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-09-16"
+      ],
+      "lines": [
+        "START\t2015-09-16\t07:30:00",
+        "Breakfast 07:32:34\t07:37:11 Unknown Unknown Unknown Unknown Unknown",
+        "Snack\t10:45:15\t10:46:57 Unknown Unknown Unknown Unknown Unknown",
+        "Dinner\t19:44:16\t19:52:06 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2015-09-16\t20:43:31"
+      ]
+    },
+    {
+      "filename": "P2035/P2035-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-09-16"
+      ],
+      "lines": [
+        "START\t2015-09-16\t07:40:00",
+        "Breakfast 08:47:33 08:54:46 Work NoSeconds Alone Egg_sandwiches Doing_work",
+        "Lunch 13:22:54 13:28:00 Work NoSeconds Alone Sub_sandwich Doing_work",
+        "Dinner 18:21:27 18:36:00 Other NoSeconds CompanyEating Burrito Watching_soccer_game",
+        "Snack 22:50:40 22:56:26 Home NoSeconds Alone Almond_butter_sandwich Watching_TV",
+        "END\t2015-09-16\t23:26:48"
+      ]
+    },
+    {
+      "filename": "P2123/P2123-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-09-16"
+      ],
+      "lines": [
+        "START\t2015-09-16\t07:30:00",
+        "Breakfast 07:30:11 07:43:43\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown",
+        "Lunch\t15:04:42 15:12:33\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown",
+        "END\t2015-09-16\t20:36:31"
+      ]
+    },
+    {
+      "filename": "P2126/P2126-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-11-05"
+      ],
+      "lines": [
+        "START\t2015-11-05\t10:36:52",
+        "Lunch\t13:38:39\t13:49:58 Unknown Unknown Unknown Unknown Unknown",
+        "Dinner\t18:05:53\t18:13:40 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2015-11-05\t22:29:12"
+      ]
+    },
+    {
+      "filename": "P2129/P2129-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-11-10"
+      ],
+      "lines": [
+        "START\t2015-11-10\t10:45:17",
+        "Breakfast 10:56:31 11:15:01 Unknown Unknown Unknown Unknown Unknown",
+        "Lunch 12:35:11 12:48:00 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2015-11-10\t13:32:16"
+      ]
+    },
+    {
+      "filename": "P2150/P2150-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-11-17",
+        "2015-11-18"
+      ],
+      "lines": [
+        "START\t2015-11-17\t14:05:28",
+        "Lunch\t14:05:42\t14:17:25 Home NoSeconds CompanyNotEating Chipotle_bowl_apple_juice WatchingTV",
+        "Dinner\t21:22:08\t21:23:23 Home NoSeconds CompanyNotEating MashedPotatoes_Corn_beef_bacon_applejuice WatchingTV",
+        "Snack\t21:26:52\t21:29:13 Home NoSeconds CompanyNotEating PBJ_sandwich_applejuice WatchingTV",
+        "Snack2\t22:35:29\t22:41:19 Other NoSeconds CompanyEating ChickenNuggets_fries_fruitpunch TalkingInCar",
+        "END\t2015-11-18\t00:28:35"
+      ]
+    },
+    {
+      "filename": "P2155/P2155-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-11-19"
+      ],
+      "lines": [
+        "START\t2015-11-19\t08:30:00",
+        "Lunch 12:59:30 13:00:48 Unknown Unknown Unknown Unknown Unknown",
+        "Dinner\t17:51:48 18:06:38 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2015-11-19\t18:39:53"
+      ]
+    },
+    {
+      "filename": "P2175/P2175-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-12-02"
+      ],
+      "lines": [
+        "START\t2015-12-02\t08:46:04",
+        "Breakfast\t08:52:39\t08:55:59 Restaurant NoSeconds Alone Grits_Yogurt_Granola Eating",
+        "Lunch\t13:21:59\t13:36:52 Restaurant NoSeconds CompanyEating GrilledCheese_Beans_Water Talking",
+        "END\t2015-12-02\t14:03:26"
+      ]
+    },
+    {
+      "filename": "P2177/P2177-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-12-02"
+      ],
+      "lines": [
+        "START\t2015-12-02\t08:06:32",
+        "Breakfast\t08:06:42\t08:12:28\tHome NoSeconds Alone CerealMilk TalkingOnPhone",
+        "Lunch\t16:24:10\t17:22:08\tOther NoSeconds CompanyEating Pizza TalkingToProjectTeamInClass",
+        "Dinner\t20:06:27\t20:21:52\tHome NoSeconds CompanyEating Rice Talking",
+        "END\t2015-12-02\t20:52:16"
+      ]
+    },
+    {
+      "filename": "P2192/P2192-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-12-03"
+      ],
+      "lines": [
+        "START\t2015-12-03\t08:50:51",
+        "Snack\t09:00:11\t09:05:47 Home NoSeconds Alone Grapes gettingReady",
+        "Lunch\t11:07:30\t11:25:21 Other NoSeconds Alone Rice_and_vegetables Reading",
+        "Snack2\t13:36:34\t13:48:11 Other NoSeconds Alone Smoothie Eating",
+        "Dinner\t18:26:21\t18:56:21 Restaurant NoSeconds Alone FriedRice_PepperChicken Eating",
+        "END\t2015-12-03\t20:39:35"
+      ]
+    },
+    {
+      "filename": "P2194/P2194-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 3,
+      "event_line_count": 3,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-12-03",
+        "2015-12-04"
+      ],
+      "lines": [
+        "START\t2015-12-03\t11:11:15",
+        "Lunch\t12:30:53\t12:36:37\tRestaurant\tNoSeconds\tCompanyEating\tChickfila_Nuggets_Water\tTalking",
+        "END\t2015-12-04\t26:20:51"
+      ]
+    },
+    {
+      "filename": "P2200/P2200-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-12-08"
+      ],
+      "lines": [
+        "START\t2015-12-08\t10:48:27",
+        "Breakfast\t10:48:36\t10:59:06 Home NoSeconds Alone Coffee Eating",
+        "Lunch\t13:00:35\t13:19:36 Restaurant NoSeconds CompanyEating GrilledChickenSandwich Talking",
+        "END\t2015-12-08\t13:57:03"
+      ]
+    },
+    {
+      "filename": "P2204/P2204-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-12-08"
+      ],
+      "lines": [
+        "START\t2015-12-08\t12:54:16",
+        "Lunch\t12:58:28\t13:03:46 Unknown Unknown Unknown Unknown Unknown",
+        "Snack\t15:43:02\t15:52:50 Unknown Unknown Unknown Unknown Unknown",
+        "Dinner\t19:48:04\t19:53:34 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2015-12-08\t19:55:14"
+      ]
+    },
+    {
+      "filename": "P2214/P2214-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2015-12-09",
+        "2015-12-10"
+      ],
+      "lines": [
+        "START\t2015-12-09\t11:39:07",
+        "Lunch\t12:10:12\t12:33:37 Unknown Unknown Unknown Unknown Unknown",
+        "Evening\t17:55:23\t18:09:22 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2015-12-10\t00:48:41"
+      ]
+    },
+    {
+      "filename": "P2216/P2216-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-01-12"
+      ],
+      "lines": [
+        "START\t2016-01-12\t06:59:33",
+        "Breakfast\t08:22:58\t08:26:52 Unknown Unknown Unknown Unknown Unknown",
+        "Lunch\t13:37:55\t13:51:51 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2016-01-12\t17:35:59"
+      ]
+    },
+    {
+      "filename": "P2221/P2221-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-01-12"
+      ],
+      "lines": [
+        "START\t2016-01-12\t06:13:18",
+        "Breakfast\t06:14:02\t06:18:26 Home NoSeconds Alone EnglishMuffin_Milk WatchingTV",
+        "Lunch\t12:06:43\t12:37:38 Restaurant NoSeconds CompanyEating Nachos_SweetTea Talking",
+        "Dinner\t19:05:14\t19:14:15 Home NoSeconds CompanyEating Fajitas_Water Talking",
+        "Snack\t20:44:46\t20:49:50 Home NoSeconds CompanyEating ChocolateMilk WatchingTV",
+        "END\t2016-01-12\t21:13:09"
+      ]
+    },
+    {
+      "filename": "P2231/P2231-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-01-13"
+      ],
+      "lines": [
+        "START\t2016-01-13\t06:42:49",
+        "Breakfast\t10:18:37\t10:18:49 Office NoSeconds CompanyNotEating Granola_Bar working_on_computer",
+        "Lunch\t12:01:30\t12:15:47 Restaurant NoSeconds CompanyEating Chicken_sw_Diet_Coke Talking",
+        "Snack\t12:46:43\t12:52:46 Office NoSeconds CompanyNotEating Energy_Bar working_on_computer",
+        "Dinner\t19:26:50\t19:38:52 Home NoSeconds CompanyEating Eggs_Avocado_Diet_Coke Watching_TV",
+        "END\t2016-01-13\t19:45:48"
+      ]
+    },
+    {
+      "filename": "P2239/P2239-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-01-23",
+        "2016-01-24"
+      ],
+      "lines": [
+        "START\t2016-01-23\t18:12:26",
+        "Breakfast2\t21:21:41\t21:34:20\tWork\tNoSeconds\tAlone\tPizza_Drink\tReadingaPaper",
+        "Lunch\t27:01:14\t27:11:46\tWork\tNoSeconds\tAlone\tTunaSW_juice\tEating",
+        "Snack\t31:02:41\t31:16:02\tWork\tNoSeconds\tAlone\tPretzels_Snack_Bar_OJ\tWatchingTV",
+        "Dinner\t35:31:50\t35:38:02\tUnknown\tUnknown\tUnknown\tFriedRice_MelloYellow\tUnknown",
+        "END\t2016-01-24\t35:53:11"
+      ]
+    },
+    {
+      "filename": "P2257/P2257-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 7,
+      "event_line_count": 7,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-04"
+      ],
+      "lines": [
+        "START\t2016-02-04\t06:00:00",
+        "Breakfast\t06:29:36 06:42:24 Restaurant NoSeconds CompanyEating ChickFilaSw_coffee_fruit Talking",
+        "Snack\t10:21:45\t10:24:51 Restaurant NoSeconds Alone Coffee_and_biscotti Eating",
+        "Lunch\t11:36:18\t11:57:48 Restaurant NoSeconds CompanyEating Salad_dip_n_dots Talking",
+        "Snack2\t16:04:00\t16:08:28 Unknown Unknown Unknown Unknown Unknown",
+        "Dinner\t18:25:55\t18:34:40 Home Seconds CompanyNotEating EggSaladSw_SweetPotatoFries Talking",
+        "END\t2016-02-04\t19:14:36"
+      ]
+    },
+    {
+      "filename": "P2262/P2262-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-05"
+      ],
+      "lines": [
+        "START\t2016-02-05\t07:30:00",
+        "Breakfast\t11:46:20\t11:51:16 Unknown Unknown Unknown Unknown Unknown",
+        "Dinner\t18:20:37\t18:40:01 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2016-02-05\t19:57:10"
+      ]
+    },
+    {
+      "filename": "P2269/P2269-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-11"
+      ],
+      "lines": [
+        "START\t2016-02-11\t06:35:00",
+        "Breakfast\t06:41:40\t06:50:43\tHome\tNoSeconds\tAlone\tBread_Milk\tEating",
+        "Lunch\t15:37:06\t16:02:26\tHome\tNoSeconds\tAlone\tFriedRice\tWatchingTV",
+        "Dinner\t22:21:22\t23:11:03\tHome\tNoSeconds\tCompanyEating\tRice\tWatchingTV",
+        "END\t2016-02-11\t23:16:11"
+      ]
+    },
+    {
+      "filename": "P2270/P2270-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-11"
+      ],
+      "lines": [
+        "START\t2016-02-11\t06:45:00",
+        "Breakfast\t06:57:28\t07:15:23\tHome\tNoSeconds\tAlone\tBread_Cereal\tEating",
+        "Lunch\t15:33:10\t15:53:48\tHome\tNoSeconds\tAlone\tRice\tWorking",
+        "Dinner\t22:15:22\t22:51:38\tHome\tNoSeconds\tCompanyEating\tRice\tTalking",
+        "END\t2016-02-11\t23:05:20"
+      ]
+    },
+    {
+      "filename": "P2271/P2271-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-11"
+      ],
+      "lines": [
+        "START\t2016-02-11\t08:40:00",
+        "Snack\t11:03:51\t11:13:22\tHome\tNoSeconds\tAlone\tApple_PB\tUsing_Phone",
+        "Dinner\t18:17:41\t18:27:42\tHome\tNoSeconds\tCompanyNotEating\tChicken_Little_and_Potatoes\tDoing_Hair",
+        "END\t2016-02-11\t22:51:53"
+      ]
+    },
+    {
+      "filename": "P2272/P2272-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-11"
+      ],
+      "lines": [
+        "START\t2016-02-11\t08:30:00",
+        "Breakfast\t08:31:23\t08:43:25\tOther\tNoSeconds\tAlone\tTrailmix\tUsingInternet",
+        "Snack\t11:25:53\t11:45:48\tOther\tNoSeconds\tCompanyNotEating\tTrailmix\tTalking",
+        "Lunch\t12:54:38\t13:19:39\tHome\tNoSeconds\tAlone\tYogurt_and_Sweet_Potato\tWatchingTV",
+        "END\t2016-02-11\t21:11:06"
+      ]
+    },
+    {
+      "filename": "P2273/P2273-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 7,
+      "event_line_count": 7,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-11"
+      ],
+      "lines": [
+        "START\t2016-02-11\t08:00:00",
+        "Breakfast\t08:36:02\t08:39:57\tOther\tNoSeconds\tCompanyEating\tMuffins_Coffee\tEating",
+        "Lunch\t11:54:32\t12:03:46\tOther\tNoSeconds\tAlone\tSoup_and_Chips\tEating",
+        "Snack\t13:00:59\t13:02:32\tOther\tNoSeconds\tAlone\tCuties\tEating",
+        "Snack2\t16:55:59\t16:59:20\tHome\tNoSeconds\tAlone\tPeppers\tEating",
+        "Dinner\t18:10:00\t18:19:22\tHome\tNoSeconds\tCompanyEating\tGrilledCheese_andPasta\tTalking",
+        "END\t2016-02-11\t18:36:33"
+      ]
+    },
+    {
+      "filename": "P2274/P2274-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-11"
+      ],
+      "lines": [
+        "START\t2016-02-11\t07:00:00",
+        "Breakfast\t08:53:06\t08:59:50\tOther\tNoSeconds\tCompanyEating\tCoffee_and_Oatmeal\tWorking",
+        "Lunch\t12:39:23\t12:53:15\tOther\tNoSeconds\tAlone\tHamburger\tEating",
+        "Snack\t15:24:56\t15:29:06\tOther\tNoSeconds\tAlone\tBanana\tWorking",
+        "Dinner\t19:39:42\t19:56:51\tRestaurant\tNoSeconds\tCompanyEating\tBBQ_Sandwich\tTalking",
+        "END\t2016-02-11\t20:50:38"
+      ]
+    },
+    {
+      "filename": "P2275/P2275-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-11"
+      ],
+      "lines": [
+        "START\t2016-02-11\t08:00:00",
+        "Breakfast\t08:17:43\t08:33:11\tHome\tNoSeconds\tAlone\tOatmeal_and_Coffee\tWatchingTV",
+        "Lunch\t12:44:21\t12:53:52\tHome\tSeconds\tAlone\tSandwich_and_Apple\tWatchingTV",
+        "Snack\t16:33:33\t16:47:35\tHome\tNoSeconds\tAlone\tVeggie_Burgers_and_Juice\tWatchingTV",
+        "Dinner\t17:58:48\t18:10:03\tHome\tSeconds\tAlone\tCornFlakes\tWatchingTV",
+        "END\t2016-02-11\t20:24:12"
+      ]
+    },
+    {
+      "filename": "P2284/P2284-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-12"
+      ],
+      "lines": [
+        "START\t2016-02-12\t07:45:06",
+        "Breakfast\t09:03:34\t09:06:25\tOffice\tNoSeconds\tAlone\tRiceCakePeanutButter\tReadingEmails",
+        "Meal\t09:23:02\t09:28:24\tUnknown\tUnknown\tUnknown\tUnknown\tUnknown",
+        "Lunch\t13:51:51\t14:00:56\tOther\tNoSeconds\tAlone\tCheeseburgerDietCoke\tDriving",
+        "Dinner\t21:52:31\t22:00:26\tOther\tNoSeconds\tCompanyEating\tChickFilAChickenSWFries\tTalking",
+        "END\t2016-02-12\t23:59:44"
+      ]
+    },
+    {
+      "filename": "P2285/P2285-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-12",
+        "2016-02-13"
+      ],
+      "lines": [
+        "START\t2016-02-12\t07:30:00",
+        "Breakfast\t11:13:00\t11:24:00\tUnknown Unknown Unknown Unknown Unknown",
+        "Lunch\t14:46:45\t14:59:11\tUnknown Unknown Unknown Unknown Unknown",
+        "Snack\t17:43:14\t17:47:13\tUnknown Unknown Unknown Unknown Unknown",
+        "Dinner\t24:37:18\t24:59:34\tUnknown Unknown Unknown Unknown Unknown",
+        "END\t2016-02-13\t24:59:39"
+      ]
+    },
+    {
+      "filename": "P2302/P2302-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 7,
+      "event_line_count": 7,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-24"
+      ],
+      "lines": [
+        "START\t2016-02-24\t09:31:23",
+        "Breakfast\t09:48:14\t09:53:55\tUnknown Unknown Unknown Unknown Unknown",
+        "Lunch\t11:22:01\t11:44:56\tUnknown Unknown Unknown Unknown Unknown",
+        "Snack\t17:31:50\t18:01:50\tUnknown Unknown Unknown Unknown Unknown",
+        "Dinner\t20:28:45\t20:49:12\tUnknown Unknown Unknown Unknown Unknown",
+        "Snack2\t23:42:22\t23:57:34\tUnknown Unknown Unknown Unknown Unknown",
+        "END\t2016-02-24\t23:57:42"
+      ]
+    },
+    {
+      "filename": "P2314/P2314-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 7,
+      "event_line_count": 7,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-25"
+      ],
+      "lines": [
+        "START\t2016-02-25\t06:14:15",
+        "Breakfast\t06:42:55\t06:49:37\tUnknown Unknown Unknown Unknown Unknown",
+        "Lunch\t12:39:39\t12:49:31\tUnknown Unknown Unknown Unknown Unknown",
+        "Snack\t14:06:13\t14:08:25\tUnknown Unknown Unknown Unknown Unknown",
+        "Snack2\t18:05:56\t18:13:49\tUnknown Unknown Unknown Unknown Unknown",
+        "Dinner\t20:35:02\t20:49:23\tUnknown Unknown Unknown Unknown Unknown",
+        "END\t2016-02-25\t22:05:59"
+      ]
+    },
+    {
+      "filename": "P2316/P2316-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-25"
+      ],
+      "lines": [
+        "START\t2016-02-25\t08:17:56",
+        "Breakfast\t09:35:33\t09:40:01\tOffice\tNoSeconds\tAlone\tYogurtParfait\tEating",
+        "Snack\t11:02:43\t11:09:16\tOffice\tNoSeconds\tAlone\tOrange\tEating",
+        "Lunch\t12:56:01\t13:05:09\tOffice\tNoSeconds\tAlone\tChicken_stir_fry\tEating",
+        "Dinner\t19:33:01\t19:39:01\tHome\tNoSeconds\tCompanyEating\tBlack_beans_chicken_peppers_spinach_sweetpotato\tTalking",
+        "END\t2016-02-25\t19:58:06"
+      ]
+    },
+    {
+      "filename": "P2325/P2325-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-03-05"
+      ],
+      "lines": [
+        "START\t2016-03-05\t12:53:25",
+        "Lunch\t13:08:11\t13:19:02\tHome\tNoSeconds\tCompanyNotEating\tShrimpBroccoliRice\tOnComputer",
+        "Snack\t15:55:11\t16:04:05\tRestaurant\tNoSeconds\tCompanyEating\tFriesJuiceCookiesIceCream\tTalking",
+        "Snack2\t18:26:34\t18:53:48\tRestaurant\tNoSeconds\tCompanyEating\tSoda\tTalking",
+        "END\t2016-03-05\t20:37:05"
+      ]
+    },
+    {
+      "filename": "P2331/P2331-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-03-09",
+        "2016-03-10"
+      ],
+      "lines": [
+        "START\t2016-03-09\t06:56:05",
+        "Breakfast\t07:14:44\t07:34:17 Unknown Unknown Unknown Unknown Unknown",
+        "Dinner\t18:43:35\t18:59:49 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2016-03-10\t00:12:51"
+      ]
+    },
+    {
+      "filename": "P2344/P2344-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-03-10",
+        "2016-03-11"
+      ],
+      "lines": [
+        "START\t2016-03-10\t08:23:21",
+        "Meal1\t16:54:16\t16:56:46 Unknown Unknown Unknown Unknown Unknown",
+        "Meal2\t19:30:59\t19:38:18 Unknown Unknown Unknown Unknown Unknown",
+        "Meal3\t19:48:27\t19:55:05 Unknown Unknown Unknown Unknown Unknown",
+        "Meal4\t00:27:44\t00:41:04 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2016-03-11\t01:58:50"
+      ]
+    },
+    {
+      "filename": "P2347/P2347-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-03-24"
+      ],
+      "lines": [
+        "START\t2016-03-24\t07:33:47",
+        "Breakfast\t08:05:37\t08:19:19\tOffice NoSeconds Alone Yogurt Email",
+        "Lunch\t12:21:50\t13:05:50\tRestaurant NoSeconds CompanyEating TacosZucchiniFries Talking",
+        "Snack\t14:56:51\t15:01:51\tOffice NoSeconds Alone Orange Email",
+        "Dinner\t19:32:37\t19:39:13\tRestaurant NoSeconds CompanyEating Salad Talking",
+        "END\t2016-03-24\t21:24:35"
+      ]
+    },
+    {
+      "filename": "P2379/P2379-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-04-06"
+      ],
+      "lines": [
+        "START\t2016-04-06\t07:10:36",
+        "Breakfast\t08:00:43\t08:56:18\tUnknown Unknown Unknown Unknown Unknown",
+        "Lunch\t12:10:14\t12:43:21\tUnknown Unknown Unknown Unknown Unknown",
+        "Dinner\t19:28:50\t19:47:44\tUnknown Unknown Unknown Unknown Unknown",
+        "END\t2016-04-06\t20:27:07"
+      ]
+    },
+    {
+      "filename": "P2384/P2384-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-04-06"
+      ],
+      "lines": [
+        "START\t2016-04-06\t08:33:56",
+        "Breakfast\t09:56:31\t10:02:21\tRestaurant\tNoSeconds\tCompanyEating\tGritsEggsBacon\tOnPhone",
+        "Lunch\t12:30:08\t12:52:26\tRestaurant\tNoSeconds\tCompanyEating\tChickenWings\tEating",
+        "END\t2016-04-06\t20:07:56"
+      ]
+    },
+    {
+      "filename": "P2396/P2396-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-04-15"
+      ],
+      "lines": [
+        "START\t2016-04-15\t11:30:56",
+        "Breakfast\t11:53:21\t12:01:48 Unknown Unknown Unknown Unknown Unknown",
+        "Lunch\t15:48:47\t16:00:33 Unknown Unknown Unknown Unknown Unknown",
+        "Dinner\t21:24:41\t21:34:37 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2016-04-15\t22:52:44"
+      ]
+    },
+    {
+      "filename": "P2403/P2403-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-05-05"
+      ],
+      "lines": [
+        "START\t2016-05-05\t07:30:00",
+        "Meal1\t13:19:27 13:31:00 Unknown Unknown Unknown Unknown Unknown",
+        "Meal2\t16:14:35 16:33:43 Unknown Unknown Unknown Unknown Unknown",
+        "END\t2016-05-05\t17:19:42"
+      ]
+    },
+    {
+      "filename": "P2417/P2417-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-05-20"
+      ],
+      "lines": [
+        "START\t2016-05-20\t07:47:23",
+        "Breakfast\t07:58:43\t08:07:18\tOffice\tNoSeconds\tCompanyNotEating\tFruits_sausageBiscuit\tTalking",
+        "Lunch\t11:20:40\t11:33:52\tOffice\tNoSeconds\tCompanyEating\tHamburgerHotdog\tTalking",
+        "Dinner\t16:30:21\t16:53:11\tHome\tNoSeconds\tAlone\tHamburger\tWatchingTV",
+        "END\t2016-05-20\t17:04:18"
+      ]
+    },
+    {
+      "filename": "P2418/P2418-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-06-06"
+      ],
+      "lines": [
+        "START\t2016-06-06\t07:43:54",
+        "Breakfast\t08:36:57\t08:42:34\tOffice\tNoSeconds\tCompanyNotEating\tGranolaBar\ttalking",
+        "Lunch\t13:09:19\t13:18:12\tRestaurant\tNoSeconds\tCompanyEating\tChickenSWFries_and_tea\tTalking",
+        "Dinner\t19:50:06\t19:58:31\tRestaurant\tNoSeconds\tCompanyEating\tHam_potatoes_beans\ttalking",
+        "END\t2016-06-06\t20:44:04"
+      ]
+    },
+    {
+      "filename": "P2419/P2419-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-06-06"
+      ],
+      "lines": [
+        "START\t2016-06-06\t08:03:17",
+        "Lunch\t13:09:22\t13:18:31\tRestaurant\tNoSeconds\tCompanyEating\tChickenSWFriesCoke\tTalking",
+        "Dinner\t19:50:10\t20:04:50\tRestaurant\tNoSeconds\tCompanyEating\tCountryFriedSteakMacAndCheeseLimaBeans\tTalking",
+        "END\t2016-06-06\t20:53:50"
+      ]
+    },
+    {
+      "filename": "P2426/P2426-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 4,
+      "event_line_count": 4,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-06-28"
+      ],
+      "lines": [
+        "START\t2016-06-28\t07:54:06",
+        "Breakfast\t08:02:05\t08:10:00\tHome\tNoSeconds\tCompanyEating\tCereal\tEating",
+        "Dinner\t19:51:41\t20:44:20\tHome\tSeconds\tCompanyEating\tChicken_rice_and_cereal\tTalking",
+        "END\t2016-06-28\t21:03:55"
+      ]
+    },
+    {
+      "filename": "P2442/P2442-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-06-04"
+      ],
+      "lines": [
+        "START\t2016-06-04\t13:09:00",
+        "Breakfast\t13:13:35\t13:23:28\tHome\tNoSeconds\tAlone\tCereal_and_milk  watching_tv",
+        "Lunch\t16:01:05\t16:10:06\tHome\tSeconds\tCompanyEating\tHot_dogs  watching_tv",
+        "Snack\t18:27:01\t18:39:35\tHome\tNoSeconds\tAlone\tIce_cream  Watching_tv",
+        "Dinner\t21:53:14\t21:59:11\tHome\tNoSeconds\tCompanyEating\tHot_dogs  Watching_TV",
+        "END\t2016-06-04\t22:05:30"
+      ]
+    },
+    {
+      "filename": "P2446/P2446-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 6,
+      "event_line_count": 6,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-06-10"
+      ],
+      "lines": [
+        "START\t2016-06-10\t05:45:58",
+        "Breakfast\t06:10:44\t06:20:42\tHome\tNoSeconds\tAlone\tEggCasserole\tTwitter",
+        "Snack\t09:04:26\t09:08:40\tOffice\tNoSeconds\tAlone\tSubSandwich\tEmail",
+        "Lunch\t13:25:37\t13:38:45\tRestaurant\tNoSeconds\tCompanyEating\tChickenFingerSandwich\tTalking",
+        "Dinner\t19:18:16\t19:35:42\tOther\tSeconds\tCompanyEating\tPizza\tTalking",
+        "END\t2016-06-10\t20:48:43"
+      ]
+    },
+    {
+      "filename": "P2452/P2452-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 3,
+      "event_line_count": 3,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-06-10",
+        "2016-06-11"
+      ],
+      "lines": [
+        "START\t2016-06-10\t09:01:40",
+        "Lunch\t12:32:20\t12:59:23\tOther\tNoSeconds\tCompanyEating\tTurkeySandwich\tTalking",
+        "END\t2016-06-11\t18:09:16"
+      ]
+    },
+    {
+      "filename": "P2460/P2460-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-06-27"
+      ],
+      "lines": [
+        "START\t2016-06-27\t07:15:00",
+        "Breakfast\t07:37:29\t07:45:38 Restaurant\tNoSeconds\tCompanyEating\tFrenchToast\tEating",
+        "Lunch\t11:49:15\t11:50:44\tRestaurant\tNoSeconds\tAlone\tQuickBar\tOnPhone",
+        "Dinner\t16:44:20\t17:04:07\tRestaurant\tNoSeconds   CompanyEating\tChickenSW\tEating",
+        "END\t2016-06-27\t17:44:19"
+      ]
+    },
+    {
+      "filename": "P2474/P2474-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 3,
+      "event_line_count": 3,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-07-11"
+      ],
+      "lines": [
+        "START\t2016-07-11\t07:50:00",
+        "Lunch\t12:01:27\t12:46:50\tRestaurant NoSeconds CompanyEating BuffaloChickenWrap Talking",
+        "END\t2016-07-11\t20:36:57"
+      ]
+    },
+    {
+      "filename": "P2475/P2475-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 7,
+      "event_line_count": 7,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-07-11"
+      ],
+      "lines": [
+        "START\t2016-07-11\t07:46:34",
+        "Breakfast\t08:42:42\t08:49:55\tHome\tNoSeconds\tCompanyEating\tEgg_mushroom_oats\tTalking",
+        "Snack\t10:47:35\t10:53:51\tOffice\tNoSeconds\tAlone\tpeach_pistachio\tEating",
+        "Lunch\t13:05:34\t13:20:00\tOffice\tNoSeconds\tAlone\tChickenRice\tWatchingVideos",
+        "Snack2\t17:48:47\t18:04:58\tOffice\tNoSeconds\tAlone\tDate_yogurt\tWatchingVideos",
+        "Dinner\t21:05:58\t21:16:53\tHome\tNoSeconds\tCompanyEating\tTurkeyBurgerSalad\tWatchingVideos",
+        "END\t2016-07-11\t21:33:39"
+      ]
+    },
+    {
+      "filename": "P2477/P2477-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-07-11"
+      ],
+      "lines": [
+        "START\t2016-07-11\t08:51:22",
+        "Breakfast\t10:48:30\t10:55:12\tOffice\tSeconds\tAlone\tGranolaBars\tOnComputer",
+        "Lunch\t13:39:21\t13:55:55\tOffice\tNoSeconds\tCompanyNotEating\tSandiwch\tOnComputer",
+        "Dinner\t19:44:01\t20:00:46\tRestaurant\tNoSeconds\tCompanyEating\tFajitas_nachos\tTalking",
+        "END\t2016-07-11\t22:46:36"
+      ]
+    },
+    {
+      "filename": "P2482/P2482-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-13"
+      ],
+      "lines": [
+        "START\t2016-02-13\t07:25:31",
+        "Breakfast\t07:54:16\t08:06:05\tOther\tNoSeconds\tCompanyEating\tBojanglesChickenBiscuitCoffee\tWatchingSports",
+        "Lunch\t12:21:36\t12:28:29\tOther\tNoSeconds\tCompanyEating\tHotDogChips\tWatchingSports",
+        "Dinner\t17:57:57\t18:10:08\tOther\tNoSeconds\tCompanyEating\tTacoBellTacos\tDriving",
+        "END\t2016-02-13\t20:27:53"
+      ]
+    },
+    {
+      "filename": "P2483/P2483-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 5,
+      "event_line_count": 5,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-02-14"
+      ],
+      "lines": [
+        "START\t2016-02-14\t08:55:16",
+        "Breakfast\t09:14:15\t09:21:19\tHome\tNoSeconds\tAlone\tPoptartsCoffee\tEating",
+        "Lunch\t13:14:27\t13:31:18\tRestaurant\tNoSeconds\tCompanyEating\tFajitas\tTalking",
+        "Dinner\t18:20:06\t18:29:20\tHome\tNoSeconds\tCompanyEating\tChickenBroccoliBakedPotato\tTalking",
+        "END\t2016-02-14\t19:56:08"
+      ]
+    },
+    {
+      "filename": "P2484/P2484-events.txt",
+      "has_start": false,
+      "has_end": false,
+      "line_count": 3,
+      "event_line_count": 3,
+      "first_token": "START",
+      "start_lines": [],
+      "end_lines": [],
+      "date_tokens": [
+        "2016-01-23"
+      ],
+      "lines": [
+        "START\t2016-01-23\t06:46:24",
+        "Breakfast\t08:32:41\t08:45:09\tWork\tNoSeconds\tAlone\tS/W_Wings_drink\tWatchingTV",
+        "END\t2016-01-23\t10:22:05"
+      ]
+    }
+  ]
+}

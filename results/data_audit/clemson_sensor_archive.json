@@ -1,0 +1,706 @@
+{
+  "dataset": "Clemson All-day Dataset",
+  "archive": "SHMfiles.zip",
+  "archive_size_bytes": 4892031932,
+  "files_total": 354,
+  "shm_files": 354,
+  "other_files": [],
+  "unique_sensor_ids": 354,
+  "event_recording_ids": 354,
+  "duplicate_sensor_ids": [],
+  "event_recordings_without_sensor": [],
+  "sensor_recordings_without_event": [],
+  "total_compressed_shm_bytes": 4891943514,
+  "total_uncompressed_shm_bytes": 6096531312,
+  "candidate_layouts": {
+    "float32_6ch": {
+      "bytes_per_sample": 24,
+      "files_exactly_divisible": 354,
+      "total_files": 354,
+      "total_samples": 254022138,
+      "total_hours_at_15hz": 4704.113666666666
+    },
+    "float64_6ch": {
+      "bytes_per_sample": 48,
+      "files_exactly_divisible": 170,
+      "total_files": 354,
+      "total_samples": null,
+      "total_hours_at_15hz": null
+    },
+    "int16_6ch": {
+      "bytes_per_sample": 12,
+      "files_exactly_divisible": 354,
+      "total_files": 354,
+      "total_samples": 508044276,
+      "total_hours_at_15hz": 9408.227333333332
+    }
+  },
+  "float32_prefix_samples": [
+    {
+      "filename": "P2001/P2001.shm",
+      "float32_little_endian_preview": {
+        "bytes_read": 120,
+        "rows": [
+          [
+            -0.1017865240573883,
+            0.0235789455473423,
+            0.004472389351576567,
+            -2.79779052734375,
+            15.20489501953125,
+            -11.091537475585938
+          ],
+          [
+            -0.0712917223572731,
+            0.06473824381828308,
+            0.020110394805669785,
+            4.16021728515625,
+            16.24249267578125,
+            -12.373275756835938
+          ],
+          [
+            -0.11801310628652573,
+            0.0188322551548481,
+            -0.018210185691714287,
+            16.61138916015625,
+            21.30841064453125,
+            -7.4294281005859375
+          ],
+          [
+            -0.06698336452245712,
+            0.13512149453163147,
+            -0.04450416564941406,
+            25.76666259765625,
+            25.33673095703125,
+            7.7072906494140625
+          ],
+          [
+            -0.12689396739006042,
+            0.05172901228070259,
+            -0.0208272747695446,
+            5.38092041015625,
+            4.52374267578125,
+            2.8244781494140625
+          ]
+        ]
+      }
+    },
+    {
+      "filename": "P2011/P2011.shm",
+      "float32_little_endian_preview": {
+        "bytes_read": 120,
+        "rows": [
+          [
+            -0.002323584631085396,
+            0.017250793054699898,
+            0.1261114627122879,
+            -6.1840972900390625,
+            0.81298828125,
+            1.2548675537109375
+          ],
+          [
+            -0.016613898798823357,
+            -0.00545297097414732,
+            0.15704354643821716,
+            -7.6489410400390625,
+            -1.4453125,
+            0.5224456787109375
+          ],
+          [
+            0.02436125837266445,
+            -0.03845980018377304,
+            0.1982610523700714,
+            -18.879409790039062,
+            -30.55908203125,
+            0.6445159912109375
+          ],
+          [
+            -0.008796400390565395,
+            -0.030204813927412033,
+            0.21464072167873383,
+            -14.851089477539062,
+            -15.849609375,
+            3.4521331787109375
+          ],
+          [
+            0.03923837095499039,
+            -0.02484944835305214,
+            0.20204627513885498,
+            -8.015151977539062,
+            -10.478515625,
+            3.4521331787109375
+          ]
+        ]
+      }
+    },
+    {
+      "filename": "P2012/P2012.shm",
+      "float32_little_endian_preview": {
+        "bytes_read": 120,
+        "rows": [
+          [
+            -0.05071726441383362,
+            -0.015070128254592419,
+            0.007763108238577843,
+            -1.5063629150390625,
+            -2.51708984375,
+            -0.3198394775390625
+          ],
+          [
+            -0.039881687611341476,
+            -0.021063141524791718,
+            0.020888496190309525,
+            -3.3984527587890625,
+            0.4736328125,
+            -0.6250152587890625
+          ],
+          [
+            -0.03319341689348221,
+            -0.03510058671236038,
+            0.02736198902130127,
+            -4.7412261962890625,
+            -4.71435546875,
+            -2.3339996337890625
+          ],
+          [
+            -0.05082123354077339,
+            -0.04072707146406174,
+            0.018552089110016823,
+            -2.3608551025390625,
+            -3.310546875,
+            -3.3105621337890625
+          ],
+          [
+            -0.04662693291902542,
+            -0.03953162208199501,
+            0.016881074756383896,
+            -1.0180816650390625,
+            -1.7236328125,
+            -1.7846832275390625
+          ]
+        ]
+      }
+    }
+  ],
+  "first_20_files": [
+    {
+      "filename": "P2001/P2001.shm",
+      "recording_id": "P2001",
+      "compressed_size_bytes": 15636810,
+      "uncompressed_size_bytes": 17539248,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 730802,
+          "duration_hours": 13.53337037037037
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 365401,
+          "duration_hours": 6.766685185185185
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1461604,
+          "duration_hours": 27.06674074074074
+        }
+      }
+    },
+    {
+      "filename": "P2011/P2011.shm",
+      "recording_id": "P2011",
+      "compressed_size_bytes": 14104954,
+      "uncompressed_size_bytes": 17140104,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 714171,
+          "duration_hours": 13.225388888888888
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1428342,
+          "duration_hours": 26.450777777777777
+        }
+      }
+    },
+    {
+      "filename": "P2012/P2012.shm",
+      "recording_id": "P2012",
+      "compressed_size_bytes": 14093619,
+      "uncompressed_size_bytes": 17670072,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 736253,
+          "duration_hours": 13.634314814814815
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1472506,
+          "duration_hours": 27.26862962962963
+        }
+      }
+    },
+    {
+      "filename": "P2013/P2013.shm",
+      "recording_id": "P2013",
+      "compressed_size_bytes": 13407905,
+      "uncompressed_size_bytes": 19033248,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 793052,
+          "duration_hours": 14.686148148148147
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 396526,
+          "duration_hours": 7.343074074074074
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1586104,
+          "duration_hours": 29.372296296296295
+        }
+      }
+    },
+    {
+      "filename": "P2014/P2014.shm",
+      "recording_id": "P2014",
+      "compressed_size_bytes": 12053433,
+      "uncompressed_size_bytes": 15339072,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 639128,
+          "duration_hours": 11.835703703703704
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 319564,
+          "duration_hours": 5.917851851851852
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1278256,
+          "duration_hours": 23.671407407407408
+        }
+      }
+    },
+    {
+      "filename": "P2015/P2015.shm",
+      "recording_id": "P2015",
+      "compressed_size_bytes": 15788720,
+      "uncompressed_size_bytes": 19573872,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 815578,
+          "duration_hours": 15.103296296296296
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 407789,
+          "duration_hours": 7.551648148148148
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1631156,
+          "duration_hours": 30.206592592592592
+        }
+      }
+    },
+    {
+      "filename": "P2016/P2016.shm",
+      "recording_id": "P2016",
+      "compressed_size_bytes": 15306792,
+      "uncompressed_size_bytes": 19684776,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 820199,
+          "duration_hours": 15.18887037037037
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1640398,
+          "duration_hours": 30.37774074074074
+        }
+      }
+    },
+    {
+      "filename": "P2017/P2017.shm",
+      "recording_id": "P2017",
+      "compressed_size_bytes": 11153642,
+      "uncompressed_size_bytes": 13694664,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 570611,
+          "duration_hours": 10.566870370370369
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1141222,
+          "duration_hours": 21.133740740740738
+        }
+      }
+    },
+    {
+      "filename": "P2018/P2018.shm",
+      "recording_id": "P2018",
+      "compressed_size_bytes": 13156617,
+      "uncompressed_size_bytes": 16606656,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 691944,
+          "duration_hours": 12.813777777777778
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 345972,
+          "duration_hours": 6.406888888888889
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1383888,
+          "duration_hours": 25.627555555555556
+        }
+      }
+    },
+    {
+      "filename": "P2020/P2020.shm",
+      "recording_id": "P2020",
+      "compressed_size_bytes": 12939101,
+      "uncompressed_size_bytes": 16291368,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 678807,
+          "duration_hours": 12.570500000000001
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1357614,
+          "duration_hours": 25.141000000000002
+        }
+      }
+    },
+    {
+      "filename": "P2030/P2030.shm",
+      "recording_id": "P2030",
+      "compressed_size_bytes": 13829462,
+      "uncompressed_size_bytes": 17028792,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 709533,
+          "duration_hours": 13.1395
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1419066,
+          "duration_hours": 26.279
+        }
+      }
+    },
+    {
+      "filename": "P2031/P2031.shm",
+      "recording_id": "P2031",
+      "compressed_size_bytes": 16581281,
+      "uncompressed_size_bytes": 19915200,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 829800,
+          "duration_hours": 15.366666666666667
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 414900,
+          "duration_hours": 7.683333333333334
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1659600,
+          "duration_hours": 30.733333333333334
+        }
+      }
+    },
+    {
+      "filename": "P2033/P2033.shm",
+      "recording_id": "P2033",
+      "compressed_size_bytes": 15501643,
+      "uncompressed_size_bytes": 19124736,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 796864,
+          "duration_hours": 14.756740740740742
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 398432,
+          "duration_hours": 7.378370370370371
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1593728,
+          "duration_hours": 29.513481481481485
+        }
+      }
+    },
+    {
+      "filename": "P2035/P2035.shm",
+      "recording_id": "P2035",
+      "compressed_size_bytes": 15890212,
+      "uncompressed_size_bytes": 20450976,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 852124,
+          "duration_hours": 15.780074074074076
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 426062,
+          "duration_hours": 7.890037037037038
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1704248,
+          "duration_hours": 31.56014814814815
+        }
+      }
+    },
+    {
+      "filename": "P2036/P2036.shm",
+      "recording_id": "P2036",
+      "compressed_size_bytes": 15312162,
+      "uncompressed_size_bytes": 19195920,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 799830,
+          "duration_hours": 14.811666666666667
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 399915,
+          "duration_hours": 7.405833333333334
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1599660,
+          "duration_hours": 29.623333333333335
+        }
+      }
+    },
+    {
+      "filename": "P2037/P2037.shm",
+      "recording_id": "P2037",
+      "compressed_size_bytes": 18183297,
+      "uncompressed_size_bytes": 20137344,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 839056,
+          "duration_hours": 15.538074074074073
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 419528,
+          "duration_hours": 7.7690370370370365
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1678112,
+          "duration_hours": 31.076148148148146
+        }
+      }
+    },
+    {
+      "filename": "P2038/P2038.shm",
+      "recording_id": "P2038",
+      "compressed_size_bytes": 18332135,
+      "uncompressed_size_bytes": 22813512,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 950563,
+          "duration_hours": 17.603018518518518
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1901126,
+          "duration_hours": 35.206037037037035
+        }
+      }
+    },
+    {
+      "filename": "P2044/P2044.shm",
+      "recording_id": "P2044",
+      "compressed_size_bytes": 12163446,
+      "uncompressed_size_bytes": 15066048,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 627752,
+          "duration_hours": 11.625037037037037
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": true,
+          "samples": 313876,
+          "duration_hours": 5.812518518518519
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1255504,
+          "duration_hours": 23.250074074074075
+        }
+      }
+    },
+    {
+      "filename": "P2046/P2046.shm",
+      "recording_id": "P2046",
+      "compressed_size_bytes": 13894541,
+      "uncompressed_size_bytes": 17534808,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 730617,
+          "duration_hours": 13.529944444444446
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1461234,
+          "duration_hours": 27.059888888888892
+        }
+      }
+    },
+    {
+      "filename": "P2051/P2051.shm",
+      "recording_id": "P2051",
+      "compressed_size_bytes": 16154278,
+      "uncompressed_size_bytes": 20163864,
+      "layouts": {
+        "float32_6ch": {
+          "bytes_per_sample": 24,
+          "exactly_divisible": true,
+          "samples": 840161,
+          "duration_hours": 15.558537037037036
+        },
+        "float64_6ch": {
+          "bytes_per_sample": 48,
+          "exactly_divisible": false,
+          "samples": null,
+          "duration_hours": null
+        },
+        "int16_6ch": {
+          "bytes_per_sample": 12,
+          "exactly_divisible": true,
+          "samples": 1680322,
+          "duration_hours": 31.117074074074072
+        }
+      }
+    }
+  ]
+}

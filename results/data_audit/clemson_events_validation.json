@@ -1,0 +1,144 @@
+{
+  "dataset": "Clemson All-day Dataset",
+  "source_files_parsed": 354,
+  "unique_recording_ids": 354,
+  "recordings_with_events": 354,
+  "total_event_rows": 1133,
+  "total_event_hours": 265.23527777777775,
+  "total_start_end_log_span_hours": 5114.404166666666,
+  "event_type_counts": {
+    "AfterDinner": 1,
+    "Appetizer": 1,
+    "Beer": 1,
+    "Breakfast": 248,
+    "Breakfast1": 2,
+    "Breakfast2": 5,
+    "Brunch": 3,
+    "Coffee": 1,
+    "Dessert": 1,
+    "Dinner": 305,
+    "Dinner*": 1,
+    "Dinner1": 6,
+    "Dinner2": 13,
+    "DinnerSnack": 1,
+    "Entree": 1,
+    "Evening": 2,
+    "EveningSnack": 1,
+    "Juice": 1,
+    "Lunch": 304,
+    "Lunch1": 1,
+    "Lunch2": 7,
+    "Lunch\u007f": 1,
+    "Meal": 1,
+    "Meal1": 2,
+    "Meal2": 2,
+    "Meal3": 1,
+    "Meal4": 1,
+    "Mid_Morning_Snack": 1,
+    "MidnightSnack": 1,
+    "SecondDinner": 1,
+    "SmallLunch": 1,
+    "Snack": 141,
+    "Snack1": 16,
+    "Snack2": 49,
+    "Snack3": 9
+  },
+  "seconds_status_counts": {
+    "NoSeconds": 974,
+    "Seconds": 98,
+    "Unknown": 61
+  },
+  "missing_start_files": [],
+  "missing_end_files": [],
+  "malformed_markers": [],
+  "malformed_events": [],
+  "nonpositive_events": [],
+  "out_of_bounds_events": [],
+  "overlapping_recordings": {},
+  "overflow_timestamp_count": 30,
+  "overflow_timestamp_examples": [
+    {
+      "source_file": "P2105/P2105-events.txt",
+      "line": "END 2015-10-29 24:12:41"
+    },
+    {
+      "source_file": "P2117/P2117-events.txt",
+      "line": "Snack2 24:04:30 24:06:43 Home NoSeconds Alone Crackers_and_Cookie Watching_TV"
+    },
+    {
+      "source_file": "P2117/P2117-events.txt",
+      "line": "END 2015-11-05 24:10:20"
+    },
+    {
+      "source_file": "P2118/P2118-events.txt",
+      "line": "END 2015-11-05 27:31:11"
+    },
+    {
+      "source_file": "P2137/P2137-events.txt",
+      "line": "END 2015-11-12 26:11:58"
+    },
+    {
+      "source_file": "P2139/P2139-events.txt",
+      "line": "Snack2 23:47:41 24:02:08 Restaurant NoSeconds CompanyEating Cheseburger_fries_Chicken_quesdilla_and_cherwine Talking"
+    },
+    {
+      "source_file": "P2139/P2139-events.txt",
+      "line": "END 2015-11-12 24:45:27"
+    },
+    {
+      "source_file": "P2140/P2140-events.txt",
+      "line": "END 2015-11-12 27:52:08"
+    },
+    {
+      "source_file": "P2154/P2154-events.txt",
+      "line": "SecondDinner 24:53:45 25:04:39 Other NoSeconds CompanyEating Wings_and_Crazy_Bread Watching_Netflix"
+    },
+    {
+      "source_file": "P2154/P2154-events.txt",
+      "line": "END 2015-11-19 25:10:46"
+    },
+    {
+      "source_file": "P2166/P2166-events.txt",
+      "line": "Snack2 23:33:22 24:13:43 Unknown Unknown Unknown Unknown Unknown"
+    },
+    {
+      "source_file": "P2168/P2168-events.txt",
+      "line": "END 2015-11-20 24:25:13"
+    },
+    {
+      "source_file": "P2172/P2172-events.txt",
+      "line": "MidnightSnack 24:13:27 24:15:25 Home NoSeconds CompanyEating Granola_Bar_and_Candy Working_on_Computer"
+    },
+    {
+      "source_file": "P2172/P2172-events.txt",
+      "line": "END 2015-12-03 24:28:13"
+    },
+    {
+      "source_file": "P2188/P2188-events.txt",
+      "line": "END 2015-12-04 25:34:46"
+    },
+    {
+      "source_file": "P2194/P2194-events.txt",
+      "line": "END\t2015-12-04\t26:20:51"
+    },
+    {
+      "source_file": "P2203/P2203-events.txt",
+      "line": "END 2015-12-09 24:47:30"
+    },
+    {
+      "source_file": "P2208/P2208-events.txt",
+      "line": "END 2015-12-10 25:31:14"
+    },
+    {
+      "source_file": "P2210/P2210-events.txt",
+      "line": "END 2015-12-12 25:09:12"
+    },
+    {
+      "source_file": "P2239/P2239-events.txt",
+      "line": "Lunch\t27:01:14\t27:11:46\tWork\tNoSeconds\tAlone\tTunaSW_juice\tEating"
+    }
+  ],
+  "recording_ids_missing_demographics": [
+    "P2484"
+  ]
+}

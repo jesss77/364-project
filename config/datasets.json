@@ -1,0 +1,33 @@
+{
+  "kuleuven": {
+    "name": "Eating Speed Measurement Using Wrist-Worn IMU Sensors Towards Free-Living Environments",
+    "provider": "KU Leuven Research Data Repository",
+    "type": "dataverse",
+    "doi": "10.48804/CN8VBB",
+    "persistent_id": "doi:10.48804/CN8VBB",
+    "server": "https://rdr.kuleuven.be"
+  },
+  "clemson_allday": {
+    "name": "Clemson All-day Dataset",
+    "provider": "Clemson University",
+    "type": "direct_files",
+    "page_url": "https://cecas.clemson.edu/~ahoover/allday/",
+    "files": {
+      "ground_truth": {
+        "filename": "EVENTfiles.zip",
+        "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/EVENTfiles.zip",
+        "description": "Reviewed eating-event ground-truth files"
+      },
+      "transformed": {
+        "filename": "SHMfiles.zip",
+        "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/SHMfiles.zip",
+        "description": "Cleaned and transformed wrist IMU recordings"
+      },
+      "demographics": {
+        "filename": "ShimmerDemographics.xlsx",
+        "url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/ShimmerDemographics.xlsx",
+        "description": "Participant demographic metadata"
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "dataset": "Clemson All-day Dataset",
+  "files": {
+    "ground_truth": {
+      "filename": "EVENTfiles.zip",
+      "description": "Reviewed eating-event ground-truth files",
+      "source_url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/EVENTfiles.zip",
+      "size_bytes": 131742,
+      "sha256": "b69fc371e09721b9eb24a51c7438fdab18df19fa63c76bfdbeba5643ba6ac6bd",
+      "content_type": "application/zip",
+      "last_modified": "Mon, 23 Nov 2020 22:34:16 GMT",
+      "etag": "\"2029e-5b4cdcb55778c\"",
+      "final_url": "https://cecas.clemson.edu/tracking/ShimmerData/download/EVENTfiles.zip"
+    },
+    "demographics": {
+      "filename": "ShimmerDemographics.xlsx",
+      "description": "Participant demographic metadata",
+      "source_url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/ShimmerDemographics.xlsx",
+      "size_bytes": 35714,
+      "sha256": "b09fd84c04840666c033509004a21f5077b950f7da7d2f0cecc716337fd84664",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "last_modified": "Mon, 27 Mar 2017 22:17:57 GMT",
+      "etag": "\"8b82-54bbdb7234f40\"",
+      "final_url": "https://cecas.clemson.edu/tracking/ShimmerData/download/ShimmerDemographics.xlsx"
+    },
+    "transformed": {
+      "filename": "SHMfiles.zip",
+      "description": "Cleaned and transformed wrist IMU recordings",
+      "source_url": "https://www.cecas.clemson.edu/tracking/ShimmerData/download/SHMfiles.zip",
+      "size_bytes": 4892031932,
+      "sha256": "9362f8b971b2f2fd9f5ece7440910b9de9e4cd6828a4e324a1e3c8247bb5fe64",
+      "content_type": "application/zip",
+      "last_modified": "Mon, 08 Aug 2022 22:24:46 GMT",
+      "etag": "\"123967bbc-5e5c2487b2780\"",
+      "final_url": "https://cecas.clemson.edu/tracking/ShimmerData/download/SHMfiles.zip"
+    }
+  }
+}
