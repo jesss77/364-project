@@ -1,0 +1,22 @@
+# Raw / generated datasets
+data/raw/*
+data/processed/*
+data/interim/*
+
+# Keep documentation/metadata
+!data/raw/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
