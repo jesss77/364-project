@@ -1,0 +1,51 @@
+{
+  "dataset": "KU Leuven FD-I",
+  "purpose": "Development split",
+  "seed": 42,
+  "split_by": "participant",
+  "ratios": {
+    "train": 0.7,
+    "validation": 0.2,
+    "test": 0.1
+  },
+  "train": [
+    0,
+    3,
+    5,
+    6,
+    7,
+    9,
+    10,
+    12,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    33
+  ],
+  "validation": [
+    2,
+    4,
+    11,
+    14,
+    21,
+    31,
+    32
+  ],
+  "test": [
+    1,
+    8,
+    13
+  ]
+}
