@@ -1,0 +1,95 @@
+{
+  "dataset": "KU Leuven FD-I",
+  "raw_sample_rate_hz": 64,
+  "processed_sample_rate_hz": 16,
+  "downsample_factor": 4,
+  "sensor_resampling": "scipy.signal.resample_poly",
+  "label_resampling": "take every 4th point-wise label",
+  "wrists": "left and right processed separately",
+  "window_seconds": 60,
+  "stride_seconds": 30,
+  "overlap": 0.5,
+  "window_samples": 960,
+  "development_split": {
+    "dataset": "KU Leuven FD-I",
+    "purpose": "Development split",
+    "seed": 42,
+    "split_by": "participant",
+    "ratios": {
+      "train": 0.7,
+      "validation": 0.2,
+      "test": 0.1
+    },
+    "train": [
+      0,
+      3,
+      5,
+      6,
+      7,
+      9,
+      10,
+      12,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      33
+    ],
+    "validation": [
+      2,
+      4,
+      11,
+      14,
+      21,
+      31,
+      32
+    ],
+    "test": [
+      1,
+      8,
+      13
+    ]
+  },
+  "participant_files": 68,
+  "total_windows": 60310,
+  "splits": {
+    "train": {
+      "participants": 24,
+      "participant_wrist_files": 48,
+      "windows": 42788,
+      "left_windows": 21394,
+      "right_windows": 21394,
+      "windows_with_eating": 1756,
+      "windows_with_drinking": 1209
+    },
+    "validation": {
+      "participants": 7,
+      "participant_wrist_files": 14,
+      "windows": 12100,
+      "left_windows": 6050,
+      "right_windows": 6050,
+      "windows_with_eating": 491,
+      "windows_with_drinking": 306
+    },
+    "test": {
+      "participants": 3,
+      "participant_wrist_files": 6,
+      "windows": 5422,
+      "left_windows": 2711,
+      "right_windows": 2711,
+      "windows_with_eating": 184,
+      "windows_with_drinking": 177
+    }
+  }
+}

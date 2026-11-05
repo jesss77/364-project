@@ -1,0 +1,63 @@
+{
+  "dataset": "KU Leuven FD-I",
+  "sample_rate_hz": 16,
+  "channels": 6,
+  "window_samples": 960,
+  "splits": {
+    "train": {
+      "participants": 24,
+      "files": 48,
+      "samples": 20570770,
+      "windows": 42788,
+      "labels": {
+        "0_other": 20318389,
+        "1_eating": 180979,
+        "2_drinking": 71402
+      },
+      "percentages": {
+        "0_other": 98.77310863910296,
+        "1_eating": 0.8797871931872264,
+        "2_drinking": 0.34710416770981345
+      }
+    },
+    "validation": {
+      "participants": 7,
+      "files": 14,
+      "samples": 5818622,
+      "windows": 12100,
+      "labels": {
+        "0_other": 5748001,
+        "1_eating": 50303,
+        "2_drinking": 20318
+      },
+      "percentages": {
+        "0_other": 98.78629338699095,
+        "1_eating": 0.8645174063549754,
+        "2_drinking": 0.3491892066540841
+      }
+    },
+    "test": {
+      "participants": 3,
+      "files": 6,
+      "samples": 2606622,
+      "windows": 5422,
+      "labels": {
+        "0_other": 2576736,
+        "1_eating": 21123,
+        "2_drinking": 8763
+      },
+      "percentages": {
+        "0_other": 98.85345861425246,
+        "1_eating": 0.8103591544919057,
+        "2_drinking": 0.3361822312556251
+      }
+    }
+  },
+  "errors": [],
+  "total_samples": 28996014,
+  "total_labels": {
+    "0_other": 28643126,
+    "1_eating": 252405,
+    "2_drinking": 100483
+  }
+}
