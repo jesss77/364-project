@@ -76,24 +76,31 @@ All Phase 1 scripts now exist. KU Leuven is preprocessed and validated. The Clem
 │   └── data_audit/
 │
 ├── scripts/
-│   └── data/
-│       ├── download_data.py
-│       │
-│       ├── inspect_fd1_labels.py
-│       ├── create_fd1_dev_split.py
-│       ├── preprocess_fd1.py
-│       ├── validate_fd1_processed.py
-│       ├── compute_fd1_normalization.py
-│       │
-│       ├── inspect_clemson_allday.py
-│       ├── inspect_clemson_event_markers.py
-│       ├── inspect_clemson_sensors.py
-│       ├── preprocess_clemson_events.py
-│       ├── validate_clemson_alignment.py
-│       ├── create_clemson_dev_split.py
-│       ├── preprocess_clemson.py
-│       ├── validate_clemson_processed.py
-│       └── compute_clemson_normalization.py
+│   ├── data/
+│   │   ├── download_data.py
+│   │   │
+│   │   ├── inspect_fd1_labels.py
+│   │   ├── create_fd1_dev_split.py
+│   │   ├── preprocess_fd1.py
+│   │   ├── validate_fd1_processed.py
+│   │   ├── compute_fd1_normalization.py
+│   │   │
+│   │   ├── inspect_clemson_allday.py
+│   │   ├── inspect_clemson_event_markers.py
+│   │   ├── inspect_clemson_sensors.py
+│   │   ├── preprocess_clemson_events.py
+│   │   ├── validate_clemson_alignment.py
+│   │   ├── create_clemson_dev_split.py
+│   │   ├── preprocess_clemson.py
+│   │   ├── validate_clemson_processed.py
+│   │   └── compute_clemson_normalization.py
+│   │
+│   └── train/
+│       ├── common.py
+│       ├── models.py
+│       ├── metrics.py
+│       ├── train_fd1.py
+│       └── train_clemson.py
 │
 ├── .gitignore
 ├── README.md
@@ -898,11 +905,79 @@ Both validation scripts stop with an error and list every problem they find. A c
 
 ---
 
+# Phase 2 — Baseline Models
+
+Training code lives in `scripts/train/`:
+
+```text
+common.py         paths, seeding, device choice, window dataset, full-recording inference
+models.py         GestureCNN (per-sample, KU Leuven) and EpisodeCNN (per-window, Clemson)
+metrics.py        confusion matrix, precision/recall/F1, segment extraction and matching
+train_fd1.py      KU Leuven gesture model
+train_clemson.py  Clemson episode model
+```
+
+Install PyTorch first (`pip install -r requirements.txt` now includes `torch`). Both scripts pick CUDA, then Apple MPS, then CPU unless `--device` is given.
+
+The first time a recording is read, its `.npz` file is copied to `data/processed/<dataset>/cache/` as `.npy` files. Later reads use memory mapping, so the full Clemson data never has to fit in RAM.
+
+Each run writes the following to `results/runs/<run name>/`:
+
+- `config.json`
+- `history.json`
+- `metrics.json`
+- `best.pt` (not committed)
+
+## KU Leuven gesture CNN
+
+```powershell
+python scripts\data\compute_fd1_normalization.py
+python scripts\train\train_fd1.py
+```
+
+- Input: 60 s windows (960 × 6). Output: a label (other / eating / drinking) for every sample.
+- Model: a residual stack of dilated 1D convolutions with a receptive field of 253 samples (about 16 s) and about 209k parameters.
+- Imbalance: weighted cross-entropy. By default each class weight is the square root of its inverse frequency (`--class-weight sqrt|inverse|none`).
+- Model selection: the mean of eating F1 and drinking F1, measured per sample on full validation recordings.
+- Scoring always runs on full recordings, not windows, so overlapping windows are not counted twice.
+  - Per-sample confusion matrix and F1 for each class.
+  - Event-level F1 for bites and drinks. Predicted segments shorter than 0.5 s are dropped, and segments less than 0.25 s apart are merged. Each true event can be matched at most once.
+  - Eating events predicted as drinking, and drinking events predicted as eating.
+  - Bite-count error per participant (both wrists summed) and per wrist file: MAE and mean relative error.
+
+## Clemson episode CNN
+
+```powershell
+python scripts\data\compute_clemson_normalization.py
+python scripts\train\train_clemson.py
+```
+
+- Input: 6 min windows (5,400 × 6). Target: the fraction of the window that is eating (soft BCE target, `pos_weight` = √(non-eating / eating)).
+- Model: four convolution blocks with pooling, then global average pooling and one output (about 58k parameters).
+- Episode reconstruction:
+  1. Window probabilities are averaged onto a 3-minute timeline.
+  2. A hysteresis rule is applied: an episode starts when the probability reaches the start threshold and continues while it stays at or above the end threshold.
+  3. Episodes less than 3 minutes apart are merged, and episodes shorter than 3 minutes are dropped.
+- The start and end thresholds are tuned on validation (best episode F1, with ties broken by time F1) and then applied unchanged to test.
+- Scoring:
+  - Episodes found (true positive rate) and false alarms per hour and per day.
+  - Episode F1.
+  - Mean start and end error of matched episodes.
+  - Per-sample time F1.
+
+## Test split
+
+Neither script scores the test split unless `--eval-test` is given. Use it only for the final run of a model that will be reported. All tuning uses validation only.
+
+## Quick check
+
+For a short run, for example on a laptop, add `--epochs 2 --max-train-windows 2000`.
+
+---
+
 # Next Phase
 
-After Phase 1 is complete, model development begins.
-
-The first goal will be to obtain working baselines for:
+The first goal is to obtain working baselines for:
 
 ```text
 Clemson All-day
