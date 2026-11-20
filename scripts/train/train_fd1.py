@@ -1,4 +1,5 @@
 import argparse
+import copy
 import time
 from collections import defaultdict
 
@@ -29,7 +30,7 @@ from metrics import (
     prf,
     segments,
 )
-from models import GestureCNN
+from models import GESTURE_MODELS, build_gesture_model
 
 
 PROCESSED_DIR = ROOT / "data" / "processed" / "kuleuven_fd1"
@@ -38,19 +39,21 @@ CACHE_DIR = PROCESSED_DIR / "cache"
 NORMALIZATION_PATH = ROOT / "config" / "fd1_normalization.json"
 
 SAMPLE_RATE = 16
+FULL_CHUNK = SAMPLE_RATE * 60 * 15
 CLASS_NAMES = ["other", "eating", "drinking"]
 EVENT_CLASSES = {"eating": 1, "drinking": 2}
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Train the KU Leuven FD-I per-sample gesture CNN."
+        description="Train a KU Leuven FD-I per-sample gesture model."
     )
     parser.add_argument("--epochs", type=int, default=20)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--class-weight", choices=["sqrt", "inverse", "none"], default="sqrt")
+    parser.add_argument("--model", choices=sorted(GESTURE_MODELS), default="cnn")
     parser.add_argument("--channels", type=int, default=64)
     parser.add_argument("--dropout", type=float, default=0.1)
     parser.add_argument("--max-train-windows", type=int, default=0)
@@ -109,7 +112,8 @@ def recordings(rows):
 def evaluate(model, rows, store, mean, std, device, args):
     min_length = round(args.min_event_seconds * SAMPLE_RATE)
     merge_gap = round(args.merge_gap_seconds * SAMPLE_RATE)
-    context = model.receptive_field
+    context = model.context
+    chunk = model.inference_chunk or FULL_CHUNK
 
     confusion = np.zeros((3, 3), dtype=np.int64)
     event_totals = {name: {"tp": 0, "fp": 0, "fn": 0} for name in EVENT_CLASSES}
@@ -124,7 +128,7 @@ def evaluate(model, rows, store, mean, std, device, args):
             model,
             normalize(X, mean, std),
             device,
-            chunk=SAMPLE_RATE * 60 * 15,
+            chunk=chunk,
             context=context,
         )
         predicted = logits.argmax(dim=0).numpy().astype(np.uint8)
@@ -221,6 +225,30 @@ def bite_count_summary(per_file):
     }
 
 
+def cpu_ms_per_minute(model, minutes=10, repeats=3):
+    cpu_model = copy.deepcopy(model).cpu().eval()
+    data = np.random.default_rng(0).normal(
+        size=(SAMPLE_RATE * 60 * minutes, 6)
+    ).astype(np.float32)
+    chunk = cpu_model.inference_chunk or FULL_CHUNK
+
+    threads = torch.get_num_threads()
+    torch.set_num_threads(1)
+
+    try:
+        predict_sequence(cpu_model, data[:SAMPLE_RATE * 60], torch.device("cpu"), chunk, cpu_model.context)
+        timings = []
+
+        for _ in range(repeats):
+            started = time.perf_counter()
+            predict_sequence(cpu_model, data, torch.device("cpu"), chunk, cpu_model.context)
+            timings.append(time.perf_counter() - started)
+    finally:
+        torch.set_num_threads(threads)
+
+    return min(timings) * 1000 / minutes
+
+
 def train_epoch(model, loader, optimizer, loss_fn, device):
     model.train()
     total_loss = 0.0
@@ -273,20 +301,24 @@ def main():
         drop_last=True,
     )
 
-    model = GestureCNN(channels=args.channels, dropout=args.dropout).to(device)
+    model = build_gesture_model(
+        args.model, channels=args.channels, dropout=args.dropout
+    ).to(device)
     weights = class_weights(rows["train"], args.class_weight)
     loss_fn = nn.CrossEntropyLoss(weight=weights.to(device))
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.lr, weight_decay=args.weight_decay
     )
 
-    run_dir = make_run_dir("fd1_cnn", args.run_name)
+    run_dir = make_run_dir(f"fd1_{args.model}", args.run_name)
 
     config = {
         **vars(args),
-        "model": "GestureCNN",
+        "model_class": type(model).__name__,
         "parameters": count_parameters(model),
-        "receptive_field_samples": model.receptive_field,
+        "size_mb_float32": count_parameters(model) * 4 / 1e6,
+        "context_samples": model.context,
+        "inference_chunk_samples": model.inference_chunk or FULL_CHUNK,
         "class_weights": weights.tolist(),
         "device": str(device),
         "train_windows": len(rows["train"]),
@@ -294,13 +326,13 @@ def main():
     save_json(run_dir / "config.json", config)
 
     print()
-    print("KU LEUVEN FD-I GESTURE CNN")
+    print(f"KU LEUVEN FD-I GESTURE MODEL: {args.model}")
     print("=" * 60)
     print(f"Run:            {run_dir.relative_to(ROOT)}")
     print(f"Device:         {device}")
     print(f"Parameters:     {config['parameters']:,}")
-    print(f"Receptive field {model.receptive_field} samples "
-          f"({model.receptive_field / SAMPLE_RATE:.1f} s)")
+    print(f"Context:        {model.context} samples "
+          f"({model.context / SAMPLE_RATE:.1f} s each side)")
     print(f"Class weights:  {[round(w, 2) for w in weights.tolist()]}")
     print(f"Train windows:  {len(rows['train']):,}")
     print()
@@ -350,7 +382,13 @@ def main():
 
     model.load_state_dict(torch.load(run_dir / "best.pt", map_location=device))
 
-    results = {"best_epoch": best_epoch}
+    results = {
+        "best_epoch": best_epoch,
+        "model": args.model,
+        "parameters": config["parameters"],
+        "size_mb_float32": config["size_mb_float32"],
+        "cpu_ms_per_minute_single_thread": cpu_ms_per_minute(model),
+    }
     splits = ["validation"] + (["test"] if args.eval_test else [])
 
     for split_name in splits:
@@ -360,6 +398,8 @@ def main():
 
     print()
     print(f"Best epoch: {best_epoch}")
+    print(f"CPU time:   {results['cpu_ms_per_minute_single_thread']:.1f} ms "
+          f"per minute of data (1 thread)")
 
     for split_name in splits:
         metrics = results[split_name]

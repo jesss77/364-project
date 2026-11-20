@@ -100,7 +100,8 @@ All Phase 1 scripts now exist. KU Leuven is preprocessed and validated. The Clem
 │       ├── models.py
 │       ├── metrics.py
 │       ├── train_fd1.py
-│       └── train_clemson.py
+│       ├── train_clemson.py
+│       └── compare_fd1_runs.py
 │
 ├── .gitignore
 ├── README.md
@@ -911,10 +912,11 @@ Training code lives in `scripts/train/`:
 
 ```text
 common.py         paths, seeding, device choice, window dataset, full-recording inference
-models.py         GestureCNN (per-sample, KU Leuven) and EpisodeCNN (per-window, Clemson)
+models.py         KU Leuven gesture models (cnn, cnn_gru, transformer) and EpisodeCNN (Clemson)
 metrics.py        confusion matrix, precision/recall/F1, segment extraction and matching
-train_fd1.py      KU Leuven gesture model
+train_fd1.py      KU Leuven gesture model (--model picks the architecture)
 train_clemson.py  Clemson episode model
+compare_fd1_runs.py  table of all KU Leuven runs → results/fd1_model_comparison.csv
 ```
 
 Install PyTorch first (`pip install -r requirements.txt` now includes `torch`). Both scripts pick CUDA, then Apple MPS, then CPU unless `--device` is given.
@@ -944,6 +946,29 @@ python scripts\train\train_fd1.py
   - Event-level F1 for bites and drinks. Predicted segments shorter than 0.5 s are dropped, and segments less than 0.25 s apart are merged. Each true event can be matched at most once.
   - Eating events predicted as drinking, and drinking events predicted as eating.
   - Bite-count error per participant (both wrists summed) and per wrist file: MAE and mean relative error.
+
+## KU Leuven architecture comparison
+
+All three models take the same input, give the same per-sample output, and are trained and scored the same way. Only the network in the middle changes.
+
+```powershell
+python scripts\train\train_fd1.py --model cnn --run-name fd1_cnn
+python scripts\train\train_fd1.py --model cnn_gru --run-name fd1_cnn_gru
+python scripts\train\train_fd1.py --model transformer --run-name fd1_transformer
+python scripts\train\compare_fd1_runs.py
+```
+
+| `--model` | What it is | Parameters | Context used at inference |
+|---|---|---|---|
+| `cnn` | 5 residual blocks of dilated 1D convolutions | 209k | 253 samples (receptive field) |
+| `cnn_gru` | conv stem + 2 dilated blocks, then a bidirectional GRU (64 units per direction) | 135k | 15 s on each side |
+| `transformer` | conv stem, 4× downsampling to 4 Hz tokens, 3 pre-norm encoder layers (4 heads, sinusoidal positions), upsampling back to 16 Hz with a skip connection | 156k | 15 s on each side |
+
+- The GRU and the transformer score full recordings in 30 s steps, with 15 s of context on each side, so every forward pass sees 60 s, the same length they were trained on. The CNN runs on 15-minute chunks.
+- `metrics.json` also records the model size (float32 MB) and the single-thread CPU time to label one minute of data. This is a first, rough efficiency number before the int8 work.
+- On Apple MPS the GRU trains slower than on CPU. Add `--device cpu` for `cnn_gru` on a Mac. On a CUDA GPU (for example Colab) it runs at normal speed.
+- The bidirectional GRU and the transformer look at future samples. That is fine for offline scoring, but an on-watch version would need a causal variant or a short delay.
+- `compare_fd1_runs.py` reads every KU Leuven run in `results/runs/` (or only the run names you pass) and writes one row per run with validation and, if present, test scores.
 
 ## Clemson episode CNN
 
@@ -993,11 +1018,7 @@ KU Leuven FD-I
 After the baselines work reliably, the project will move to:
 
 ```text
-CNN
-↓
-GRU / LSTM
-↓
-small Transformer
+CNN vs CNN-GRU vs small Transformer   (code ready, see above)
 ↓
 personalization
 ↓
