@@ -1,5 +1,6 @@
 import argparse
 import copy
+import csv
 import time
 from collections import defaultdict
 
@@ -23,7 +24,6 @@ from common import (
     set_seed,
 )
 from metrics import (
-    clean_segments,
     confusion_matrix,
     match_segments,
     per_class_scores,
@@ -31,6 +31,7 @@ from metrics import (
     segments,
 )
 from models import GESTURE_MODELS, build_gesture_model
+from postprocess import eating_speed, gesture_events
 
 
 PROCESSED_DIR = ROOT / "data" / "processed" / "kuleuven_fd1"
@@ -54,12 +55,18 @@ def parse_args():
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--class-weight", choices=["sqrt", "inverse", "none"], default="sqrt")
     parser.add_argument("--model", choices=sorted(GESTURE_MODELS), default="cnn")
+    parser.add_argument(
+        "--causal",
+        action="store_true",
+        help="Use only past readings (cnn only). Needed for the live demo.",
+    )
     parser.add_argument("--channels", type=int, default=64)
     parser.add_argument("--dropout", type=float, default=0.1)
     parser.add_argument("--max-train-windows", type=int, default=0)
     parser.add_argument("--patience", type=int, default=5)
     parser.add_argument("--min-event-seconds", type=float, default=0.5)
     parser.add_argument("--merge-gap-seconds", type=float, default=0.25)
+    parser.add_argument("--bout-gap-seconds", type=float, default=60.0)
     parser.add_argument("--num-workers", type=int, default=0)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--device", default="auto")
@@ -109,7 +116,7 @@ def recordings(rows):
     return sorted(seen.items())
 
 
-def evaluate(model, rows, store, mean, std, device, args):
+def evaluate(model, rows, store, mean, std, device, args, predictions_path=None):
     min_length = round(args.min_event_seconds * SAMPLE_RATE)
     merge_gap = round(args.merge_gap_seconds * SAMPLE_RATE)
     context = model.context
@@ -119,6 +126,8 @@ def evaluate(model, rows, store, mean, std, device, args):
     event_totals = {name: {"tp": 0, "fp": 0, "fn": 0} for name in EVENT_CLASSES}
     cross_matches = {"eating_predicted_as_drinking": 0, "drinking_predicted_as_eating": 0}
     per_file = []
+    participant_bites = defaultdict(lambda: {"true": [], "predicted": []})
+    prediction_rows = []
 
     for relative_file, (participant_id, wrist) in recordings(rows):
         X, y = store.get(relative_file)
@@ -139,15 +148,37 @@ def evaluate(model, rows, store, mean, std, device, args):
         actual_events = {}
 
         for name, label in EVENT_CLASSES.items():
-            predicted_events[name] = clean_segments(
-                segments(predicted == label), merge_gap, min_length
-            )
+            predicted_events[name] = gesture_events(predicted, label, min_length, merge_gap)
             actual_events[name] = segments(y == label)
 
             match = match_segments(predicted_events[name], actual_events[name])
 
             for key in ("tp", "fp", "fn"):
                 event_totals[name][key] += match[key]
+
+            if predictions_path is not None:
+                matched = {pair[0] for pair in match["pairs"]}
+
+                for source, found in (("predicted", predicted_events[name]), ("true", actual_events[name])):
+                    for start, end in found:
+                        prediction_rows.append(
+                            {
+                                "participant_id": participant_id,
+                                "wrist": wrist,
+                                "event": name,
+                                "source": source,
+                                "start_seconds": start / SAMPLE_RATE,
+                                "end_seconds": end / SAMPLE_RATE,
+                                "matched": int(
+                                    (start, end) in matched
+                                    if source == "predicted"
+                                    else any(pair[1] == (start, end) for pair in match["pairs"])
+                                ),
+                            }
+                        )
+
+        participant_bites[participant_id]["true"] += actual_events["eating"]
+        participant_bites[participant_id]["predicted"] += predicted_events["eating"]
 
         cross_matches["eating_predicted_as_drinking"] += match_segments(
             predicted_events["drinking"], actual_events["eating"]
@@ -170,6 +201,9 @@ def evaluate(model, rows, store, mean, std, device, args):
 
     sample_scores = per_class_scores(confusion, CLASS_NAMES)
 
+    if predictions_path is not None:
+        write_rows(predictions_path, prediction_rows)
+
     return {
         "sample": {
             "confusion_matrix_rows_true_cols_pred": confusion.tolist(),
@@ -189,7 +223,58 @@ def evaluate(model, rows, store, mean, std, device, args):
             "cross_class_matches": cross_matches,
         },
         "bite_count": bite_count_summary(per_file),
+        "eating_speed": eating_speed_summary(participant_bites, args.bout_gap_seconds),
     }
+
+
+def eating_speed_summary(participant_bites, bout_gap_seconds):
+    participants = []
+
+    for participant_id, bites in sorted(participant_bites.items()):
+        true_speed = eating_speed(bites["true"], SAMPLE_RATE, bout_gap_seconds)
+        predicted_speed = eating_speed(bites["predicted"], SAMPLE_RATE, bout_gap_seconds)
+        participants.append(
+            {
+                "participant_id": participant_id,
+                "true": true_speed,
+                "predicted": predicted_speed,
+            }
+        )
+
+    def error(key):
+        pairs = [
+            (item["predicted"][key], item["true"][key])
+            for item in participants
+            if item["predicted"][key] is not None and item["true"][key] is not None
+        ]
+
+        if not pairs:
+            return {"mae": None, "participants_compared": 0}
+
+        return {
+            "mae": float(np.mean([abs(p - t) for p, t in pairs])),
+            "participants_compared": len(pairs),
+        }
+
+    return {
+        "bout_gap_seconds": bout_gap_seconds,
+        "min_bites_per_bout": 3,
+        "bites_per_minute_error": error("bites_per_minute"),
+        "seconds_between_bites_error": error("median_seconds_between_bites"),
+        "per_participant": participants,
+    }
+
+
+def write_rows(path, rows):
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    with path.open("w", encoding="utf-8", newline="") as file:
+        if not rows:
+            return
+
+        writer = csv.DictWriter(file, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def bite_count_summary(per_file):
@@ -226,22 +311,23 @@ def bite_count_summary(per_file):
 
 
 def cpu_ms_per_minute(model, minutes=10, repeats=3):
+    chunk = model.inference_chunk or FULL_CHUNK
+    context = model.context
     cpu_model = copy.deepcopy(model).cpu().eval()
     data = np.random.default_rng(0).normal(
         size=(SAMPLE_RATE * 60 * minutes, 6)
     ).astype(np.float32)
-    chunk = cpu_model.inference_chunk or FULL_CHUNK
 
     threads = torch.get_num_threads()
     torch.set_num_threads(1)
 
     try:
-        predict_sequence(cpu_model, data[:SAMPLE_RATE * 60], torch.device("cpu"), chunk, cpu_model.context)
+        predict_sequence(cpu_model, data[:SAMPLE_RATE * 60], torch.device("cpu"), chunk, context)
         timings = []
 
         for _ in range(repeats):
             started = time.perf_counter()
-            predict_sequence(cpu_model, data, torch.device("cpu"), chunk, cpu_model.context)
+            predict_sequence(cpu_model, data, torch.device("cpu"), chunk, context)
             timings.append(time.perf_counter() - started)
     finally:
         torch.set_num_threads(threads)
@@ -301,16 +387,24 @@ def main():
         drop_last=True,
     )
 
-    model = build_gesture_model(
-        args.model, channels=args.channels, dropout=args.dropout
-    ).to(device)
+    if args.causal and args.model != "cnn":
+        raise SystemExit("--causal is only implemented for --model cnn")
+
+    model_options = {"channels": args.channels, "dropout": args.dropout}
+
+    if args.causal:
+        model_options["causal"] = True
+
+    model = build_gesture_model(args.model, **model_options).to(device)
     weights = class_weights(rows["train"], args.class_weight)
     loss_fn = nn.CrossEntropyLoss(weight=weights.to(device))
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.lr, weight_decay=args.weight_decay
     )
 
-    run_dir = make_run_dir(f"fd1_{args.model}", args.run_name)
+    run_dir = make_run_dir(
+        f"fd1_{args.model}{'_causal' if args.causal else ''}", args.run_name
+    )
 
     config = {
         **vars(args),
@@ -318,10 +412,13 @@ def main():
         "parameters": count_parameters(model),
         "size_mb_float32": count_parameters(model) * 4 / 1e6,
         "context_samples": model.context,
+        "lookahead_samples": model.lookahead,
+        "lookahead_seconds": model.lookahead / SAMPLE_RATE,
         "inference_chunk_samples": model.inference_chunk or FULL_CHUNK,
         "class_weights": weights.tolist(),
         "device": str(device),
         "train_windows": len(rows["train"]),
+        "normalization": {"mean": mean.tolist(), "std": std.tolist()},
     }
     save_json(run_dir / "config.json", config)
 
@@ -331,8 +428,8 @@ def main():
     print(f"Run:            {run_dir.relative_to(ROOT)}")
     print(f"Device:         {device}")
     print(f"Parameters:     {config['parameters']:,}")
-    print(f"Context:        {model.context} samples "
-          f"({model.context / SAMPLE_RATE:.1f} s each side)")
+    print(f"Context:        {model.context} samples ({model.context / SAMPLE_RATE:.1f} s)")
+    print(f"Look-ahead:     {model.lookahead / SAMPLE_RATE:.1f} s of future readings")
     print(f"Class weights:  {[round(w, 2) for w in weights.tolist()]}")
     print(f"Train windows:  {len(rows['train']):,}")
     print()
@@ -384,7 +481,8 @@ def main():
 
     results = {
         "best_epoch": best_epoch,
-        "model": args.model,
+        "model": args.model + ("_causal" if args.causal else ""),
+        "lookahead_seconds": config["lookahead_seconds"],
         "parameters": config["parameters"],
         "size_mb_float32": config["size_mb_float32"],
         "cpu_ms_per_minute_single_thread": cpu_ms_per_minute(model),
@@ -392,7 +490,16 @@ def main():
     splits = ["validation"] + (["test"] if args.eval_test else [])
 
     for split_name in splits:
-        results[split_name] = evaluate(model, rows[split_name], store, mean, std, device, args)
+        results[split_name] = evaluate(
+            model,
+            rows[split_name],
+            store,
+            mean,
+            std,
+            device,
+            args,
+            predictions_path=run_dir / f"predictions_{split_name}.csv",
+        )
 
     save_json(run_dir / "metrics.json", results)
 
@@ -412,6 +519,15 @@ def main():
         print(f"  bite count  MAE per participant "
               f"{metrics['bite_count']['per_participant_error']['mae']:.1f}  "
               f"relative {metrics['bite_count']['per_participant_error']['mean_relative_error']:.1%}")
+
+        speed = metrics["eating_speed"]
+        rate_error = speed["bites_per_minute_error"]
+        gap_error = speed["seconds_between_bites_error"]
+
+        if rate_error["mae"] is not None:
+            print(f"  eating speed  bites/min MAE {rate_error['mae']:.2f}  "
+                  f"time between bites MAE {gap_error['mae']:.1f} s  "
+                  f"({rate_error['participants_compared']} participants)")
 
     print()
     print(f"Saved: {(run_dir / 'metrics.json').relative_to(ROOT)}")

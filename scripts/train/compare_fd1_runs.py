@@ -55,6 +55,7 @@ def main():
                 "model": metrics.get("model", config.get("model", "cnn")),
                 "parameters": metrics.get("parameters", config.get("parameters")),
                 "size_mb_float32": metrics.get("size_mb_float32"),
+                "lookahead_seconds": metrics.get("lookahead_seconds", config.get("lookahead_seconds")),
                 "cpu_ms_per_minute": metrics.get("cpu_ms_per_minute_single_thread"),
                 "best_epoch": metrics["best_epoch"],
                 "seed": config.get("seed"),

@@ -1,5 +1,7 @@
 import argparse
+import csv
 import time
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -20,14 +22,13 @@ from common import (
     set_seed,
 )
 from metrics import (
-    clean_segments,
-    hysteresis,
     match_segments,
     overlap_length,
     prf,
     segments,
 )
 from models import EpisodeCNN
+from postprocess import reconstruct_meals, segment_probabilities
 
 
 PROCESSED_DIR = ROOT / "data" / "processed" / "clemson_allday"
@@ -147,49 +148,39 @@ def window_scores(predictions, threshold=0.5):
     }
 
 
-def segment_probabilities(item, stride):
+def predicted_meals(item, stride, start_threshold, end_threshold, args):
     total = len(item["labels"])
-    count = -(-total // stride)
-    per_window = item["window_samples"] // stride
+    timeline = segment_probabilities(
+        item["starts"], item["probabilities"], item["window_samples"], total, stride
+    )
+    return reconstruct_meals(
+        timeline,
+        stride,
+        total,
+        start_threshold,
+        end_threshold,
+        round(args.merge_gap_minutes * 60 * SAMPLE_RATE),
+        round(args.min_episode_minutes * 60 * SAMPLE_RATE),
+    )
 
-    sums = np.zeros(count)
-    hits = np.zeros(count)
 
-    for start, probability in zip(item["starts"], item["probabilities"]):
-        first = start // stride
-        sums[first:first + per_window] += probability
-        hits[first:first + per_window] += 1
-
-    return np.divide(sums, hits, out=np.zeros(count), where=hits > 0)
-
-
-def episode_scores(predictions, stride, start_threshold, end_threshold, args):
-    merge_gap = round(args.merge_gap_minutes * 60 * SAMPLE_RATE)
-    min_length = round(args.min_episode_minutes * 60 * SAMPLE_RATE)
-
+def episode_scores(
+    predictions, stride, start_threshold, end_threshold, args, meals_path=None
+):
     tp = fp = fn = 0
     total_samples = 0
     time_tp = time_fp = time_fn = 0
     start_errors = []
     end_errors = []
     per_recording = []
+    meal_rows = []
 
     for relative_file, item in predictions.items():
         labels = item["labels"]
         total = len(labels)
         total_samples += total
 
-        active = hysteresis(
-            segment_probabilities(item, stride), start_threshold, end_threshold
-        )
-        predicted = clean_segments(
-            [
-                (start * stride, min(end * stride, total))
-                for start, end in segments(active)
-            ],
-            merge_gap,
-            min_length,
-        )
+        predicted = predicted_meals(item, stride, start_threshold, end_threshold, args)
         actual = segments(labels == 1)
         match = match_segments(predicted, actual)
 
@@ -206,15 +197,45 @@ def episode_scores(predictions, stride, start_threshold, end_threshold, args):
         time_fp += sum(end - start for start, end in predicted) - overlap
         time_fn += sum(end - start for start, end in actual) - overlap
 
+        recording_id = Path(relative_file).stem
+
         per_recording.append(
             {
+                "recording_id": recording_id,
                 "file": relative_file,
-                "true_episodes": len(actual),
-                "predicted_episodes": len(predicted),
+                "hours": total / SAMPLE_RATE / 3600,
+                "true_meals": len(actual),
+                "predicted_meals": len(predicted),
                 "detected": match["tp"],
                 "false_alarms": match["fp"],
+                "true_eating_minutes": sum(e - s for s, e in actual) / SAMPLE_RATE / 60,
+                "predicted_eating_minutes": sum(e - s for s, e in predicted) / SAMPLE_RATE / 60,
             }
         )
+
+        if meals_path is not None:
+            partner = {}
+            for pred, true in match["pairs"]:
+                partner[("predicted", pred)] = true
+                partner[("true", true)] = pred
+
+            for source, found in (("predicted", predicted), ("true", actual)):
+                for start, end in found:
+                    other = partner.get((source, (start, end)))
+                    meal_rows.append(
+                        {
+                            "recording_id": recording_id,
+                            "source": source,
+                            "start_seconds": start / SAMPLE_RATE,
+                            "end_seconds": end / SAMPLE_RATE,
+                            "matched": int(other is not None),
+                            "matched_start_seconds": other[0] / SAMPLE_RATE if other else "",
+                            "matched_end_seconds": other[1] / SAMPLE_RATE if other else "",
+                        }
+                    )
+
+    if meals_path is not None:
+        write_rows(meals_path, meal_rows)
 
     hours = total_samples / SAMPLE_RATE / 3600
     episodes = prf(tp, fp, fn)
@@ -234,8 +255,39 @@ def episode_scores(predictions, stride, start_threshold, end_threshold, args):
             "mean_end_error_minutes": float(np.mean(end_errors)) if end_errors else None,
         },
         "time": prf(time_tp, time_fp, time_fn),
+        "daily_totals": daily_totals(per_recording),
         "per_recording": per_recording,
     }
+
+
+def daily_totals(per_recording):
+    if not per_recording:
+        return {}
+
+    def mae(true_key, predicted_key):
+        return float(np.mean([abs(row[predicted_key] - row[true_key]) for row in per_recording]))
+
+    return {
+        "days": len(per_recording),
+        "mean_true_meals_per_day": float(np.mean([row["true_meals"] for row in per_recording])),
+        "mean_predicted_meals_per_day": float(np.mean([row["predicted_meals"] for row in per_recording])),
+        "meals_per_day_mae": mae("true_meals", "predicted_meals"),
+        "mean_true_eating_minutes_per_day": float(np.mean([row["true_eating_minutes"] for row in per_recording])),
+        "mean_predicted_eating_minutes_per_day": float(np.mean([row["predicted_eating_minutes"] for row in per_recording])),
+        "eating_minutes_per_day_mae": mae("true_eating_minutes", "predicted_eating_minutes"),
+    }
+
+
+def write_rows(path, rows):
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    with path.open("w", encoding="utf-8", newline="") as file:
+        if not rows:
+            return
+
+        writer = csv.DictWriter(file, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def tune_thresholds(predictions, stride, args):
@@ -318,6 +370,7 @@ def main():
         "pos_weight_value": pos_weight,
         "device": str(device),
         "train_windows": len(rows["train"]),
+        "normalization": {"mean": mean.tolist(), "std": std.tolist()},
     }
     save_json(run_dir / "config.json", config)
 
@@ -396,6 +449,14 @@ def main():
         model, validation_groups, store, mean, std, device, args.batch_size
     )
     tuned = tune_thresholds(validation_predictions, stride, args)
+    tuned = episode_scores(
+        validation_predictions,
+        stride,
+        tuned["start_threshold"],
+        tuned["end_threshold"],
+        args,
+        meals_path=run_dir / "meals_validation.csv",
+    )
 
     results = {
         "best_epoch": best_epoch,
@@ -418,6 +479,7 @@ def main():
                 tuned["start_threshold"],
                 tuned["end_threshold"],
                 args,
+                meals_path=run_dir / "meals_test.csv",
             ),
         }
 
@@ -444,6 +506,13 @@ def main():
               f"{episodes['false_alarms_per_day']:.2f}/day)")
         print(f"  episode F1         {episodes['f1']:.3f}")
         print(f"  time F1            {metrics['time']['f1']:.3f}")
+        totals = metrics["daily_totals"]
+        print(f"  meals per day      true {totals['mean_true_meals_per_day']:.2f}  "
+              f"predicted {totals['mean_predicted_meals_per_day']:.2f}  "
+              f"MAE {totals['meals_per_day_mae']:.2f}")
+        print(f"  eating min per day true {totals['mean_true_eating_minutes_per_day']:.1f}  "
+              f"predicted {totals['mean_predicted_eating_minutes_per_day']:.1f}  "
+              f"MAE {totals['eating_minutes_per_day_mae']:.1f}")
 
     print()
     print(f"Saved: {(run_dir / 'metrics.json').relative_to(ROOT)}")

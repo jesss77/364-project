@@ -5,17 +5,26 @@ import torch.nn.functional as F
 from torch import nn
 
 
+class PaddedConv1d(nn.Conv1d):
+    def __init__(self, in_channels, out_channels, kernel_size, dilation=1, causal=False):
+        super().__init__(in_channels, out_channels, kernel_size, dilation=dilation)
+        total = (kernel_size - 1) * dilation
+        self.side_padding = (total, 0) if causal else (total // 2, total - total // 2)
+
+    def forward(self, x):
+        return super().forward(F.pad(x, self.side_padding))
+
+
 class ResidualDilatedBlock(nn.Module):
-    def __init__(self, channels, kernel_size, dilation, dropout):
+    def __init__(self, channels, kernel_size, dilation, dropout, causal=False):
         super().__init__()
-        padding = (kernel_size - 1) // 2 * dilation
 
         self.net = nn.Sequential(
-            nn.Conv1d(channels, channels, kernel_size, padding=padding, dilation=dilation),
+            PaddedConv1d(channels, channels, kernel_size, dilation, causal),
             nn.BatchNorm1d(channels),
             nn.ReLU(),
             nn.Dropout(dropout),
-            nn.Conv1d(channels, channels, kernel_size, padding=padding, dilation=dilation),
+            PaddedConv1d(channels, channels, kernel_size, dilation, causal),
             nn.BatchNorm1d(channels),
         )
         self.activation = nn.ReLU()
@@ -33,24 +42,27 @@ class GestureCNN(nn.Module):
         kernel_size=5,
         dilations=(1, 2, 4, 8, 16),
         dropout=0.1,
+        causal=False,
     ):
         super().__init__()
 
         self.stem = nn.Sequential(
-            nn.Conv1d(in_channels, channels, kernel_size, padding=kernel_size // 2),
+            PaddedConv1d(in_channels, channels, kernel_size, causal=causal),
             nn.BatchNorm1d(channels),
             nn.ReLU(),
         )
         self.blocks = nn.Sequential(
             *[
-                ResidualDilatedBlock(channels, kernel_size, dilation, dropout)
+                ResidualDilatedBlock(channels, kernel_size, dilation, dropout, causal)
                 for dilation in dilations
             ]
         )
         self.head = nn.Conv1d(channels, num_classes, 1)
 
+        self.causal = causal
         self.receptive_field = 1 + (kernel_size - 1) * (1 + 2 * sum(dilations))
         self.context = self.receptive_field
+        self.lookahead = 0 if causal else self.receptive_field // 2
         self.inference_chunk = None
 
     def forward(self, x):
@@ -94,6 +106,7 @@ class GestureCNNGRU(nn.Module):
         self.head = nn.Conv1d(hidden * (2 if bidirectional else 1), num_classes, 1)
 
         self.context = context
+        self.lookahead = context
         self.inference_chunk = inference_chunk
 
     def forward(self, x):
@@ -159,6 +172,7 @@ class GestureTransformer(nn.Module):
         self.head = nn.Conv1d(channels, num_classes, 1)
 
         self.context = context
+        self.lookahead = context
         self.inference_chunk = inference_chunk
 
     def forward(self, x):
