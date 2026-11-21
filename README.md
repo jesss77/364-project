@@ -26,11 +26,49 @@ We do **not** claim that the two datasets form a single jointly evaluated end-to
 
 ---
 
-# Current Phase
+# Progress
 
-## Phase 1 — Dataset Validation and Reproducible Data Pipeline
+Last updated: 2026-11-21. Update this table in the same commit as the work it describes.
 
-The current goal is to make the complete data pipeline reproducible for all group members before model development begins.
+Statuses: **done**, **code ready** (written and tested on synthetic data, no real-data results yet), **blocked**, **not started**.
+
+| Area | Item | Status | Where |
+|---|---|---|---|
+| Data | KU Leuven download, label checks, preparation, split, normalization | done | `main` |
+| Data | Clemson download, label checks, sensor alignment, split | done | `main` |
+| Data | Clemson model-ready preparation and normalization | blocked: scripts ready, not run on the real `SHMfiles.zip` | `main` |
+| Data | Check `P2118` / `P2154` (log about a day longer than sensor data) | not started | |
+| Data | `config/fd1_folds.json` from the official `FD1_7_fold_id_list.zip` | not started: needs the zip to see its format | |
+| Models | Shared training code and post-processing (`scripts/train/`) | code ready | `main` |
+| Q1 | Bite / sip / other per moment | code ready | `main` |
+| Q2 | Bite count | code ready | `main` |
+| Q2 | Eating speed (bites per minute, time between bites) | code ready | `main` |
+| Q3 | Meal detection and start / end | code ready, blocked by Clemson preparation | `main` |
+| Q4 | CNN vs CNN-GRU vs transformer | code ready | `main` |
+| Q5 | New user, fine-tuning on 1 / 2 / 5 min of their data | code ready, needs `fd1_folds.json` | `main` |
+| Q6 | Model size and CPU time per minute | code ready | `main` |
+| Q6 | int8 and accuracy after int8 | code ready | `main` |
+| Q7 | Meal-detector breakdown by meal type, context, BMI, eating hand | code ready | `main` |
+| Q9 | Meals per day and time spent eating | code ready | `main` |
+| Q8 | Which hand is eating (nice to have) | not started | |
+| Demo | Causal (no look-ahead) gesture model | code ready | `main` |
+| Demo | Phone-to-model converter, Sensor Logger on iOS and Android (live push, export zip, saved sessions) | code ready, format and units taken from Sensor Logger's docs and checked with simulated pushes | `main` |
+| Demo | Live bite and meal output (replay and HTTP) | code ready | `main` |
+| Demo | Live dashboard in the browser (`--ui`) | code ready, checked with replays | `main` |
+| Demo | Record a real phone session and check units / axes | blocked: the iPhone could not reach the work Mac (security software); use a personal laptop or a recorded file | |
+| Report | Results, privacy design, limitations | not started | |
+
+Real-data results so far: none. No model has been trained on the real datasets yet.
+
+Current blocker: the datasets are not downloaded on the machine that will train the models.
+
+The questions behind Q1–Q9 are listed in [Project Goals and Plan](#project-goals-and-plan).
+
+---
+
+# Phase 1 — Dataset Validation and Reproducible Data Pipeline
+
+The goal of Phase 1 was to make the data pipeline reproducible for all group members before model development.
 
 Phase 1 includes:
 
@@ -43,9 +81,7 @@ Phase 1 includes:
 7. Defining participant-independent train/validation/test splits.
 8. Making sure another teammate can reproduce everything from a clean clone.
 
-Model development starts only after this phase is complete.
-
-All Phase 1 scripts now exist. KU Leuven is preprocessed and validated. The Clemson model-ready preprocessing scripts are written but have not yet been run on the full `SHMfiles.zip`. See [Phase 1 Status](#phase-1-status).
+All Phase 1 scripts exist. The only part not yet run is the Clemson model-ready preparation on the full `SHMfiles.zip`. See [Phase 1 Status](#phase-1-status).
 
 ---
 
@@ -59,7 +95,8 @@ All Phase 1 scripts now exist. KU Leuven is preprocessed and validated. The Clem
 │   ├── fd1_dev_split.json
 │   ├── fd1_normalization.json
 │   ├── clemson_dev_split.json
-│   └── clemson_normalization.json      (created by compute_clemson_normalization.py)
+│   ├── clemson_normalization.json      (created by compute_clemson_normalization.py)
+│   └── live_profiles.json              (sensor units per phone type and per model)
 │
 ├── data/
 │   ├── raw/                            (ignored by Git)
@@ -95,13 +132,24 @@ All Phase 1 scripts now exist. KU Leuven is preprocessed and validated. The Clem
 │   │   ├── validate_clemson_processed.py
 │   │   └── compute_clemson_normalization.py
 │   │
-│   └── train/
-│       ├── common.py
-│       ├── models.py
-│       ├── metrics.py
-│       ├── train_fd1.py
-│       ├── train_clemson.py
-│       └── compare_fd1_runs.py
+│   ├── train/
+│   │   ├── common.py
+│   │   ├── models.py
+│   │   ├── metrics.py
+│   │   ├── postprocess.py
+│   │   ├── train_fd1.py
+│   │   ├── train_clemson.py
+│   │   ├── compare_fd1_runs.py
+│   │   ├── analyze_clemson_meals.py
+│   │   ├── quantize_fd1.py
+│   │   └── personalize_fd1.py
+│   │
+│   └── live/
+│       ├── convert.py
+│       ├── make_replay_from_fd1.py
+│       ├── run_live.py
+│       ├── ui_server.py
+│       └── ui.html
 │
 ├── .gitignore
 ├── README.md
@@ -887,7 +935,6 @@ Both validation scripts stop with an error and list every problem they find. A c
 
 - Run `preprocess_clemson.py`, `validate_clemson_processed.py` and `compute_clemson_normalization.py` on the full `SHMfiles.zip`, then commit `clemson_normalization.json` and the two audit files
 - Check the recordings whose log is about a day longer than the sensor data (`P2118`, `P2154`)
-- Merge `data-acquisition` into `main`
 
 ---
 
@@ -911,13 +958,19 @@ Both validation scripts stop with an error and list every problem they find. A c
 Training code lives in `scripts/train/`:
 
 ```text
-common.py         paths, seeding, device choice, window dataset, full-recording inference
-models.py         KU Leuven gesture models (cnn, cnn_gru, transformer) and EpisodeCNN (Clemson)
-metrics.py        confusion matrix, precision/recall/F1, segment extraction and matching
-train_fd1.py      KU Leuven gesture model (--model picks the architecture)
-train_clemson.py  Clemson episode model
-compare_fd1_runs.py  table of all KU Leuven runs → results/fd1_model_comparison.csv
+common.py                 paths, seeding, device choice, window dataset, full-recording inference
+models.py                 KU Leuven gesture models (cnn, cnn_gru, transformer; cnn can be causal) and EpisodeCNN (Clemson)
+metrics.py                confusion matrix, precision/recall/F1, segment extraction and matching
+postprocess.py            bites from labels, eating speed, meals from window probabilities (shared with the live demo)
+train_fd1.py              KU Leuven gesture model (Q1, Q2; --model for Q4, --causal for the demo)
+train_clemson.py          Clemson meal model (Q3, Q9)
+compare_fd1_runs.py       table of all KU Leuven runs → results/fd1_model_comparison.csv (Q4)
+analyze_clemson_meals.py  meal detection by meal type, context and demographics (Q7)
+quantize_fd1.py           int8 conversion: size, CPU time, accuracy before and after (Q6)
+personalize_fd1.py        new-user experiment: fine-tune on 1 / 2 / 5 min of a held-out person (Q5)
 ```
+
+Live demo code lives in `scripts/live/` (see [Live demo](#live-demo)).
 
 Install PyTorch first (`pip install -r requirements.txt` now includes `torch`). Both scripts pick CUDA, then Apple MPS, then CPU unless `--device` is given.
 
@@ -990,6 +1043,187 @@ python scripts\train\train_clemson.py
   - Mean start and end error of matched episodes.
   - Per-sample time F1.
 
+## Eating speed (Q2)
+
+`train_fd1.py` also reports eating speed for each participant, from predicted bites and from true bites:
+
+- Bites less than 60 s apart (`--bout-gap-seconds`) form one eating bout. Bouts with fewer than 3 bites are ignored.
+- Bites per minute = bites in bouts / total bout time.
+- Time between bites = the median gap between bite starts inside bouts.
+- `metrics.json` gives the MAE of both between predicted and true, over participants (both wrists combined).
+
+The final run also writes `predictions_<split>.csv`: every predicted and true bite and sip, with start and end times and whether it was matched.
+
+## Clemson meal outputs, daily totals (Q9) and breakdowns (Q7)
+
+The final Clemson run writes `meals_<split>.csv`: every predicted and true meal, with start and end times and its matched partner. `metrics.json` also has `daily_totals`: mean meals per day and eating minutes per day, predicted vs true, and their MAE. Each Clemson recording is one day.
+
+```powershell
+python scripts\train\analyze_clemson_meals.py <run name> --split validation
+```
+
+This joins `meals_<split>.csv` with `events.csv` and `ShimmerDemographics.xlsx` and reports, per group, how many logged meals were found and the mean start and end error. The groups are:
+
+- meal type (breakfast / lunch / dinner / snack / other)
+- meal length
+- location
+- social context
+- activity
+- time precision (logged with or without seconds)
+- BMI, age, gender and eating hand
+
+False alarms per day are also broken down by BMI, age, gender and eating hand. Groups with fewer than 10 meals are merged into "other (small groups)" (`--min-group`). Output: `meal_breakdown_<split>.json` in the run folder.
+
+## Causal gesture model (for the live demo)
+
+```powershell
+python scripts\train\train_fd1.py --model cnn --causal --run-name fd1_cnn_causal
+```
+
+`--causal` pads every convolution on the left only, so each label uses only past readings and the live demo can label the newest reading immediately. Each run records its look-ahead in `config.json` and `metrics.json`:
+
+| Model | Look-ahead |
+|---|---|
+| causal CNN | 0 s |
+| CNN | 7.9 s |
+| CNN-GRU and transformer | 15 s |
+
+## int8 (Q6)
+
+```powershell
+python scripts\train\quantize_fd1.py <run name>
+```
+
+- **What it does:** converts a trained KU Leuven model to int8 and scores both versions on validation (add `--eval-test` for the final model).
+  - CNN models use static int8, calibrated on 256 training windows.
+  - The transformer falls back to dynamic int8 on its linear layers.
+- **What it records:** file size, single-thread CPU time per minute of data, eating F1, bite F1 and bite-count error, in `quantization.json`.
+- **Synthetic-data check:** the CNN goes from 0.87 MB to 0.27 MB with the same scores.
+- **Speed:** the int8 engine on desktop CPUs (`qnnpack`) is not faster than float32, so int8 speed has to be judged on a phone or watch chip.
+- **Version warning:** PyTorch marks `torch.ao.quantization` as deprecated. It works in torch 2.15.
+
+## New users (Q5)
+
+```powershell
+python scripts\train\personalize_fd1.py --model cnn
+```
+
+1. For each fold, train a base model on all other participants.
+2. For each held-out participant, start 30 s before their first bite and take 1, 2 or 5 minutes of their labeled data (both wrists).
+3. Fine-tune on it in two ways:
+   - only the last layer (`head`)
+   - all layers (`all`), with BatchNorm statistics frozen
+4. Score the base model and every fine-tuned version on the same part of the recording, after the longest budget.
+
+Output: `personalization.json` with per-participant scores and averages.
+
+The folds come from `config/fd1_folds.json` (`{"source": ..., "folds": [[ids], ...]}`), which still has to be written from the official `FD1_7_fold_id_list.zip`. `--random-folds N` makes seeded folds for testing only.
+
+## Live demo
+
+```text
+phone on wrist ──► convert.py ──► 16 Hz, KU Leuven units ──► gesture model ──► bites and sips (near-live)
+                         └──────► 15 Hz, Clemson units ───► meal model ────► meal started / ended (every 3 min)
+```
+
+### Phone setup with Sensor Logger (iOS and Android)
+
+The same setup works on both platforms. It follows Sensor Logger's own documentation ([PUSHING.md](https://github.com/tszheichoi/awesome-sensor-logger/blob/main/PUSHING.md), [UNITS.md](https://github.com/tszheichoi/awesome-sensor-logger/blob/main/UNITS.md)):
+
+- `accelerometer` is acceleration without gravity, in m/s².
+- `gravity` is a separate vector, in m/s².
+- `gyroscope` is in rad/s.
+- The default profile, `sensor_logger`, adds gravity back for the KU Leuven model and leaves it out for the Clemson model.
+
+1. Put the laptop and the phone on the same Wi-Fi. A managed work laptop may block incoming connections even when its firewall allows Python. Use a personal laptop if so.
+2. On the laptop, run:
+
+   ```powershell
+   python scripts\live\run_live.py --gesture-run fd1_cnn_causal --listen 8000 --ui 8050 --save session.jsonl
+   ```
+
+   It prints the push URL to use, for example `http://192.168.1.20:8000/`. Open `http://localhost:8050/` for the dashboard.
+3. Install Sensor Logger (App Store or Google Play).
+4. On the Logger page, turn on **Accelerometer**, **Gravity** and **Gyroscope**. Everything else can stay off.
+5. Open settings (the gear icon on the Logger page):
+   - Turn on **HTTP Push** and enter the push URL.
+   - Turn on **Standardise Units & Frames**, so iOS and Android send the same units and axes.
+   - Tap **Tap to Test Pushing**. The laptop should print `Test message received`.
+6. Start recording. The laptop prints `First data from the phone...`, and the dashboard starts moving.
+7. **Check:** lay the phone flat, screen up, on a table. In the dashboard (or with `--show-stream 5`), the accelerometer should read about (0, 0, +9.8) m/s².
+   - About −9.8 on z: Standardise Units & Frames is probably off.
+   - Large values on x or y: the phone's axes don't match. Fix it with `--axes`.
+8. For the demo, wear the phone on the eating wrist, screen facing out on the back of the wrist.
+
+How stopping works:
+
+- The first Ctrl-C ends the stream and prints the summary.
+- With `--ui`, the dashboard stays open until a second Ctrl-C.
+- `--save` keeps every pushed message, so the session can be replayed exactly with `--replay session.jsonl`.
+
+Without a network, record in Sensor Logger and export it as zipped CSV, then replay the export:
+
+```powershell
+python scripts\live\run_live.py --gesture-run fd1_cnn_causal --replay recording.zip --speed 1 --ui 8050
+```
+
+The export needs `Accelerometer.csv`, `Gyroscope.csv` and `Gravity.csv`, in a zip or an unzipped folder.
+
+### Other inputs and checks
+
+`config/live_profiles.json` also has the following profiles, for other apps:
+
+| Profile | Accelerometer | Gyroscope | Gravity |
+|---|---|---|---|
+| `android` | m/s² | rad/s | included |
+| `iphone_total` | g | rad/s | included |
+| `iphone_user` | g | rad/s | separate |
+
+The model targets (`fd1`, `clemson`) are marked `"verified": false`, because their units were inferred from the data. The axis directions of the original wrist sensors are also unknown, so a phone may need `--axes` to match them. Checking this needs a trained model and a short recording of real eating.
+
+`convert.py` does the following:
+
+- converts units
+- remaps axes (`--axes`, for example `-y,x,z`)
+- removes gravity with a 1 s low-pass estimate when the target needs it, or adds a separate gravity vector
+- averages the readings into 16 or 15 per second
+
+`make_replay_from_fd1.py` turns a KU Leuven recording into a phone-style CSV (50 readings per second) with its true labels. `run_live.py` prints the true counts at the end of such a replay. `--listen` also accepts a simple format, `{"time_s": [...], "acc": [[x, y, z], ...], "gyro": [...], "gravity": [...]}`.
+
+Synthetic-data checks:
+
+- **Same result on all three input paths:** a 15-minute recording with 22 true bites and 6 sips gave 21 bites and 6 sips through each of these:
+  - a CSV replay
+  - simulated Sensor Logger HTTP pushes (4,500 batched messages with accelerometer, gravity, gyroscope and orientation entries, one delivered out of order)
+  - a simulated Sensor Logger export zip
+- **Wrong profile:** reading the CSV with the wrong unit profile gave 54 bites and 67 sips.
+- **Meals:** a replayed 4-hour fake Clemson day reported both meals within 1 minute of their true times.
+
+## Live dashboard
+
+```powershell
+python scripts\live\run_live.py --gesture-run fd1_cnn_causal --meal-run <clemson run> --replay replay\p6L.csv --speed 1 --ui 8050
+```
+
+Then open `http://localhost:8050/` in a browser on the same computer. The dashboard is served only on `localhost`, so it needs no firewall changes. It works with `--replay` and with `--listen`, and it polls the runner 4 times a second. It shows:
+
+- **Tiles:**
+  - bites and sips, with the time of the last one
+  - eating speed (bites per minute)
+  - median time between bites
+  - meal status: eating since a time, not eating, or off when no meal model is loaded
+- **Signal charts:** accelerometer (m/s²) and gyroscope (°/s) after conversion, for the last 30 s.
+- **Model chart:** eating and drinking scores for each time point, with shaded blocks for detected bites and sips and a label strip underneath.
+- **Event log:** newest first, including meal started and meal ended lines.
+- **Meal score chart:** one bar per 3-minute step, with the start and end thresholds as a dashed line.
+- **Footer:** phone readings per second, model readings per second, and the model's look-ahead.
+
+When a replay ends, the page shows "Finished" and stays open until Ctrl-C.
+
+`train_fd1.py` and `train_clemson.py` now save the scaling numbers they used in each run's `config.json`. `run_live.py` uses those numbers when they are present, so a model always sees data scaled the way it was trained. Before this, a model trained on synthetic data found no bites when run from the repo.
+
+Live streaming from a phone to a managed work laptop can be blocked by its security software, even with the macOS firewall allowing Python. Use a personal laptop for the phone demo, or record on the phone and replay the file.
+
 ## Test split
 
 Neither script scores the test split unless `--eval-test` is given. Use it only for the final run of a model that will be reported. All tuning uses validation only.
@@ -1000,29 +1234,68 @@ For a short run, for example on a laptop, add `--epochs 2 --max-train-windows 20
 
 ---
 
-# Next Phase
+# Project Goals and Plan
 
-The first goal is to obtain working baselines for:
+## End goal
 
-```text
-Clemson All-day
-    → eating-episode classifier
-    → episode reconstruction
-
-KU Leuven FD-I
-    → eating-gesture classifier
-    → bite-event detection
-    → bite-count estimation
-```
-
-After the baselines work reliably, the project will move to:
+1. Models trained to answer the questions below, scored on the real datasets.
+2. A converter that turns the live sensor stream of a phone worn on the wrist into the training format: same channels, units, axis directions, readings per second, gravity handling and scaling.
+3. A live or near-live output while someone eats:
 
 ```text
-CNN vs CNN-GRU vs small Transformer   (code ready, see above)
-↓
-personalization
-↓
-efficiency evaluation
-↓
-final testing and report
+12:31:05  meal started
+12:31:40  bite 1
+12:31:52  bite 2
+12:32:10  sip
+...
+12:52:30  meal ended — 38 bites, 3 sips, 21 min, 1.8 bites/min
 ```
+
+Bites and sips can be shown within a few seconds (KU Leuven model). Meal start and end lag by 3–6 minutes, because the Clemson model works on 6-minute windows.
+
+## Questions
+
+Status of each question is tracked in [Progress](#progress).
+
+| # | Question | Dataset | Scored with | In the live demo |
+|---|---|---|---|---|
+| Q1 | Is this movement a bite, a sip, or something else? | KU Leuven | per-label F1, eating vs drinking confusion | yes |
+| Q2 | How many bites, and how fast? | KU Leuven | bite F1, bite-count error per person, bites/min and time-between-bites error | yes |
+| Q3 | Is the person eating now, and when did each meal start and end? | Clemson | meals found, false alarms per day, start/end error | semi-live |
+| Q4 | Which model works best: CNN, GRU or transformer? | KU Leuven | Q1/Q2 scores against size and speed | picks the demo model |
+| Q5 | Does it work for someone new, and how much of their data fixes it? | KU Leuven, 7 official folds | Q1/Q2 before and after 1, 2 or 5 min of their data | fine-tune on the demo person |
+| Q6 | Can it run on a watch? | KU Leuven | model size, CPU time per minute, accuracy after int8 | indirectly |
+| Q7 | Where does the meal detector fail, and for whom? | Clemson | detection and false alarms by meal type, context, BMI, eating hand | no |
+| Q9 | How many meals per day, and how much time spent eating? | Clemson | daily totals vs logged meals | yes |
+
+Nice to have, only if time allows:
+
+| # | Question | Dataset | Notes |
+|---|---|---|---|
+| Q8 | Which hand is eating? | KU Leuven, both wrists | needs a model that reads both wrists together (12 channels) |
+
+Left out on purpose:
+
+- Q10, training first on Clemson to help bite detection: the two datasets differ in units, gravity and readings per second.
+- Meal vs snack classification: mostly learns the time of day.
+- Bite counts scored on Clemson: there are no bite labels to check against.
+- Predicting BMI or identifying the person from motion: weak and ethically risky. Re-identification risk is discussed in the privacy section instead.
+
+## Order of work
+
+```text
+1. Train and score the baselines on real data (Q1–Q3)
+2. Architecture comparison (Q4)
+3. New-user experiment (Q5) and watch efficiency with int8 (Q6)
+4. Meal-detector breakdowns and daily totals (Q7, Q9)
+5. Phone-to-model converter, tested on a recorded phone file
+6. Live demo
+7. Report, including the privacy design
+(Q8 if time allows)
+```
+
+Requirements for the live demo:
+
+- The demo model must not rely on future readings beyond a short delay. The CNN needs about 8 s of look-ahead. The bidirectional GRU and the transformer need a causal variant.
+- The converter needs a setting per phone type. Android usually reports m/s² and rad/s. iPhone usually reports g and rad/s, with gravity provided separately.
+- A short calibration pose at the start maps phone axes to training axes.

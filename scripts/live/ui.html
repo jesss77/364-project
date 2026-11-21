@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bite Monitor</title>
+<style>
+:root {
+  --bg: #f6f6f3;
+  --surface: #ffffff;
+  --text: #1b1b19;
+  --muted: #6b6a65;
+  --faint: #9a9891;
+  --grid: #e6e5df;
+  --border: #dcdbd4;
+  --x: #6250d6;
+  --y: #1baf7a;
+  --z: #c98500;
+  --eating: #e0592a;
+  --drinking: #2a78d6;
+  --eating-soft: rgba(224, 89, 42, 0.14);
+  --drinking-soft: rgba(42, 120, 214, 0.14);
+  --live: #0c8a3f;
+  --warn: #b26a00;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141413;
+    --surface: #1d1d1b;
+    --text: #efeee9;
+    --muted: #a9a8a0;
+    --faint: #7a7972;
+    --grid: #2a2a27;
+    --border: #34342f;
+    --x: #9085e9;
+    --y: #2fc48e;
+    --z: #e2a41c;
+    --eating: #f07a4c;
+    --drinking: #4f98ee;
+    --eating-soft: rgba(240, 122, 76, 0.18);
+    --drinking-soft: rgba(79, 152, 238, 0.18);
+    --live: #3fcf7a;
+    --warn: #e8a43a;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 var(--font); }
+.page { max-width: 1280px; margin: 0 auto; padding: 20px 16px 32px; display: grid; gap: 16px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+h1 { font-size: 20px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+.sub { color: var(--muted); font-size: 13px; }
+.clock { margin-left: auto; font: 600 20px var(--mono); font-variant-numeric: tabular-nums; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid var(--border); background: var(--surface); }
+.pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); }
+.pill.live .dot { background: var(--live); }
+.pill.done .dot { background: var(--muted); }
+.pill.lost .dot { background: var(--warn); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+.tile .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.tile .value { font: 600 30px var(--mono); font-variant-numeric: tabular-nums; margin-top: 2px; }
+.tile .note { color: var(--muted); font-size: 12px; min-height: 1.4em; }
+.tile.bites .value { color: var(--eating); }
+.tile.sips .value { color: var(--drinking); }
+.meal-state { font-size: 18px; font-weight: 600; margin-top: 6px; }
+.main { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 860px) { .main { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+.panel h2 { font-size: 13px; font-weight: 600; margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
+.legend { display: inline-flex; gap: 10px; font-weight: 400; color: var(--muted); font-size: 12px; }
+.legend i { display: inline-block; width: 10px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+.legend i.block { height: 10px; }
+.charts { display: grid; gap: 12px; }
+canvas { display: block; width: 100%; }
+.c-signal { height: 120px; }
+.c-model { height: 150px; }
+.c-meal { height: 120px; }
+.log { list-style: none; margin: 0; padding: 0; max-height: 430px; overflow-y: auto; }
+.log li { display: grid; grid-template-columns: 76px 52px 1fr; gap: 8px; padding: 6px 0; border-top: 1px solid var(--grid); font-variant-numeric: tabular-nums; align-items: center; }
+.log li:first-child { border-top: 0; }
+.log .t { font-family: var(--mono); color: var(--muted); }
+.tag { font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; text-align: center; }
+.tag.bite { background: var(--eating-soft); color: var(--eating); }
+.tag.sip { background: var(--drinking-soft); color: var(--drinking); }
+.tag.meal { background: var(--grid); color: var(--text); }
+.log .d { color: var(--muted); font-size: 12px; }
+.empty { color: var(--faint); padding: 12px 0; }
+.side { display: grid; gap: 16px; align-content: start; }
+footer { color: var(--faint); font-size: 12px; }
+.note-warn { color: var(--warn); }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Bite Monitor</h1>
+    <span class="pill" id="status"><span class="dot"></span><span id="status-text">Waiting for data</span></span>
+    <span class="sub" id="source"></span>
+    <span class="clock" id="clock" aria-label="Stream time">00:00:00</span>
+  </header>
+
+  <section class="tiles" aria-label="Summary">
+    <div class="tile bites"><div class="label">Bites</div><div class="value" id="bites">0</div><div class="note" id="bites-note"></div></div>
+    <div class="tile sips"><div class="label">Sips</div><div class="value" id="sips">0</div><div class="note" id="sips-note"></div></div>
+    <div class="tile"><div class="label">Eating speed</div><div class="value" id="rate">–</div><div class="note">bites per minute</div></div>
+    <div class="tile"><div class="label">Between bites</div><div class="value" id="gap">–</div><div class="note">median seconds</div></div>
+    <div class="tile"><div class="label">Meal</div><div class="meal-state" id="meal-state">–</div><div class="note" id="meal-note"></div></div>
+  </section>
+
+  <section class="main">
+    <div class="panel charts">
+      <div>
+        <h2>Accelerometer <span class="sub">m/s², last 30 s</span>
+          <span class="legend"><span><i style="background:var(--x)"></i>x</span><span><i style="background:var(--y)"></i>y</span><span><i style="background:var(--z)"></i>z</span></span>
+        </h2>
+        <canvas class="c-signal" id="acc" role="img" aria-label="Accelerometer x, y and z over the last 30 seconds"></canvas>
+      </div>
+      <div>
+        <h2>Gyroscope <span class="sub">°/s, last 30 s</span>
+          <span class="legend"><span><i style="background:var(--x)"></i>x</span><span><i style="background:var(--y)"></i>y</span><span><i style="background:var(--z)"></i>z</span></span>
+        </h2>
+        <canvas class="c-signal" id="gyro" role="img" aria-label="Gyroscope x, y and z over the last 30 seconds"></canvas>
+      </div>
+      <div>
+        <h2>Model output <span class="sub">score per moment, label strip below</span>
+          <span class="legend"><span><i style="background:var(--eating)"></i>eating</span><span><i style="background:var(--drinking)"></i>drinking</span><span><i class="block" style="background:var(--eating-soft)"></i>detected bite</span><span><i class="block" style="background:var(--drinking-soft)"></i>detected sip</span></span>
+        </h2>
+        <canvas class="c-model" id="model" role="img" aria-label="Eating and drinking scores and predicted labels over the last 30 seconds"></canvas>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="panel">
+        <h2>Events <span class="sub" id="event-count"></span></h2>
+        <ul class="log" id="log"><li class="empty">No bites or sips yet.</li></ul>
+      </div>
+      <div class="panel" id="meal-panel" hidden>
+        <h2>Meal score <span class="sub">per 3-minute step</span></h2>
+        <canvas class="c-meal" id="meal" role="img" aria-label="Meal score per 3-minute step with start and end thresholds"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">Polling the live runner every 250 ms.</footer>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const clock = (s) => {
+  s = Math.max(0, Math.floor(s));
+  const h = String(Math.floor(s / 3600)).padStart(2, "0");
+  const m = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
+  const sec = String(s % 60).padStart(2, "0");
+  return `${h}:${m}:${sec}`;
+};
+
+function setupCanvas(canvas) {
+  const ratio = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  if (canvas.width !== Math.round(width * ratio) || canvas.height !== Math.round(height * ratio)) {
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+  }
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.clearRect(0, 0, width, height);
+  return { ctx, width, height };
+}
+
+const PAD = { left: 44, right: 8, top: 6, bottom: 18 };
+
+function timeAxis(ctx, width, height, now, span, bottom) {
+  ctx.fillStyle = css("--faint");
+  ctx.font = "11px " + css("--mono");
+  ctx.textAlign = "center";
+  for (let s = 0; s <= span; s += 5) {
+    const x = PAD.left + (width - PAD.left - PAD.right) * (1 - s / span);
+    ctx.strokeStyle = css("--grid");
+    ctx.beginPath();
+    ctx.moveTo(x, PAD.top);
+    ctx.lineTo(x, bottom);
+    ctx.stroke();
+    ctx.fillText(s === 0 ? "now" : `-${s}s`, x, height - 4);
+  }
+}
+
+function xFor(t, now, span, width) {
+  return PAD.left + (width - PAD.left - PAD.right) * (1 - (now - t) / span);
+}
+
+function drawSignals(canvas, data, now, key) {
+  const { ctx, width, height } = setupCanvas(canvas);
+  const bottom = height - PAD.bottom;
+  const span = 30;
+  timeAxis(ctx, width, height, now, span, bottom);
+  const rows = data ? data[key] : [];
+  if (!rows || !rows.length) return;
+
+  let lo = Infinity, hi = -Infinity;
+  for (const r of rows) for (const v of r) { if (v < lo) lo = v; if (v > hi) hi = v; }
+  if (hi - lo < 1) { const mid = (hi + lo) / 2; lo = mid - 0.5; hi = mid + 0.5; }
+  const margin = (hi - lo) * 0.08; lo -= margin; hi += margin;
+  const y = (v) => PAD.top + (bottom - PAD.top) * (1 - (v - lo) / (hi - lo));
+
+  ctx.fillStyle = css("--faint");
+  ctx.textAlign = "right";
+  ctx.font = "11px " + css("--mono");
+  [hi, (hi + lo) / 2, lo].forEach((v) => ctx.fillText(v.toFixed(Math.abs(hi - lo) < 10 ? 1 : 0), PAD.left - 6, y(v) + 4));
+
+  const colors = [css("--x"), css("--y"), css("--z")];
+  ctx.lineWidth = 1.5;
+  ctx.lineJoin = "round";
+  for (let c = 0; c < 3; c++) {
+    ctx.strokeStyle = colors[c];
+    ctx.beginPath();
+    rows.forEach((r, i) => {
+      const t = data.start + i / data.rate;
+      const px = xFor(t, now, span, width);
+      if (i === 0) ctx.moveTo(px, y(r[c])); else ctx.lineTo(px, y(r[c]));
+    });
+    ctx.stroke();
+  }
+}
+
+function drawModel(canvas, model, events, now) {
+  const { ctx, width, height } = setupCanvas(canvas);
+  const strip = 16;
+  const bottom = height - PAD.bottom - strip - 6;
+  const span = 30;
+  timeAxis(ctx, width, height, now, span, bottom);
+  const y = (v) => PAD.top + (bottom - PAD.top) * (1 - v);
+
+  ctx.fillStyle = css("--faint");
+  ctx.textAlign = "right";
+  ctx.font = "11px " + css("--mono");
+  [1, 0.5, 0].forEach((v) => ctx.fillText(v.toFixed(1), PAD.left - 6, y(v) + 4));
+
+  for (const e of events || []) {
+    if (e.type === "meal" || e.end < now - span) continue;
+    const x0 = Math.max(xFor(e.start, now, span, width), PAD.left);
+    const x1 = xFor(e.end, now, span, width);
+    ctx.fillStyle = e.type === "bite" ? css("--eating-soft") : css("--drinking-soft");
+    ctx.fillRect(x0, PAD.top, Math.max(x1 - x0, 2), bottom - PAD.top);
+  }
+
+  if (!model || !model.labels.length) return;
+
+  const series = [["eating", css("--eating")], ["drinking", css("--drinking")]];
+  ctx.lineWidth = 1.8;
+  for (const [name, color] of series) {
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    model[name].forEach((v, i) => {
+      const px = xFor(model.start + i / model.rate, now, span, width);
+      if (i === 0) ctx.moveTo(px, y(v)); else ctx.lineTo(px, y(v));
+    });
+    ctx.stroke();
+  }
+
+  const stripTop = bottom + 6;
+  ctx.fillStyle = css("--grid");
+  ctx.fillRect(PAD.left, stripTop, width - PAD.left - PAD.right, strip);
+  const step = 1 / model.rate;
+  let runStart = 0;
+  for (let i = 1; i <= model.labels.length; i++) {
+    if (i < model.labels.length && model.labels[i] === model.labels[runStart]) continue;
+    const label = model.labels[runStart];
+    if (label) {
+      const x0 = Math.max(xFor(model.start + runStart * step, now, span, width), PAD.left);
+      const x1 = xFor(model.start + i * step, now, span, width);
+      ctx.fillStyle = label === 1 ? css("--eating") : css("--drinking");
+      ctx.fillRect(x0, stripTop, Math.max(x1 - x0, 1.5), strip);
+    }
+    runStart = i;
+  }
+  ctx.fillStyle = css("--faint");
+  ctx.textAlign = "right";
+  ctx.fillText("label", PAD.left - 6, stripTop + 12);
+}
+
+function drawMeal(canvas, meal) {
+  const { ctx, width, height } = setupCanvas(canvas);
+  const bottom = height - PAD.bottom;
+  const items = meal.history;
+  const y = (v) => PAD.top + (bottom - PAD.top) * (1 - v);
+
+  ctx.fillStyle = css("--faint");
+  ctx.textAlign = "right";
+  ctx.font = "11px " + css("--mono");
+  [1, 0.5, 0].forEach((v) => ctx.fillText(v.toFixed(1), PAD.left - 6, y(v) + 4));
+
+  const n = Math.max(items.length, 20);
+  const slot = (width - PAD.left - PAD.right) / n;
+  items.forEach((item, i) => {
+    const x = PAD.left + (n - items.length + i) * slot;
+    ctx.fillStyle = item.probability >= meal.start_threshold ? css("--eating") : css("--faint");
+    const top = y(item.probability);
+    ctx.fillRect(x + 1, top, Math.max(slot - 2, 1), bottom - top);
+  });
+
+  ctx.setLineDash([4, 4]);
+  ctx.strokeStyle = css("--muted");
+  for (const t of [meal.start_threshold, meal.end_threshold]) {
+    ctx.beginPath(); ctx.moveTo(PAD.left, y(t)); ctx.lineTo(width - PAD.right, y(t)); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  ctx.fillStyle = css("--faint");
+  ctx.textAlign = "left";
+  ctx.fillText(`start ${meal.start_threshold} / end ${meal.end_threshold}`, PAD.left + 4, height - 4);
+}
+
+function renderLog(events, meal) {
+  const log = $("log");
+  const items = (events || []).slice().reverse();
+  const gestureCount = items.filter((e) => e.type !== "meal").length;
+  $("event-count").textContent = items.length ? `${items.length} event${items.length === 1 ? "" : "s"}, newest first` : "";
+  if (!gestureCount && !items.length) {
+    log.innerHTML = '<li class="empty">No bites or sips yet.</li>';
+    return;
+  }
+  log.innerHTML = items.map((e) => {
+    const detail = e.type === "meal" ? e.text : `${(e.end - e.start).toFixed(1)} s`;
+    return `<li><span class="t">${clock(e.start)}</span><span class="tag ${e.type}">${e.type}</span><span class="d">${detail}</span></li>`;
+  }).join("");
+}
+
+let last = null;
+let failures = 0;
+
+function render(state) {
+  const info = state.info || {};
+  $("source").textContent = [info.source, info.gesture_model && `gesture: ${info.gesture_model}`, info.meal_model && `meal: ${info.meal_model}`].filter(Boolean).join(" · ");
+  $("clock").textContent = clock(state.time || 0);
+
+  const status = $("status");
+  status.classList.remove("live", "done", "lost");
+  if (state.finished) { status.classList.add("done"); $("status-text").textContent = "Finished"; }
+  else if (state.signals) { status.classList.add("live"); $("status-text").textContent = "Streaming"; }
+  else { $("status-text").textContent = "Waiting for data"; }
+
+  const counts = state.counts || { bite: 0, sip: 0 };
+  $("bites").textContent = counts.bite;
+  $("sips").textContent = counts.sip;
+  const speed = state.speed || {};
+  $("rate").textContent = speed.bites_per_minute ? speed.bites_per_minute.toFixed(1) : "–";
+  $("gap").textContent = speed.median_seconds_between_bites ? speed.median_seconds_between_bites.toFixed(0) : "–";
+  const events = state.events || [];
+  const lastBite = events.filter((e) => e.type === "bite").pop();
+  const lastSip = events.filter((e) => e.type === "sip").pop();
+  $("bites-note").textContent = lastBite ? `last at ${clock(lastBite.start)}` : "";
+  $("sips-note").textContent = lastSip ? `last at ${clock(lastSip.start)}` : "";
+
+  const meal = state.meal;
+  if (meal) {
+    $("meal-panel").hidden = false;
+    $("meal-state").textContent = meal.in_meal ? "Eating" : "Not eating";
+    $("meal-state").style.color = meal.in_meal ? css("--eating") : "";
+    $("meal-note").textContent = meal.in_meal ? `since ${clock(meal.since)}` : (meal.history.length ? "updates every 3 min" : "first update after 6 min");
+    drawMeal($("meal"), meal);
+  } else {
+    $("meal-state").textContent = "Off";
+    $("meal-note").textContent = "no meal model loaded";
+  }
+
+  const rates = state.rates;
+  $("footer").innerHTML = rates
+    ? `Phone ${rates.phone.toFixed(0)} readings/s → model ${rates.model.toFixed(0)}/s. Model look-ahead ${(info.lookahead || 0).toFixed(1)} s.`
+      + (info.note ? ` <span class="note-warn">${info.note}</span>` : "")
+    : "Polling the live runner every 250 ms.";
+
+  const now = state.time || 0;
+  drawSignals($("acc"), state.signals, now, "acc");
+  drawSignals($("gyro"), state.signals, now, "gyro");
+  drawModel($("model"), state.model, events, now);
+  renderLog(events, meal);
+}
+
+async function poll() {
+  try {
+    const response = await fetch("/state", { cache: "no-store" });
+    last = await response.json();
+    failures = 0;
+    render(last);
+  } catch (error) {
+    failures += 1;
+    if (failures > 3) {
+      $("status").classList.remove("live", "done");
+      $("status").classList.add("lost");
+      $("status-text").textContent = "Runner stopped";
+    }
+  }
+  setTimeout(poll, 250);
+}
+
+window.addEventListener("resize", () => last && render(last));
+poll();
+</script>
+</body>
+</html>

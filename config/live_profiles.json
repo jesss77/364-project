@@ -1,0 +1,52 @@
+{
+  "targets": {
+    "fd1": {
+      "rate_hz": 16,
+      "acc_unit": "m/s2",
+      "gyro_unit": "deg/s",
+      "gravity": "include",
+      "verified": false,
+      "evidence": "fd1_normalization.json: acc z mean 4.15, acc std 4.5-6.5 (gravity in m/s2); gyro std 23-35 (deg/s)"
+    },
+    "clemson": {
+      "rate_hz": 15,
+      "acc_unit": "g",
+      "gyro_unit": "deg/s",
+      "gravity": "remove",
+      "verified": false,
+      "evidence": "channels named linear_acc_*; first P2001 readings near 0 (about 0.1); gyro readings 3-26 (deg/s)"
+    }
+  },
+  "sources": {
+    "sensor_logger": {
+      "acc_unit": "m/s2",
+      "gyro_unit": "rad/s",
+      "gravity": "separate",
+      "notes": "Sensor Logger (iOS and Android) with Accelerometer, Gravity and Gyroscope on and 'Standardise Units & Frames' on. accelerometer = user acceleration without gravity (m/s2), gravity = separate vector (m/s2), gyroscope = rad/s. Source: awesome-sensor-logger UNITS.md and PUSHING.md"
+    },
+    "android": {
+      "acc_unit": "m/s2",
+      "gyro_unit": "rad/s",
+      "gravity": "included",
+      "notes": "Android TYPE_ACCELEROMETER includes gravity; TYPE_GYROSCOPE is rad/s"
+    },
+    "iphone_total": {
+      "acc_unit": "g",
+      "gyro_unit": "rad/s",
+      "gravity": "included",
+      "notes": "Raw accelerometer (gravity included) in g"
+    },
+    "iphone_user": {
+      "acc_unit": "g",
+      "gyro_unit": "rad/s",
+      "gravity": "separate",
+      "notes": "Core Motion userAcceleration (gravity removed) plus a separate gravity vector, both in g"
+    },
+    "fd1_replay": {
+      "acc_unit": "m/s2",
+      "gyro_unit": "deg/s",
+      "gravity": "included",
+      "notes": "Files written by make_replay_from_fd1.py; already in KU Leuven units and axes"
+    }
+  }
+}
