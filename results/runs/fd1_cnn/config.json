@@ -1,0 +1,52 @@
+{
+  "epochs": 20,
+  "batch_size": 64,
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "class_weight": "sqrt",
+  "model": "cnn",
+  "causal": false,
+  "channels": 64,
+  "dropout": 0.1,
+  "max_train_windows": 0,
+  "patience": 5,
+  "min_event_seconds": 0.5,
+  "merge_gap_seconds": 0.25,
+  "bout_gap_seconds": 60.0,
+  "num_workers": 0,
+  "seed": 42,
+  "device": "cuda",
+  "run_name": "fd1_cnn",
+  "eval_test": false,
+  "model_class": "GestureCNN",
+  "parameters": 209027,
+  "size_mb_float32": 0.836108,
+  "context_samples": 253,
+  "lookahead_samples": 126,
+  "lookahead_seconds": 7.875,
+  "inference_chunk_samples": 14400,
+  "class_weights": [
+    1.0,
+    10.602595329284668,
+    16.900541305541992
+  ],
+  "train_windows": 42788,
+  "normalization": {
+    "mean": [
+      -0.3894304931163788,
+      0.2997608184814453,
+      4.147744178771973,
+      0.003274717601016164,
+      0.391253262758255,
+      -0.4209529757499695
+    ],
+    "std": [
+      6.531217575073242,
+      4.461967945098877,
+      4.787959098815918,
+      22.661531448364258,
+      34.9781608581543,
+      30.187152862548828
+    ]
+  }
+}

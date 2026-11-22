@@ -1,0 +1,488 @@
+{
+  "run": "clemson_cnn_pw_none",
+  "split": "test",
+  "events": 165,
+  "events_without_true_meal": 0,
+  "demographics_found": 53,
+  "recordings": 53,
+  "by_event": {
+    "meal_type": [
+      {
+        "group": "lunch",
+        "events": 48,
+        "detected": 38,
+        "detection_rate": 0.7916666666666666,
+        "mean_start_error_minutes": 3.677631578947369,
+        "mean_end_error_minutes": 7.121491228070177
+      },
+      {
+        "group": "dinner",
+        "events": 48,
+        "detected": 36,
+        "detection_rate": 0.75,
+        "mean_start_error_minutes": 4.13611111111111,
+        "mean_end_error_minutes": 7.2041666666666675
+      },
+      {
+        "group": "breakfast",
+        "events": 37,
+        "detected": 25,
+        "detection_rate": 0.6756756756756757,
+        "mean_start_error_minutes": 5.242000000000001,
+        "mean_end_error_minutes": 4.335333333333334
+      },
+      {
+        "group": "snack",
+        "events": 27,
+        "detected": 17,
+        "detection_rate": 0.6296296296296297,
+        "mean_start_error_minutes": 3.548039215686275,
+        "mean_end_error_minutes": 6.9980392156862745
+      },
+      {
+        "group": "other",
+        "events": 5,
+        "detected": 2,
+        "detection_rate": 0.4,
+        "mean_start_error_minutes": 1.075,
+        "mean_end_error_minutes": 7.633333333333333
+      }
+    ],
+    "duration": [
+      {
+        "group": "5-15 min",
+        "events": 76,
+        "detected": 54,
+        "detection_rate": 0.7105263157894737,
+        "mean_start_error_minutes": 3.5401234567901243,
+        "mean_end_error_minutes": 4.315432098765432
+      },
+      {
+        "group": "15-30 min",
+        "events": 53,
+        "detected": 42,
+        "detection_rate": 0.7924528301886793,
+        "mean_start_error_minutes": 2.5773809523809526,
+        "mean_end_error_minutes": 6.020238095238096
+      },
+      {
+        "group": "under 5 min",
+        "events": 22,
+        "detected": 10,
+        "detection_rate": 0.45454545454545453,
+        "mean_start_error_minutes": 3.228333333333333,
+        "mean_end_error_minutes": 4.83
+      },
+      {
+        "group": "30+ min",
+        "events": 14,
+        "detected": 12,
+        "detection_rate": 0.8571428571428571,
+        "mean_start_error_minutes": 12.53888888888889,
+        "mean_end_error_minutes": 19.86666666666667
+      }
+    ],
+    "location": [
+      {
+        "group": "Home",
+        "events": 77,
+        "detected": 56,
+        "detection_rate": 0.7272727272727273,
+        "mean_start_error_minutes": 3.1223214285714285,
+        "mean_end_error_minutes": 6.360119047619047
+      },
+      {
+        "group": "Restaurant",
+        "events": 40,
+        "detected": 32,
+        "detection_rate": 0.8,
+        "mean_start_error_minutes": 6.811979166666666,
+        "mean_end_error_minutes": 7.68125
+      },
+      {
+        "group": "Other",
+        "events": 19,
+        "detected": 11,
+        "detection_rate": 0.5789473684210527,
+        "mean_start_error_minutes": 3.2924242424242425,
+        "mean_end_error_minutes": 6.569696969696969
+      },
+      {
+        "group": "Office",
+        "events": 15,
+        "detected": 12,
+        "detection_rate": 0.8,
+        "mean_start_error_minutes": 1.363888888888889,
+        "mean_end_error_minutes": 4.6402777777777775
+      },
+      {
+        "group": "Unknown",
+        "events": 12,
+        "detected": 5,
+        "detection_rate": 0.4166666666666667,
+        "mean_start_error_minutes": 4.96,
+        "mean_end_error_minutes": 4.9366666666666665
+      },
+      {
+        "group": "Work",
+        "events": 2,
+        "detected": 2,
+        "detection_rate": 1.0,
+        "mean_start_error_minutes": 5.975,
+        "mean_end_error_minutes": 8.991666666666667
+      }
+    ],
+    "social_context": [
+      {
+        "group": "Alone",
+        "events": 69,
+        "detected": 51,
+        "detection_rate": 0.7391304347826086,
+        "mean_start_error_minutes": 2.8333333333333335,
+        "mean_end_error_minutes": 5.868954248366013
+      },
+      {
+        "group": "CompanyEating",
+        "events": 68,
+        "detected": 51,
+        "detection_rate": 0.75,
+        "mean_start_error_minutes": 5.584967320261437,
+        "mean_end_error_minutes": 7.615359477124183
+      },
+      {
+        "group": "CompanyNotEating",
+        "events": 18,
+        "detected": 11,
+        "detection_rate": 0.6111111111111112,
+        "mean_start_error_minutes": 2.548484848484849,
+        "mean_end_error_minutes": 5.472727272727273
+      },
+      {
+        "group": "Unknown",
+        "events": 10,
+        "detected": 5,
+        "detection_rate": 0.5,
+        "mean_start_error_minutes": 4.96,
+        "mean_end_error_minutes": 4.9366666666666665
+      }
+    ],
+    "activity": [
+      {
+        "group": "other (small groups)",
+        "events": 71,
+        "detected": 50,
+        "detection_rate": 0.704225352112676,
+        "mean_start_error_minutes": 3.215,
+        "mean_end_error_minutes": 6.229
+      },
+      {
+        "group": "Eating",
+        "events": 28,
+        "detected": 20,
+        "detection_rate": 0.7142857142857143,
+        "mean_start_error_minutes": 6.260000000000001,
+        "mean_end_error_minutes": 8.109166666666665
+      },
+      {
+        "group": "Watching_TV",
+        "events": 26,
+        "detected": 19,
+        "detection_rate": 0.7307692307692307,
+        "mean_start_error_minutes": 4.842982456140351,
+        "mean_end_error_minutes": 9.602631578947367
+      },
+      {
+        "group": "Talking",
+        "events": 20,
+        "detected": 19,
+        "detection_rate": 0.95,
+        "mean_start_error_minutes": 3.5789473684210535,
+        "mean_end_error_minutes": 4.085087719298246
+      },
+      {
+        "group": "Unknown",
+        "events": 10,
+        "detected": 5,
+        "detection_rate": 0.5,
+        "mean_start_error_minutes": 4.96,
+        "mean_end_error_minutes": 4.9366666666666665
+      },
+      {
+        "group": "No",
+        "events": 10,
+        "detected": 5,
+        "detection_rate": 0.5,
+        "mean_start_error_minutes": 2.2800000000000002,
+        "mean_end_error_minutes": 2.8400000000000003
+      }
+    ],
+    "time_precision": [
+      {
+        "group": "NoSeconds",
+        "events": 143,
+        "detected": 103,
+        "detection_rate": 0.7202797202797203,
+        "mean_start_error_minutes": 4.1736245954692555,
+        "mean_end_error_minutes": 6.404692556634304
+      },
+      {
+        "group": "Seconds",
+        "events": 12,
+        "detected": 10,
+        "detection_rate": 0.8333333333333334,
+        "mean_start_error_minutes": 2.748333333333333,
+        "mean_end_error_minutes": 8.821666666666665
+      },
+      {
+        "group": "Unknown",
+        "events": 10,
+        "detected": 5,
+        "detection_rate": 0.5,
+        "mean_start_error_minutes": 4.96,
+        "mean_end_error_minutes": 4.9366666666666665
+      }
+    ],
+    "bmi": [
+      {
+        "group": "18.5-25",
+        "events": 64,
+        "detected": 42,
+        "detection_rate": 0.65625,
+        "mean_start_error_minutes": 5.4904761904761905,
+        "mean_end_error_minutes": 7.89047619047619
+      },
+      {
+        "group": "30+",
+        "events": 54,
+        "detected": 38,
+        "detection_rate": 0.7037037037037037,
+        "mean_start_error_minutes": 2.917105263157895,
+        "mean_end_error_minutes": 5.679385964912281
+      },
+      {
+        "group": "25-30",
+        "events": 36,
+        "detected": 28,
+        "detection_rate": 0.7777777777777778,
+        "mean_start_error_minutes": 4.1154761904761905,
+        "mean_end_error_minutes": 6.269642857142856
+      },
+      {
+        "group": "other (small groups)",
+        "events": 11,
+        "detected": 10,
+        "detection_rate": 0.9090909090909091,
+        "mean_start_error_minutes": 2.5483333333333333,
+        "mean_end_error_minutes": 4.981666666666667
+      }
+    ],
+    "age": [
+      {
+        "group": "under 25",
+        "events": 82,
+        "detected": 51,
+        "detection_rate": 0.6219512195121951,
+        "mean_start_error_minutes": 5.183006535947712,
+        "mean_end_error_minutes": 8.059477124183008
+      },
+      {
+        "group": "25-40",
+        "events": 49,
+        "detected": 43,
+        "detection_rate": 0.8775510204081632,
+        "mean_start_error_minutes": 2.682558139534884,
+        "mean_end_error_minutes": 5.182170542635659
+      },
+      {
+        "group": "40-60",
+        "events": 34,
+        "detected": 24,
+        "detection_rate": 0.7058823529411765,
+        "mean_start_error_minutes": 4.27013888888889,
+        "mean_end_error_minutes": 5.779861111111111
+      }
+    ],
+    "gender": [
+      {
+        "group": "Female",
+        "events": 95,
+        "detected": 66,
+        "detection_rate": 0.6947368421052632,
+        "mean_start_error_minutes": 5.034848484848485,
+        "mean_end_error_minutes": 7.284343434343435
+      },
+      {
+        "group": "Male",
+        "events": 66,
+        "detected": 48,
+        "detection_rate": 0.7272727272727273,
+        "mean_start_error_minutes": 2.928819444444444,
+        "mean_end_error_minutes": 5.78125
+      },
+      {
+        "group": "unknown",
+        "events": 4,
+        "detected": 4,
+        "detection_rate": 1.0,
+        "mean_start_error_minutes": 2.3208333333333333,
+        "mean_end_error_minutes": 3.5791666666666666
+      }
+    ],
+    "eating_hand": [
+      {
+        "group": "Right",
+        "events": 78,
+        "detected": 52,
+        "detection_rate": 0.6666666666666666,
+        "mean_start_error_minutes": 3.3221153846153846,
+        "mean_end_error_minutes": 5.588461538461539
+      },
+      {
+        "group": "R",
+        "events": 70,
+        "detected": 58,
+        "detection_rate": 0.8285714285714286,
+        "mean_start_error_minutes": 4.662931034482758,
+        "mean_end_error_minutes": 7.862068965517242
+      },
+      {
+        "group": "Left",
+        "events": 12,
+        "detected": 4,
+        "detection_rate": 0.3333333333333333,
+        "mean_start_error_minutes": 4.816666666666666,
+        "mean_end_error_minutes": 1.3083333333333333
+      },
+      {
+        "group": "other (small groups)",
+        "events": 5,
+        "detected": 4,
+        "detection_rate": 0.8,
+        "mean_start_error_minutes": 4.925,
+        "mean_end_error_minutes": 5.1875
+      }
+    ]
+  },
+  "by_person": {
+    "bmi": [
+      {
+        "group": "18.5-25",
+        "recordings": 22,
+        "meals": 64,
+        "detection_rate": 0.65625,
+        "false_alarms_per_day": 2.3952369046967332
+      },
+      {
+        "group": "30+",
+        "recordings": 14,
+        "meals": 54,
+        "detection_rate": 0.7037037037037037,
+        "false_alarms_per_day": 1.320926605552191
+      },
+      {
+        "group": "25-30",
+        "recordings": 12,
+        "meals": 36,
+        "detection_rate": 0.7777777777777778,
+        "false_alarms_per_day": 2.5876080680473272
+      },
+      {
+        "group": "under 18.5",
+        "recordings": 4,
+        "meals": 9,
+        "detection_rate": 0.8888888888888888,
+        "false_alarms_per_day": 0.0
+      },
+      {
+        "group": "unknown",
+        "recordings": 1,
+        "meals": 2,
+        "detection_rate": 1.0,
+        "false_alarms_per_day": 0.0
+      }
+    ],
+    "age": [
+      {
+        "group": "under 25",
+        "recordings": 29,
+        "meals": 82,
+        "detection_rate": 0.6219512195121951,
+        "false_alarms_per_day": 2.3712337773825283
+      },
+      {
+        "group": "25-40",
+        "recordings": 15,
+        "meals": 49,
+        "detection_rate": 0.8775510204081632,
+        "false_alarms_per_day": 1.3534442336069812
+      },
+      {
+        "group": "40-60",
+        "recordings": 9,
+        "meals": 34,
+        "detection_rate": 0.7058823529411765,
+        "false_alarms_per_day": 1.6149701250776292
+      }
+    ],
+    "gender": [
+      {
+        "group": "Female",
+        "recordings": 29,
+        "meals": 95,
+        "detection_rate": 0.6947368421052632,
+        "false_alarms_per_day": 1.8924521372259553
+      },
+      {
+        "group": "Male",
+        "recordings": 23,
+        "meals": 66,
+        "detection_rate": 0.7272727272727273,
+        "false_alarms_per_day": 2.0756921699724296
+      },
+      {
+        "group": "unknown",
+        "recordings": 1,
+        "meals": 4,
+        "detection_rate": 1.0,
+        "false_alarms_per_day": 0.0
+      }
+    ],
+    "eating_hand": [
+      {
+        "group": "Right",
+        "recordings": 25,
+        "meals": 78,
+        "detection_rate": 0.6666666666666666,
+        "false_alarms_per_day": 2.245475668653296
+      },
+      {
+        "group": "R",
+        "recordings": 23,
+        "meals": 70,
+        "detection_rate": 0.8285714285714286,
+        "false_alarms_per_day": 1.8445051468921125
+      },
+      {
+        "group": "Left",
+        "recordings": 3,
+        "meals": 12,
+        "detection_rate": 0.3333333333333333,
+        "false_alarms_per_day": 1.1861837056250828
+      },
+      {
+        "group": "L",
+        "recordings": 1,
+        "meals": 3,
+        "detection_rate": 0.6666666666666666,
+        "false_alarms_per_day": 0.0
+      },
+      {
+        "group": "unknown",
+        "recordings": 1,
+        "meals": 2,
+        "detection_rate": 1.0,
+        "false_alarms_per_day": 0.0
+      }
+    ]
+  }
+}

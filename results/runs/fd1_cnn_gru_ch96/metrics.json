@@ -1,0 +1,393 @@
+{
+  "best_epoch": 17,
+  "model": "cnn_gru",
+  "lookahead_seconds": 15.0,
+  "parameters": 251235,
+  "size_mb_float32": 1.00494,
+  "cpu_ms_per_minute_single_thread": 109.4772815999022,
+  "validation": {
+    "sample": {
+      "confusion_matrix_rows_true_cols_pred": [
+        [
+          5722587,
+          20165,
+          5249
+        ],
+        [
+          14475,
+          35703,
+          125
+        ],
+        [
+          2942,
+          44,
+          17332
+        ]
+      ],
+      "class_names": [
+        "other",
+        "eating",
+        "drinking"
+      ],
+      "per_class": {
+        "other": {
+          "tp": 5722587,
+          "fp": 17417,
+          "fn": 25414,
+          "precision": 0.9969656815570164,
+          "recall": 0.995578636816521,
+          "f1": 0.9962716764137898
+        },
+        "eating": {
+          "tp": 35703,
+          "fp": 20209,
+          "fn": 14600,
+          "precision": 0.6385570181714122,
+          "recall": 0.7097588613005189,
+          "f1": 0.6722779268464906
+        },
+        "drinking": {
+          "tp": 17332,
+          "fp": 5374,
+          "fn": 2986,
+          "precision": 0.7633224698317626,
+          "recall": 0.8530367162122257,
+          "f1": 0.8056898475269617
+        }
+      },
+      "macro_f1_eating_drinking": 0.7389838871867261
+    },
+    "events": {
+      "min_event_seconds": 0.5,
+      "merge_gap_seconds": 0.25,
+      "eating": {
+        "tp": 653,
+        "fp": 128,
+        "fn": 288,
+        "precision": 0.8361075544174136,
+        "recall": 0.69394261424017,
+        "f1": 0.7584204413472705
+      },
+      "drinking": {
+        "tp": 156,
+        "fp": 39,
+        "fn": 40,
+        "precision": 0.8,
+        "recall": 0.7959183673469388,
+        "f1": 0.7979539641943735
+      },
+      "cross_class_matches": {
+        "eating_predicted_as_drinking": 3,
+        "drinking_predicted_as_eating": 1
+      }
+    },
+    "bite_count": {
+      "per_participant": [
+        {
+          "participant_id": 2,
+          "true_bites": 68,
+          "predicted_bites": 67
+        },
+        {
+          "participant_id": 4,
+          "true_bites": 164,
+          "predicted_bites": 80
+        },
+        {
+          "participant_id": 11,
+          "true_bites": 85,
+          "predicted_bites": 44
+        },
+        {
+          "participant_id": 14,
+          "true_bites": 70,
+          "predicted_bites": 80
+        },
+        {
+          "participant_id": 21,
+          "true_bites": 326,
+          "predicted_bites": 286
+        },
+        {
+          "participant_id": 31,
+          "true_bites": 81,
+          "predicted_bites": 97
+        },
+        {
+          "participant_id": 32,
+          "true_bites": 147,
+          "predicted_bites": 127
+        }
+      ],
+      "per_participant_error": {
+        "mae": 30.285714285714285,
+        "mean_relative_error": 0.22977082297243998
+      },
+      "per_file": [
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_02_L.npz",
+          "participant_id": 2,
+          "wrist": "L",
+          "true_bites": 14,
+          "predicted_bites": 14,
+          "true_drinks": 6,
+          "predicted_drinks": 8
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_02_R.npz",
+          "participant_id": 2,
+          "wrist": "R",
+          "true_bites": 54,
+          "predicted_bites": 53,
+          "true_drinks": 2,
+          "predicted_drinks": 5
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_04_L.npz",
+          "participant_id": 4,
+          "wrist": "L",
+          "true_bites": 61,
+          "predicted_bites": 26,
+          "true_drinks": 8,
+          "predicted_drinks": 6
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_04_R.npz",
+          "participant_id": 4,
+          "wrist": "R",
+          "true_bites": 103,
+          "predicted_bites": 54,
+          "true_drinks": 29,
+          "predicted_drinks": 26
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_11_L.npz",
+          "participant_id": 11,
+          "wrist": "L",
+          "true_bites": 0,
+          "predicted_bites": 2,
+          "true_drinks": 0,
+          "predicted_drinks": 1
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_11_R.npz",
+          "participant_id": 11,
+          "wrist": "R",
+          "true_bites": 85,
+          "predicted_bites": 42,
+          "true_drinks": 27,
+          "predicted_drinks": 32
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_14_L.npz",
+          "participant_id": 14,
+          "wrist": "L",
+          "true_bites": 70,
+          "predicted_bites": 70,
+          "true_drinks": 0,
+          "predicted_drinks": 2
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_14_R.npz",
+          "participant_id": 14,
+          "wrist": "R",
+          "true_bites": 0,
+          "predicted_bites": 10,
+          "true_drinks": 25,
+          "predicted_drinks": 24
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_21_L.npz",
+          "participant_id": 21,
+          "wrist": "L",
+          "true_bites": 81,
+          "predicted_bites": 74,
+          "true_drinks": 16,
+          "predicted_drinks": 13
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_21_R.npz",
+          "participant_id": 21,
+          "wrist": "R",
+          "true_bites": 245,
+          "predicted_bites": 212,
+          "true_drinks": 20,
+          "predicted_drinks": 22
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_31_L.npz",
+          "participant_id": 31,
+          "wrist": "L",
+          "true_bites": 26,
+          "predicted_bites": 41,
+          "true_drinks": 27,
+          "predicted_drinks": 28
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_31_R.npz",
+          "participant_id": 31,
+          "wrist": "R",
+          "true_bites": 55,
+          "predicted_bites": 56,
+          "true_drinks": 5,
+          "predicted_drinks": 5
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_32_L.npz",
+          "participant_id": 32,
+          "wrist": "L",
+          "true_bites": 0,
+          "predicted_bites": 1,
+          "true_drinks": 17,
+          "predicted_drinks": 15
+        },
+        {
+          "file": "data/processed/kuleuven_fd1/participants/validation/participant_32_R.npz",
+          "participant_id": 32,
+          "wrist": "R",
+          "true_bites": 147,
+          "predicted_bites": 126,
+          "true_drinks": 14,
+          "predicted_drinks": 8
+        }
+      ],
+      "per_file_error": {
+        "mae": 15.571428571428571,
+        "mean_relative_error": 0.23027047156384162
+      }
+    },
+    "eating_speed": {
+      "bout_gap_seconds": 60.0,
+      "min_bites_per_bout": 3,
+      "bites_per_minute_error": {
+        "mae": 1.011153322082136,
+        "participants_compared": 7
+      },
+      "seconds_between_bites_error": {
+        "mae": 1.9732142857142858,
+        "participants_compared": 7
+      },
+      "per_participant": [
+        {
+          "participant_id": 2,
+          "true": {
+            "bouts": 3,
+            "bites_in_bouts": 68,
+            "bout_minutes": 24.576041666666665,
+            "bites_per_minute": 2.766922392234985,
+            "median_seconds_between_bites": 21.375
+          },
+          "predicted": {
+            "bouts": 4,
+            "bites_in_bouts": 64,
+            "bout_minutes": 21.596875,
+            "bites_per_minute": 2.963391694400231,
+            "median_seconds_between_bites": 19.03125
+          }
+        },
+        {
+          "participant_id": 4,
+          "true": {
+            "bouts": 1,
+            "bites_in_bouts": 164,
+            "bout_minutes": 19.354166666666668,
+            "bites_per_minute": 8.473627556512378,
+            "median_seconds_between_bites": 4.5625
+          },
+          "predicted": {
+            "bouts": 2,
+            "bites_in_bouts": 74,
+            "bout_minutes": 16.298958333333335,
+            "bites_per_minute": 4.540167444238512,
+            "median_seconds_between_bites": 9.09375
+          }
+        },
+        {
+          "participant_id": 11,
+          "true": {
+            "bouts": 2,
+            "bites_in_bouts": 85,
+            "bout_minutes": 21.05625,
+            "bites_per_minute": 4.036806173938855,
+            "median_seconds_between_bites": 11.75
+          },
+          "predicted": {
+            "bouts": 5,
+            "bites_in_bouts": 39,
+            "bout_minutes": 9.239583333333334,
+            "bites_per_minute": 4.2209695603156705,
+            "median_seconds_between_bites": 11.40625
+          }
+        },
+        {
+          "participant_id": 14,
+          "true": {
+            "bouts": 1,
+            "bites_in_bouts": 70,
+            "bout_minutes": 13.345833333333333,
+            "bites_per_minute": 5.245082734935997,
+            "median_seconds_between_bites": 10.3125
+          },
+          "predicted": {
+            "bouts": 1,
+            "bites_in_bouts": 67,
+            "bout_minutes": 13.361458333333333,
+            "bites_per_minute": 5.014422702112731,
+            "median_seconds_between_bites": 11.0
+          }
+        },
+        {
+          "participant_id": 21,
+          "true": {
+            "bouts": 3,
+            "bites_in_bouts": 326,
+            "bout_minutes": 42.565625,
+            "bites_per_minute": 7.658762205418105,
+            "median_seconds_between_bites": 6.5625
+          },
+          "predicted": {
+            "bouts": 5,
+            "bites_in_bouts": 281,
+            "bout_minutes": 44.17916666666667,
+            "bites_per_minute": 6.36046401961709,
+            "median_seconds_between_bites": 8.71875
+          }
+        },
+        {
+          "participant_id": 31,
+          "true": {
+            "bouts": 1,
+            "bites_in_bouts": 81,
+            "bout_minutes": 20.128125,
+            "bites_per_minute": 4.024219841639497,
+            "median_seconds_between_bites": 12.375
+          },
+          "predicted": {
+            "bouts": 1,
+            "bites_in_bouts": 92,
+            "bout_minutes": 20.432291666666668,
+            "bites_per_minute": 4.50267652306908,
+            "median_seconds_between_bites": 11.9375
+          }
+        },
+        {
+          "participant_id": 32,
+          "true": {
+            "bouts": 6,
+            "bites_in_bouts": 144,
+            "bout_minutes": 30.925,
+            "bites_per_minute": 4.65642683912692,
+            "median_seconds_between_bites": 9.3125
+          },
+          "predicted": {
+            "bouts": 6,
+            "bites_in_bouts": 123,
+            "bout_minutes": 31.539583333333333,
+            "bites_per_minute": 3.8998612854217583,
+            "median_seconds_between_bites": 12.625
+          }
+        }
+      ]
+    }
+  }
+}

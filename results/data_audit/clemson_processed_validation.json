@@ -1,0 +1,34 @@
+{
+  "dataset": "Clemson All-day",
+  "sample_rate_hz": 15,
+  "channels": 6,
+  "window_samples": 5400,
+  "stride_samples": 2700,
+  "splits": {
+    "train": {
+      "recordings": 248,
+      "files": 248,
+      "samples": 177545996,
+      "windows": 65385,
+      "eating_samples": 10029611,
+      "eating_percent": 5.649021226026409
+    },
+    "validation": {
+      "recordings": 53,
+      "files": 53,
+      "samples": 38343141,
+      "windows": 14120,
+      "eating_samples": 2006430,
+      "eating_percent": 5.2328263873843825
+    },
+    "test": {
+      "recordings": 53,
+      "files": 53,
+      "samples": 38133001,
+      "windows": 14041,
+      "eating_samples": 2286660,
+      "eating_percent": 5.996538274026742
+    }
+  },
+  "errors": []
+}

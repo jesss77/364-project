@@ -1,0 +1,39 @@
+{
+  "run": "fd1_transformer_cw_none",
+  "model": "transformer",
+  "engine": "qnnpack",
+  "method": "dynamic int8 on Linear/GRU layers (static failed: TypeError)",
+  "calibration_windows": 256,
+  "float32": {
+    "size_mb": 0.644859,
+    "cpu_ms_per_minute_single_thread": 9.870378100094968,
+    "validation": {
+      "eating_f1": 0.6090557959886453,
+      "drinking_f1": 0.7637034569356532,
+      "bite_event_f1": 0.709508881922675,
+      "bite_count_mae": 39.142857142857146
+    },
+    "test": {
+      "eating_f1": 0.5477666230176051,
+      "drinking_f1": 0.7316377737226276,
+      "bite_event_f1": 0.623087621696801,
+      "bite_count_mae": 46.333333333333336
+    }
+  },
+  "int8": {
+    "size_mb": 0.501719,
+    "cpu_ms_per_minute_single_thread": 13.554081999973278,
+    "validation": {
+      "eating_f1": 0.6087523732979232,
+      "drinking_f1": 0.7640069650722114,
+      "bite_event_f1": 0.709508881922675,
+      "bite_count_mae": 39.42857142857143
+    },
+    "test": {
+      "eating_f1": 0.5478534397390341,
+      "drinking_f1": 0.7316767354382766,
+      "bite_event_f1": 0.623087621696801,
+      "bite_count_mae": 46.333333333333336
+    }
+  }
+}

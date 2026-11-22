@@ -1,0 +1,32 @@
+{
+  "dataset": "Clemson All-day",
+  "calculated_from": "training recordings only",
+  "sample_rate_hz": 15,
+  "channels": [
+    "linear_acc_x",
+    "linear_acc_y",
+    "linear_acc_z",
+    "gyro_yaw",
+    "gyro_pitch",
+    "gyro_roll"
+  ],
+  "training_files": 248,
+  "training_samples": 177545996,
+  "skipped_nonfinite_samples": 0,
+  "mean": [
+    0.0055971043380434685,
+    0.012739271821135002,
+    -0.011941027002382299,
+    0.14864487530157944,
+    -0.0431828875503827,
+    0.05777224492005818
+  ],
+  "std": [
+    0.15005395495064797,
+    0.12644293153572878,
+    0.11557049119404533,
+    33.46255086347917,
+    53.304083393207755,
+    38.03560958892547
+  ]
+}

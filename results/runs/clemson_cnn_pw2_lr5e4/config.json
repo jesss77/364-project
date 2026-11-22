@@ -1,0 +1,41 @@
+{
+  "epochs": 25,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "weight_decay": 0.0001,
+  "pos_weight": "2.0",
+  "dropout": 0.3,
+  "max_train_windows": 0,
+  "patience": 6,
+  "merge_gap_minutes": 3.0,
+  "min_episode_minutes": 3.0,
+  "num_workers": 0,
+  "seed": 42,
+  "device": "cuda",
+  "run_name": "clemson_cnn_pw2_lr5e4",
+  "eval_test": false,
+  "model": "EpisodeCNN",
+  "parameters": 57633,
+  "window_samples": 5400,
+  "stride_samples": 2700,
+  "pos_weight_value": 2.0,
+  "train_windows": 65385,
+  "normalization": {
+    "mean": [
+      0.0055971043184399605,
+      0.012739271856844425,
+      -0.011941026896238327,
+      0.14864487946033478,
+      -0.04318288713693619,
+      0.05777224525809288
+    ],
+    "std": [
+      0.1500539481639862,
+      0.12644292414188385,
+      0.11557049304246902,
+      33.46255111694336,
+      53.30408477783203,
+      38.03561019897461
+    ]
+  }
+}

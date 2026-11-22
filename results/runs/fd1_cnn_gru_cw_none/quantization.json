@@ -1,0 +1,39 @@
+{
+  "run": "fd1_cnn_gru_cw_none",
+  "model": "cnn_gru",
+  "engine": "qnnpack",
+  "method": "static int8 (FX graph mode, calibrated on training windows)",
+  "calibration_windows": 256,
+  "float32": {
+    "size_mb": 0.557148,
+    "cpu_ms_per_minute_single_thread": 112.0731942999555,
+    "validation": {
+      "eating_f1": 0.7122692725298588,
+      "drinking_f1": 0.819542161083692,
+      "bite_event_f1": 0.8223350253807107,
+      "bite_count_mae": 21.285714285714285
+    },
+    "test": {
+      "eating_f1": 0.6787829394186363,
+      "drinking_f1": 0.7973801225814205,
+      "bite_event_f1": 0.8168168168168168,
+      "bite_count_mae": 22.0
+    }
+  },
+  "int8": {
+    "size_mb": 0.314163,
+    "cpu_ms_per_minute_single_thread": 115.88661479981965,
+    "validation": {
+      "eating_f1": 0.7101526613721735,
+      "drinking_f1": 0.8176146982179989,
+      "bite_event_f1": 0.8158925573587016,
+      "bite_count_mae": 21.0
+    },
+    "test": {
+      "eating_f1": 0.6792452830188679,
+      "drinking_f1": 0.7920348626074324,
+      "bite_event_f1": 0.8150375939849623,
+      "bite_count_mae": 22.333333333333332
+    }
+  }
+}

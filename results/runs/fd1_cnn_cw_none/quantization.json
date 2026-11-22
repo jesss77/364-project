@@ -1,0 +1,39 @@
+{
+  "run": "fd1_cnn_cw_none",
+  "model": "cnn",
+  "engine": "qnnpack",
+  "method": "static int8 (FX graph mode, calibrated on training windows)",
+  "calibration_windows": 256,
+  "float32": {
+    "size_mb": 0.86687,
+    "cpu_ms_per_minute_single_thread": 6.300524099788163,
+    "validation": {
+      "eating_f1": 0.680447618512062,
+      "drinking_f1": 0.832646948708349,
+      "bite_event_f1": 0.8201603665521191,
+      "bite_count_mae": 27.428571428571427
+    },
+    "test": {
+      "eating_f1": 0.6376427463696603,
+      "drinking_f1": 0.8069127863581559,
+      "bite_event_f1": 0.7764350453172205,
+      "bite_count_mae": 24.666666666666668
+    }
+  },
+  "int8": {
+    "size_mb": 0.272815,
+    "cpu_ms_per_minute_single_thread": 19.70867099989846,
+    "validation": {
+      "eating_f1": 0.6823782910241736,
+      "drinking_f1": 0.8232138751947687,
+      "bite_event_f1": 0.8165814877910278,
+      "bite_count_mae": 28.142857142857142
+    },
+    "test": {
+      "eating_f1": 0.6415359137732619,
+      "drinking_f1": 0.8039375582479031,
+      "bite_event_f1": 0.7796101949025488,
+      "bite_count_mae": 23.666666666666668
+    }
+  }
+}

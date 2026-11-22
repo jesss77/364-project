@@ -1,0 +1,6 @@
+run,pos_weight,lr,dropout,weight_decay,best_epoch,start_thr,end_thr,val_window_f1,val_episode_f1,val_tpr,val_fp_per_day,val_time_f1,val_start_err_min,val_end_err_min,val_meals_day_mae,val_eat_min_day_mae,test_episode_f1,test_tpr,test_fp_per_day,test_time_f1,test_meals_day_mae,test_eat_min_day_mae
+clemson_cnn_base,sqrt,0.001,0.3,0.0001,6,0.4,0.1,0.5994,0.7479,0.7759,1.758,0.5391,4.02,6.86,1.0,31.78,,,,,,
+clemson_cnn_pw2_lr5e4,2.0,0.0005,0.3,0.0001,6,0.4,0.1,0.5951,0.7435,0.7414,1.487,0.5748,3.3,5.42,1.075,25.11,,,,,,
+clemson_cnn_pw_none,none,0.001,0.3,0.0001,10,0.45,0.1,0.6125,0.7611,0.7414,1.217,0.5862,3.1,5.63,0.925,22.2,0.6941,0.7152,1.937,0.5511,1.019,25.95
+clemson_cnn_pw_none_reg,none,0.0005,0.4,0.001,3,0.4,0.1,0.5411,0.6968,0.6207,0.946,0.5907,2.45,4.3,1.283,19.5,,,,,,
+clemson_cnn_reg,sqrt,0.0005,0.4,0.001,5,0.5,0.1,0.5984,0.7803,0.7759,1.251,0.5018,3.7,11.12,0.943,42.58,,,,,,

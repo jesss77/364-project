@@ -1,0 +1,27 @@
+{
+  "run": "fd1_cnn_causal",
+  "model": "cnn_causal",
+  "engine": "qnnpack",
+  "method": "static int8 (FX graph mode, calibrated on training windows)",
+  "calibration_windows": 256,
+  "float32": {
+    "size_mb": 0.86687,
+    "cpu_ms_per_minute_single_thread": 6.18962950002242,
+    "validation": {
+      "eating_f1": 0.44480249919085885,
+      "drinking_f1": 0.6645274345144626,
+      "bite_event_f1": 0.43278022350152384,
+      "bite_count_mae": 153.0
+    }
+  },
+  "int8": {
+    "size_mb": 0.272815,
+    "cpu_ms_per_minute_single_thread": 19.105131099968276,
+    "validation": {
+      "eating_f1": 0.4514125776261698,
+      "drinking_f1": 0.6676859387495884,
+      "bite_event_f1": 0.4411061795834756,
+      "bite_count_mae": 149.57142857142858
+    }
+  }
+}
