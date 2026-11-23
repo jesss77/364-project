@@ -58,7 +58,7 @@ Statuses: **done** (run on the real data), **code ready** (written and tested on
 
 Real-data results: 18 training runs (13 KU Leuven, 5 Clemson), run on Colab and summarized in [RESULTS_SUMMARY.md](RESULTS_SUMMARY.md). The notebook `results_analysis.ipynb` draws the comparison charts, which are saved in `results/figures/`. Tuning used validation only. Each final model was scored once on the test split.
 
-Main finding: the default `--class-weight sqrt` produced too many false bites on every KU Leuven model, and `--class-weight none` was better for all four (validation bite F1 for the causal CNN went from 0.433 to 0.734).
+Main finding: the original default, `--class-weight sqrt`, produced too many false bites on every KU Leuven model, and `--class-weight none` was better for all four (validation bite F1 for the causal CNN went from 0.433 to 0.734). `none` is now the default in `train_fd1.py` and `personalize_fd1.py`.
 
 Treat the left-handed result in Q7 (4 of 12 meals found) as a hint only, because 12 meals is too few to conclude anything.
 
@@ -991,7 +991,7 @@ python scripts\train\train_fd1.py
 
 - Input: 60 s windows (960 × 6). Output: a label (other / eating / drinking) for every sample.
 - Model: a residual stack of dilated 1D convolutions with a receptive field of 253 samples (about 16 s) and about 209k parameters.
-- Imbalance: weighted cross-entropy. By default each class weight is the square root of its inverse frequency (`--class-weight sqrt|inverse|none`).
+- Imbalance: `--class-weight none` (plain cross-entropy) is the default. `sqrt` and `inverse` weight eating and drinking up by the square root of, or the full, inverse class frequency. On the real data `sqrt` gave too many false bites on every model (see [Progress](#progress)).
 - Model selection: the mean of eating F1 and drinking F1, measured per sample on full validation recordings.
 - Scoring always runs on full recordings, not windows, so overlapping windows are not counted twice.
   - Per-sample confusion matrix and F1 for each class.

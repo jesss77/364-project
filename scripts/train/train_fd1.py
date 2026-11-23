@@ -53,7 +53,7 @@ def parse_args():
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
-    parser.add_argument("--class-weight", choices=["sqrt", "inverse", "none"], default="sqrt")
+    parser.add_argument("--class-weight", choices=["sqrt", "inverse", "none"], default="none")
     parser.add_argument("--model", choices=sorted(GESTURE_MODELS), default="cnn")
     parser.add_argument(
         "--causal",

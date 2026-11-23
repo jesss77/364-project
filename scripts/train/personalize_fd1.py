@@ -71,7 +71,7 @@ def parse_args():
     parser.add_argument("--adapt-epochs", type=int, default=30)
     parser.add_argument("--adapt-lr-head", type=float, default=1e-3)
     parser.add_argument("--adapt-lr-all", type=float, default=1e-4)
-    parser.add_argument("--class-weight", choices=["sqrt", "inverse", "none"], default="sqrt")
+    parser.add_argument("--class-weight", choices=["sqrt", "inverse", "none"], default="none")
     parser.add_argument("--min-event-seconds", type=float, default=0.5)
     parser.add_argument("--merge-gap-seconds", type=float, default=0.25)
     parser.add_argument("--seed", type=int, default=42)
