@@ -28,39 +28,39 @@ We do **not** claim that the two datasets form a single jointly evaluated end-to
 
 # Progress
 
-Last updated: 2026-11-21. Update this table in the same commit as the work it describes.
+Last updated: 2026-11-23. Update this table in the same commit as the work it describes.
 
-Statuses: **done**, **code ready** (written and tested on synthetic data, no real-data results yet), **blocked**, **not started**.
+Statuses: **done** (run on the real data), **code ready** (written and tested on synthetic data, no real-data results yet), **blocked**, **not started**. Run names refer to folders in `results/runs/`.
 
-| Area | Item | Status | Where |
+| Area | Item | Status | Result (test split unless noted) |
 |---|---|---|---|
-| Data | KU Leuven download, label checks, preparation, split, normalization | done | `main` |
-| Data | Clemson download, label checks, sensor alignment, split | done | `main` |
-| Data | Clemson model-ready preparation and normalization | blocked: scripts ready, not run on the real `SHMfiles.zip` | `main` |
+| Data | KU Leuven download, label checks, preparation, split, normalization | done | |
+| Data | Clemson download, label checks, sensor alignment, split | done | |
+| Data | Clemson model-ready preparation and normalization | done | 354 recordings, 93,546 windows, validation passed |
 | Data | Check `P2118` / `P2154` (log about a day longer than sensor data) | not started | |
 | Data | `config/fd1_folds.json` from the official `FD1_7_fold_id_list.zip` | not started: needs the zip to see its format | |
-| Models | Shared training code and post-processing (`scripts/train/`) | code ready | `main` |
-| Q1 | Bite / sip / other per moment | code ready | `main` |
-| Q2 | Bite count | code ready | `main` |
-| Q2 | Eating speed (bites per minute, time between bites) | code ready | `main` |
-| Q3 | Meal detection and start / end | code ready, blocked by Clemson preparation | `main` |
-| Q4 | CNN vs CNN-GRU vs transformer | code ready | `main` |
-| Q5 | New user, fine-tuning on 1 / 2 / 5 min of their data | code ready, needs `fd1_folds.json` | `main` |
-| Q6 | Model size and CPU time per minute | code ready | `main` |
-| Q6 | int8 and accuracy after int8 | code ready | `main` |
-| Q7 | Meal-detector breakdown by meal type, context, BMI, eating hand | code ready | `main` |
-| Q9 | Meals per day and time spent eating | code ready | `main` |
+| Q1 | Bite / sip / other per moment | done | CNN-GRU (`fd1_cnn_gru_cw_none`): drink F1 0.834, no eating/drinking mix-ups |
+| Q2 | Bite count | done | CNN-GRU: bite F1 0.817, bite-count MAE 22.0 per participant |
+| Q2 | Eating speed (bites per minute, time between bites) | done | CNN-GRU: 0.86 bites/min MAE, 1.80 s between-bite MAE |
+| Q3 | Meal detection and start / end | done | `clemson_cnn_pw_none`: 118 of 165 meals found (71.5%), 1.94 false alarms/day, start / end error 4.1 / 6.5 min |
+| Q4 | CNN vs CNN-GRU vs transformer | done | bite F1: CNN-GRU 0.817, CNN 0.776, causal CNN 0.751, transformer 0.623 |
+| Q5 | New user, fine-tuning on 1 / 2 / 5 min of their data | code ready, needs `fd1_folds.json` | |
+| Q6 | Model size, CPU time and int8 | done | CNN and causal CNN 0.87 → 0.27 MB with no accuracy loss; CNN 5.7 ms vs CNN-GRU 103 ms of CPU per minute of data |
+| Q7 | Meal-detector breakdown by meal type, context, BMI, eating hand | done | meals under 5 min found 45.5% vs 30+ min 85.7%; snacks 63.0% vs lunch 79.2% |
+| Q9 | Meals per day and time spent eating | done | 3.30 vs 3.11 true meals/day (MAE 1.02); 57.6 vs 47.9 true eating min/day (MAE 25.9) |
 | Q8 | Which hand is eating (nice to have) | not started | |
-| Demo | Causal (no look-ahead) gesture model | code ready | `main` |
-| Demo | Phone-to-model converter, Sensor Logger on iOS and Android (live push, export zip, saved sessions) | code ready, format and units taken from Sensor Logger's docs and checked with simulated pushes | `main` |
-| Demo | Live bite and meal output (replay and HTTP) | code ready | `main` |
-| Demo | Live dashboard in the browser (`--ui`) | code ready, checked with replays | `main` |
+| Demo | Causal (no look-ahead) gesture model | done | `fd1_cnn_causal_cw_none`: bite F1 0.751, 0 s look-ahead |
+| Demo | Trained checkpoints (`best.pt`) available to the demo machine | blocked: on Google Drive, not in git | |
+| Demo | Phone-to-model converter, Sensor Logger on iOS and Android (live push, export zip, saved sessions) | code ready, checked with simulated pushes | |
+| Demo | Live bite and meal output (replay and HTTP) and browser dashboard (`--ui`) | code ready, checked with replays | |
 | Demo | Record a real phone session and check units / axes | blocked: the iPhone could not reach the work Mac (security software); use a personal laptop or a recorded file | |
 | Report | Results, privacy design, limitations | not started | |
 
-Real-data results so far: none. No model has been trained on the real datasets yet.
+Real-data results: 18 training runs (13 KU Leuven, 5 Clemson), run on Colab and summarized in [RESULTS_SUMMARY.md](RESULTS_SUMMARY.md). The notebook `results_analysis.ipynb` draws the comparison charts, which are saved in `results/figures/`. Tuning used validation only. Each final model was scored once on the test split.
 
-Current blocker: the datasets are not downloaded on the machine that will train the models.
+Main finding: the default `--class-weight sqrt` produced too many false bites on every KU Leuven model, and `--class-weight none` was better for all four (validation bite F1 for the causal CNN went from 0.433 to 0.734).
+
+Treat the left-handed result in Q7 (4 of 12 meals found) as a hint only, because 12 meals is too few to conclude anything.
 
 The questions behind Q1–Q9 are listed in [Project Goals and Plan](#project-goals-and-plan).
 
@@ -81,7 +81,7 @@ Phase 1 includes:
 7. Defining participant-independent train/validation/test splits.
 8. Making sure another teammate can reproduce everything from a clean clone.
 
-All Phase 1 scripts exist. The only part not yet run is the Clemson model-ready preparation on the full `SHMfiles.zip`. See [Phase 1 Status](#phase-1-status).
+Phase 1 is complete except for checking recordings `P2118` and `P2154`. See [Phase 1 Status](#phase-1-status).
 
 ---
 
@@ -929,11 +929,10 @@ Both validation scripts stop with an error and list every problem they find. A c
 - Clemson sensor format inspection (float32, 6 channels, 15 Hz)
 - Clemson event/sensor alignment (1,132 of 1,133 events inside sensor data)
 - Clemson development split (248 / 53 / 53)
-- Clemson model-ready preprocessing, validation and normalization scripts
+- Clemson model-ready preprocessing, validation and normalization, run on the full `SHMfiles.zip` (354 recordings, 93,546 windows, validation passed)
 
 ## Remaining
 
-- Run `preprocess_clemson.py`, `validate_clemson_processed.py` and `compute_clemson_normalization.py` on the full `SHMfiles.zip`, then commit `clemson_normalization.json` and the two audit files
 - Check the recordings whose log is about a day longer than the sensor data (`P2118`, `P2154`)
 
 ---
