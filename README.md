@@ -62,6 +62,13 @@ Main finding: the original default, `--class-weight sqrt`, produced too many fal
 
 Treat the left-handed result in Q7 (4 of 12 meals found) as a hint only, because 12 meals is too few to conclude anything.
 
+KU Leuven shows no left/right gap, so mirroring augmentation is not needed for bite detection:
+
+- Training already has 1,310 left-wrist bites and 1,950 right-wrist bites, and 12 of the 24 training participants eat mostly with the left hand.
+- On the test split, bite F1 by wrist is:
+  - CNN-GRU (`fd1_cnn_gru_cw_none`): left 0.829, right 0.801
+  - causal CNN (`fd1_cnn_causal_cw_none`): left 0.765, right 0.734
+
 The questions behind Q1–Q9 are listed in [Project Goals and Plan](#project-goals-and-plan).
 
 ---
