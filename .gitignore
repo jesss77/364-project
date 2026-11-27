@@ -21,5 +21,14 @@ venv/
 .DS_Store
 Thumbs.db
 
+# Model checkpoints
+*.pt
 
 .env/
+
+# Selected final checkpoints
+!/results/runs/clemson_cnn_pw_none/best.pt
+!/results/runs/fd1_cnn_cw_none/best.pt
+!/results/runs/fd1_cnn_causal_cw_none/best.pt
+!/results/runs/fd1_cnn_gru_cw_none/best.pt
+!/results/runs/fd1_transformer_cw_none/best.pt

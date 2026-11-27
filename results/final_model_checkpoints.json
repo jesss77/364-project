@@ -1,0 +1,43 @@
+﻿{
+    "source_repository":  "jesss77/364-project",
+    "source_commit":  "0d9843b602e51b141e867f44096b15589212854f",
+    "verification":  "SHA256 and Git blob identity; weights-only loading; strict model loading; finite tensors and forward outputs",
+    "limitation":  "Original held-out metrics and training provenance were not independently reproduced",
+    "models":  [
+                   {
+                       "run":  "clemson_cnn_pw_none",
+                       "path":  "results/runs/clemson_cnn_pw_none/best.pt",
+                       "bytes":  241501,
+                       "sha256":  "160dc3746a2662511986781d2faeb65c02b8324f90cafd073c3f5d927a701458",
+                       "git_blob":  "fa31d66d522ec0595e0ff3a79dae940e46cf152e"
+                   },
+                   {
+                       "run":  "fd1_cnn_cw_none",
+                       "path":  "results/runs/fd1_cnn_cw_none/best.pt",
+                       "bytes":  863927,
+                       "sha256":  "6145a82b641405e9c3193d167c6bfb983cf31b74da5af3794b3a1618e1337ea5",
+                       "git_blob":  "d27280e5d78c557dbbbdaf4d9318bd1b009696c1"
+                   },
+                   {
+                       "run":  "fd1_cnn_causal_cw_none",
+                       "path":  "results/runs/fd1_cnn_causal_cw_none/best.pt",
+                       "bytes":  863927,
+                       "sha256":  "650e5535e54c47e6d63195bc4e02c9fe132d97234e89d5bdd58d29c605074087",
+                       "git_blob":  "e4a7a3aae2f117f94567c943f9392c21439a4e07"
+                   },
+                   {
+                       "run":  "fd1_cnn_gru_cw_none",
+                       "path":  "results/runs/fd1_cnn_gru_cw_none/best.pt",
+                       "bytes":  554733,
+                       "sha256":  "1202db0280c9ad91f701f76e26af3759e15335f292de46bb0a4437ff034744d2",
+                       "git_blob":  "2f049cb26ffe0a1d21c113db2d292535addb03db"
+                   },
+                   {
+                       "run":  "fd1_transformer_cw_none",
+                       "path":  "results/runs/fd1_transformer_cw_none/best.pt",
+                       "bytes":  642561,
+                       "sha256":  "5dba70ecdebfeb77557f4400aefb4740160e5266c3d1d7df88c24b351d9236a8",
+                       "git_blob":  "eef2fb8ee8d2aeeb412c1ace2b54504484f44416"
+                   }
+               ]
+}
