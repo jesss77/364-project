@@ -1,0 +1,359 @@
+{
+  "participants": 5,
+  "averages": {
+    "base": {
+      "eating_f1": 0.6799372380842303,
+      "drinking_f1": 0.8129858893917312,
+      "bite_f1": 0.8183380362558242,
+      "bite_count_error": 10.8
+    },
+    "head_1min": {
+      "eating_f1": 0.6982183257294029,
+      "drinking_f1": 0.7672175707296923,
+      "bite_f1": 0.7987344193241535,
+      "bite_count_error": 10.2
+    },
+    "all_1min": {
+      "eating_f1": 0.6878048847516343,
+      "drinking_f1": 0.7848300495733225,
+      "bite_f1": 0.819326294232441,
+      "bite_count_error": 18.2
+    },
+    "head_2min": {
+      "eating_f1": 0.6959679986067521,
+      "drinking_f1": 0.7256458773976856,
+      "bite_f1": 0.8067793262058437,
+      "bite_count_error": 12.8
+    },
+    "all_2min": {
+      "eating_f1": 0.6951786121606739,
+      "drinking_f1": 0.816361238227846,
+      "bite_f1": 0.7968722512614546,
+      "bite_count_error": 26.8
+    },
+    "head_5min": {
+      "eating_f1": 0.6724799058721606,
+      "drinking_f1": 0.4675547359788682,
+      "bite_f1": 0.7478100818002363,
+      "bite_count_error": 32.2
+    },
+    "all_5min": {
+      "eating_f1": 0.6641116429894219,
+      "drinking_f1": 0.7571122279441896,
+      "bite_f1": 0.7993627776165402,
+      "bite_count_error": 26.8
+    }
+  },
+  "per_participant": [
+    {
+      "fold": 2,
+      "participant_id": 7,
+      "adapt_start_seconds": 11279.125,
+      "scored_from_seconds": 11579.125,
+      "base": {
+        "eating_f1": 0.6651454649172845,
+        "drinking_f1": 0.8665325285043595,
+        "bite_f1": 0.8247422680412372,
+        "true_bites": 46,
+        "predicted_bites": 51,
+        "bite_count_error": 5
+      },
+      "head_1min": {
+        "eating_f1": 0.7090633190784935,
+        "drinking_f1": 0.8304843304843306,
+        "bite_f1": 0.7636363636363634,
+        "true_bites": 46,
+        "predicted_bites": 64,
+        "bite_count_error": 18
+      },
+      "all_1min": {
+        "eating_f1": 0.7172214182344427,
+        "drinking_f1": 0.8621621621621622,
+        "bite_f1": 0.7719298245614036,
+        "true_bites": 46,
+        "predicted_bites": 68,
+        "bite_count_error": 22
+      },
+      "head_2min": {
+        "eating_f1": 0.7166516109605541,
+        "drinking_f1": 0.8273381294964028,
+        "bite_f1": 0.822429906542056,
+        "true_bites": 46,
+        "predicted_bites": 61,
+        "bite_count_error": 15
+      },
+      "all_2min": {
+        "eating_f1": 0.74215178299299,
+        "drinking_f1": 0.8391994478951,
+        "bite_f1": 0.8,
+        "true_bites": 46,
+        "predicted_bites": 64,
+        "bite_count_error": 18
+      },
+      "head_5min": {
+        "eating_f1": 0.7328339575530587,
+        "drinking_f1": 0.6604095563139932,
+        "bite_f1": 0.8349514563106796,
+        "true_bites": 46,
+        "predicted_bites": 57,
+        "bite_count_error": 11
+      },
+      "all_5min": {
+        "eating_f1": 0.7338825214899714,
+        "drinking_f1": 0.7482462977396726,
+        "bite_f1": 0.853932584269663,
+        "true_bites": 46,
+        "predicted_bites": 43,
+        "bite_count_error": 3
+      }
+    },
+    {
+      "fold": 2,
+      "participant_id": 18,
+      "adapt_start_seconds": 13121.25,
+      "scored_from_seconds": 13421.25,
+      "base": {
+        "eating_f1": 0.8058465286236298,
+        "drinking_f1": 0.9580093312597201,
+        "bite_f1": 0.8955223880597014,
+        "true_bites": 32,
+        "predicted_bites": 35,
+        "bite_count_error": 3
+      },
+      "head_1min": {
+        "eating_f1": 0.8052364413572002,
+        "drinking_f1": 0.9307568438003221,
+        "bite_f1": 0.8656716417910447,
+        "true_bites": 32,
+        "predicted_bites": 35,
+        "bite_count_error": 3
+      },
+      "all_1min": {
+        "eating_f1": 0.7688800227985181,
+        "drinking_f1": 0.9430379746835442,
+        "bite_f1": 0.90625,
+        "true_bites": 32,
+        "predicted_bites": 32,
+        "bite_count_error": 0
+      },
+      "head_2min": {
+        "eating_f1": 0.8149032720324815,
+        "drinking_f1": 0.8432055749128919,
+        "bite_f1": 0.8985507246376812,
+        "true_bites": 32,
+        "predicted_bites": 37,
+        "bite_count_error": 5
+      },
+      "all_2min": {
+        "eating_f1": 0.8208695652173913,
+        "drinking_f1": 0.9480314960629922,
+        "bite_f1": 0.8732394366197183,
+        "true_bites": 32,
+        "predicted_bites": 39,
+        "bite_count_error": 7
+      },
+      "head_5min": {
+        "eating_f1": 0.7414267834793492,
+        "drinking_f1": 0.0,
+        "bite_f1": 0.6888888888888889,
+        "true_bites": 32,
+        "predicted_bites": 58,
+        "bite_count_error": 26
+      },
+      "all_5min": {
+        "eating_f1": 0.6688446688446689,
+        "drinking_f1": 0.9060955518945634,
+        "bite_f1": 0.8125,
+        "true_bites": 32,
+        "predicted_bites": 32,
+        "bite_count_error": 0
+      }
+    },
+    {
+      "fold": 2,
+      "participant_id": 23,
+      "adapt_start_seconds": 12.625,
+      "scored_from_seconds": 312.625,
+      "base": {
+        "eating_f1": 0.7377025532528729,
+        "drinking_f1": 0.8092674171969326,
+        "bite_f1": 0.8953488372093025,
+        "true_bites": 179,
+        "predicted_bites": 165,
+        "bite_count_error": 14
+      },
+      "head_1min": {
+        "eating_f1": 0.7578841140358255,
+        "drinking_f1": 0.7192336035372144,
+        "bite_f1": 0.8130081300813008,
+        "true_bites": 179,
+        "predicted_bites": 190,
+        "bite_count_error": 11
+      },
+      "all_1min": {
+        "eating_f1": 0.7489006551198062,
+        "drinking_f1": 0.7926580557443915,
+        "bite_f1": 0.8549222797927462,
+        "true_bites": 179,
+        "predicted_bites": 207,
+        "bite_count_error": 28
+      },
+      "head_2min": {
+        "eating_f1": 0.759493670886076,
+        "drinking_f1": 0.7584865629420086,
+        "bite_f1": 0.8253968253968252,
+        "true_bites": 179,
+        "predicted_bites": 199,
+        "bite_count_error": 20
+      },
+      "all_2min": {
+        "eating_f1": 0.7319735708129848,
+        "drinking_f1": 0.7935153583617748,
+        "bite_f1": 0.7941888619854722,
+        "true_bites": 179,
+        "predicted_bites": 234,
+        "bite_count_error": 55
+      },
+      "head_5min": {
+        "eating_f1": 0.7167000400480575,
+        "drinking_f1": 0.8141419787590833,
+        "bite_f1": 0.717948717948718,
+        "true_bites": 179,
+        "predicted_bites": 289,
+        "bite_count_error": 110
+      },
+      "all_5min": {
+        "eating_f1": 0.7010724379573348,
+        "drinking_f1": 0.7757073844030367,
+        "bite_f1": 0.7333333333333333,
+        "true_bites": 179,
+        "predicted_bites": 271,
+        "bite_count_error": 92
+      }
+    },
+    {
+      "fold": 2,
+      "participant_id": 28,
+      "adapt_start_seconds": 4.0,
+      "scored_from_seconds": 304.0,
+      "base": {
+        "eating_f1": 0.6537046768260641,
+        "drinking_f1": 0.6529579247073711,
+        "bite_f1": 0.8203389830508475,
+        "true_bites": 148,
+        "predicted_bites": 147,
+        "bite_count_error": 1
+      },
+      "head_1min": {
+        "eating_f1": 0.6375947122360148,
+        "drinking_f1": 0.5780507131537242,
+        "bite_f1": 0.8391608391608392,
+        "true_bites": 148,
+        "predicted_bites": 138,
+        "bite_count_error": 10
+      },
+      "all_1min": {
+        "eating_f1": 0.6594930655188904,
+        "drinking_f1": 0.5997337896938582,
+        "bite_f1": 0.853146853146853,
+        "true_bites": 148,
+        "predicted_bites": 138,
+        "bite_count_error": 10
+      },
+      "head_2min": {
+        "eating_f1": 0.6257918198170016,
+        "drinking_f1": 0.3599899724241664,
+        "bite_f1": 0.7746478873239436,
+        "true_bites": 148,
+        "predicted_bites": 136,
+        "bite_count_error": 12
+      },
+      "all_2min": {
+        "eating_f1": 0.5893324607329843,
+        "drinking_f1": 0.6199393615123953,
+        "bite_f1": 0.7604562737642585,
+        "true_bites": 148,
+        "predicted_bites": 115,
+        "bite_count_error": 33
+      },
+      "head_5min": {
+        "eating_f1": 0.607622026504239,
+        "drinking_f1": 0.00896,
+        "bite_f1": 0.8028169014084507,
+        "true_bites": 148,
+        "predicted_bites": 136,
+        "bite_count_error": 12
+      },
+      "all_5min": {
+        "eating_f1": 0.6056421052631579,
+        "drinking_f1": 0.47577092511013214,
+        "bite_f1": 0.7970479704797049,
+        "true_bites": 148,
+        "predicted_bites": 123,
+        "bite_count_error": 25
+      }
+    },
+    {
+      "fold": 2,
+      "participant_id": 33,
+      "adapt_start_seconds": 1514.375,
+      "scored_from_seconds": 1814.375,
+      "base": {
+        "eating_f1": 0.5372869668013004,
+        "drinking_f1": 0.778162245290273,
+        "bite_f1": 0.6557377049180327,
+        "true_bites": 107,
+        "predicted_bites": 76,
+        "bite_count_error": 31
+      },
+      "head_1min": {
+        "eating_f1": 0.5813130419394799,
+        "drinking_f1": 0.7775623626728706,
+        "bite_f1": 0.7121951219512195,
+        "true_bites": 107,
+        "predicted_bites": 98,
+        "bite_count_error": 9
+      },
+      "all_1min": {
+        "eating_f1": 0.5445292620865139,
+        "drinking_f1": 0.7265582655826558,
+        "bite_f1": 0.710382513661202,
+        "true_bites": 107,
+        "predicted_bites": 76,
+        "bite_count_error": 31
+      },
+      "head_2min": {
+        "eating_f1": 0.5629996193376476,
+        "drinking_f1": 0.8392091472129586,
+        "bite_f1": 0.712871287128713,
+        "true_bites": 107,
+        "predicted_bites": 95,
+        "bite_count_error": 12
+      },
+      "all_2min": {
+        "eating_f1": 0.591565681047019,
+        "drinking_f1": 0.881120527306968,
+        "bite_f1": 0.7564766839378237,
+        "true_bites": 107,
+        "predicted_bites": 86,
+        "bite_count_error": 21
+      },
+      "head_5min": {
+        "eating_f1": 0.5638167217760982,
+        "drinking_f1": 0.8542621448212648,
+        "bite_f1": 0.6944444444444443,
+        "true_bites": 107,
+        "predicted_bites": 109,
+        "bite_count_error": 2
+      },
+      "all_5min": {
+        "eating_f1": 0.6111164813919768,
+        "drinking_f1": 0.8797409805735431,
+        "bite_f1": 0.7999999999999999,
+        "true_bites": 107,
+        "predicted_bites": 93,
+        "bite_count_error": 14
+      }
+    }
+  ]
+}

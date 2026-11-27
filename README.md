@@ -44,6 +44,7 @@ The gesture and meal detectors are trained and evaluated independently. The repo
 | Clemson unseen-test false alarms | 1.94 per day |
 | Clemson meals under 5 min | 45.5% found |
 | Clemson meals 30+ min | 85.7% found |
+| KU Leuven 7-fold zero-shot CNN (34 users, Q5) | 0.791 bite F1, 16.2 MAE |
 
 See [RESULTS_SUMMARY.md](RESULTS_SUMMARY.md) for the full comparison and [results_analysis.ipynb](results_analysis.ipynb) for the visual analysis.
 
@@ -57,7 +58,7 @@ Phone stream  -> unit/axis conversion -> live gesture model -> browser dashboard
 
 # Progress
 
-Last updated: 2026-11-27.
+Last updated: 2026-11-28.
 
 Statuses: **done** (run on the real data), **code ready** (written and tested on synthetic data, no real-data results yet), **blocked**, **not started**. Run names refer to folders in `results/runs/`.
 
@@ -73,13 +74,13 @@ Statuses: **done** (run on the real data), **code ready** (written and tested on
 | Q2 | Eating speed (bites per minute, time between bites) | done | CNN-GRU: 0.86 bites/min MAE, 1.80 s between-bite MAE |
 | Q3 | Meal detection and start / end | done | `clemson_cnn_pw_none`: 118 of 165 meals found (71.5%), 1.94 false alarms/day, start / end error 4.1 / 6.5 min |
 | Q4 | CNN vs CNN-GRU vs transformer | done | bite F1: CNN-GRU 0.817, CNN 0.776, causal CNN 0.751, transformer 0.623 |
-| Q5 | New user, fine-tuning on 1 / 2 / 5 min of their data | code ready | Fold-0 results are in `results/runs/fd1_personalization_cnn_fold0/` |
+| Q5 | New user, fine-tuning on 1 / 2 / 5 min of their data | done | 7-fold CNN (`fd1_personalization_cnn_7fold`, 34 users): base bite F1 0.791 (MAE 16.2); 1 min helps hardest 6 users (+0.080 eat F1), naive 5 min overfits & drops drink F1 (0.810 → 0.647) |
 | Q6 | Model size, CPU time and int8 | done | CNN and causal CNN 0.87 → 0.27 MB with no accuracy loss; CNN 5.7 ms vs CNN-GRU 103 ms of CPU per minute of data |
 | Q7 | Meal-detector breakdown by meal type, context, BMI, eating hand | done | meals under 5 min found 45.5% vs 30+ min 85.7%; snacks 63.0% vs lunch 79.2% |
 | Q9 | Meals per day and time spent eating | done | 3.30 vs 3.11 true meals/day (MAE 1.02); 57.6 vs 47.9 true eating min/day (MAE 25.9) |
 | Q8 | Which hand is eating (nice to have) | not started | |
 | Demo | Causal (no look-ahead) gesture model | done | `fd1_cnn_causal_cw_none`: bite F1 0.751, 0 s look-ahead |
-| Demo | Trained checkpoints (`best.pt`) available to the demo machine | blocked | Checkpoints are intended for Google Drive, not Git |
+| Demo | Trained checkpoints (`best.pt`) available to the demo machine | done | Five verified final checkpoints tracked in Git (`results/final_model_checkpoints.json`) |
 | Demo | Phone-to-model converter, Sensor Logger on iOS and Android (live push, export zip, saved sessions) | code ready, checked with simulated pushes | |
 | Demo | Live bite and meal output (replay and HTTP) and browser dashboard (`--ui`) | code ready, checked with replays | |
 | Demo | Record a real phone session and check units / axes | blocked | Real-device phone/network validation is pending |
@@ -1168,7 +1169,7 @@ Example fold-zero run:
 python scripts\train\personalize_fd1.py --model cnn --class-weight none --run-name fd1_personalization_cnn_fold0 --folds 0
 ```
 
-The completed fold-zero result is in `results/runs/fd1_personalization_cnn_fold0/personalization.json`.
+The completed 7-fold result (all 34 participants, merged from `fd1_personalization_cnn_fold0` through `fd1_personalization_cnn_fold6`) is in `results/runs/fd1_personalization_cnn_7fold/personalization.json`. Zero-shot CNN already achieves 0.791 bite F1 (MAE 16.2); 1-minute adaptation raises eating F1 on the hardest users (`base eat F1 < 0.55`, n = 6) from 0.472 to 0.552 (+0.080), while 30-epoch naive fine-tuning on 5-minute eating slices overfits (MAE 48.8) and causes catastrophic forgetting of drinking (0.810 → 0.647).
 
 ## Live demo
 

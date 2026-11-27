@@ -20,8 +20,11 @@ Here is a summary of everything I completed on this branch: finishing the Clemso
    - Trained 5 configurations testing `pos_weight` (`sqrt`, `2.0`, `none`), learning rate, dropout, and weight decay.
    - Selected the best balanced model on validation (`clemson_cnn_pw_none`), scored it on the held-out **test split**, and ran `analyze_clemson_meals.py` on both validation and test for the **Q7** failure breakdown.
 
-4. **Created Visual Analysis & Poster Figures:**
-   - Built and ran `results_analysis.ipynb` to visualize all 18 runs, export **6 high-resolution (300 DPI) figures** to `results/figures/`, and generate `results/clemson_model_comparison.csv`.
+4. **Completed 7-Fold Q5 New-User Personalization (all 34 participants):**
+   - Completed all 7 official folds (`fd1_personalization_cnn_fold0` through `fold6`) and merged them into `results/runs/fd1_personalization_cnn_7fold/personalization.json` (testing `0`, `1`, `2`, and `5` minutes of user calibration data with `head` vs. `all` layer fine-tuning).
+
+5. **Created Visual Analysis & Poster Figures:**
+   - Built and ran `results_analysis.ipynb` to visualize all 18 runs + Q5 7-fold personalization, export **7 high-resolution (300 DPI) figures** to `results/figures/`, and generate `results/clemson_model_comparison.csv`.
 
 ---
 
@@ -79,19 +82,39 @@ Switching from `--class-weight sqrt` to **`--class-weight none`** boosted **ever
 
 ---
 
-## 4. Files Added on This Branch
+## 4. KU Leuven 7-Fold New-User Personalization (Q5 — All 34 Participants)
 
-- `config/clemson_normalization.json` — Clemson training-only per-channel mean/std
-- `results/data_audit/clemson_preprocessing_summary.json` & `clemson_processed_validation.json` — Clemson processed data audit (0 errors)
-- `results/fd1_model_comparison.csv` & `results/clemson_model_comparison.csv` — Master comparison tables for all 18 runs
-- `results/runs/<18 run folders>/` — All `config.json`, `history.json`, `metrics.json`, `predictions_*.csv`, `meals_*.csv`, `quantization.json`, and `meal_breakdown_*.json` files *(trained `*.pt` checkpoints are git-ignored by policy and backed up on Google Drive for sharing)*
-- `results_analysis.ipynb` — Rendered Matplotlib analysis notebook viewable directly on GitHub
-- `results/figures/01_...png` through `06_...png` — 6 high-resolution (300 DPI) poster-ready charts
+Evaluated using the official 7 participant-independent folds (`config/fd1_folds.json`, CNN with `--class-weight none`, 30 adaptation epochs, BatchNorm frozen):
+
+| Variant | Eat F1 (mean ± SD) | Drink F1 | Bite F1 (mean ± SD) | Bite F1 Wins | Bite MAE (mean / med) |
+|---|---:|---:|---:|---:|---:|
+| **`base` (0 min, zero-shot)** | `0.670 ± 0.119` | **`0.810`** | **`0.791 ± 0.115`** | — | **`16.2` / `11.0`** |
+| **`head_1min`** | **`0.680 ± 0.102`** | `0.755` | `0.771 ± 0.142` | `17/34` | `22.6` / `11.5` |
+| **`all_1min`** | `0.674 ± 0.120` | `0.790` | `0.776 ± 0.153` | `16/34` | `32.7` / `17.5` |
+| `head_2min` | `0.677 ± 0.109` | `0.759` | `0.756 ± 0.147` | `11/34` | `26.3` / `20.0` |
+| `all_2min` | `0.671 ± 0.134` | `0.798` | `0.759 ± 0.160` | `12/34` | `34.1` / `13.5` |
+| `head_5min` | `0.660 ± 0.116` | `0.647` | `0.708 ± 0.146` | `7/34` | `48.8` / `28.5` |
+| `all_5min` | `0.654 ± 0.144` | `0.741` | `0.738 ± 0.159` | `12/34` | `26.8` / `14.5` |
+
+**Key Takeaways:**
+- **Strong zero-shot generalization:** Across all 34 held-out users, the unadapted CNN already reaches **`0.791` Bite F1** (median `0.822`), **`0.810` Drink F1**, and **`16.2` Bite MAE**.
+- **Helps the hardest unseen users:** On the 6 hardest users (`base eat F1 < 0.55`), **1 min** of adaptation lifts Eat F1 from **`0.472 → 0.552` (+0.080)**, with individual Bite F1 jumps up to `+0.206` (P11: `0.594 → 0.800`) and `+0.195` (P10: `0.723 → 0.918`).
+- **Why naive fine-tuning degrades overall averages:** Fine-tuning for 30 epochs on a 1–5 min eating-heavy snippet shifts the class prior (inflating false-positive bites later in the day: MAE `16.2 → 48.8` at `head_5min`) and causes **catastrophic forgetting of drinking** (`0.810 → 0.647`) since short eating slices rarely include sips. In practice, zero-shot should be the default, and personalization should only be applied to struggling users with negative/drinking replay data.
 
 ---
 
-## 5. What's Next
+## 5. Files Added
 
-1. **Q5 (New-User Personalization):** Build `config/fd1_folds.json` from `FD1_7_fold_id_list.zip` and run `personalize_fd1.py` (1 / 2 / 5-minute adaptation).
-2. **Live Demo & Wearable Calibration:** Test `run_live.py` + `ui.html` locally using `fd1_cnn_causal_cw_none` (and `clemson_cnn_pw_none`) with replay files and a live phone / Samsung Galaxy Watch via Sensor Logger.
-3. **A1 Poster & Pitch Prep:** Use the exported figures in `results/figures/` and prepare the 3–5 minute presentation + Q&A.
+- `config/clemson_normalization.json` & `config/fd1_folds.json` — Clemson normalization stats and official KU Leuven 7-fold split
+- `results/data_audit/clemson_preprocessing_summary.json` & `clemson_processed_validation.json` — Clemson processed data audit (0 errors)
+- `results/fd1_model_comparison.csv` & `results/clemson_model_comparison.csv` — Master comparison tables for all 18 runs
+- `results/runs/` — All 18 training runs + Q5 7-fold personalization runs (`fd1_personalization_cnn_fold0..6` and merged `fd1_personalization_cnn_7fold`), with the 5 verified final `best.pt` checkpoints tracked in `results/final_model_checkpoints.json`
+- `results_analysis.ipynb` — Rendered Matplotlib analysis notebook viewable directly on GitHub
+- `results/figures/01_...png` through `07_fd1_q5_personalization.png` — 7 high-resolution (300 DPI) poster-ready charts
+
+---
+
+## 6. What's Next
+
+1. **Live Demo & Phone Calibration:** Test `run_live.py` + `ui.html` locally using `fd1_cnn_causal_cw_none` (and `clemson_cnn_pw_none`) with a real phone running Sensor Logger, lock in `--axes`, and record a backup video.
+2. **A1 Poster & Pitch Prep:** Use the 7 exported 300-DPI figures in `results/figures/` to design/print the A1 portrait poster and rehearse the 3–5 minute pitch + individual Q&A.

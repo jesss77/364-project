@@ -1,0 +1,79 @@
+{
+  "model": "cnn",
+  "causal": false,
+  "folds": [
+    [
+      1,
+      21,
+      24,
+      30,
+      32
+    ],
+    [
+      0,
+      4,
+      14,
+      17,
+      29
+    ],
+    [
+      7,
+      18,
+      23,
+      28,
+      33
+    ],
+    [
+      2,
+      12,
+      16,
+      25,
+      31
+    ],
+    [
+      8,
+      9,
+      13,
+      15,
+      26
+    ],
+    [
+      3,
+      5,
+      20,
+      22,
+      27
+    ],
+    [
+      6,
+      10,
+      11,
+      19
+    ]
+  ],
+  "folds_file": "/content/364-project/config/fd1_folds.json",
+  "random_folds": 0,
+  "budgets": [
+    1,
+    2,
+    5
+  ],
+  "modes": [
+    "head",
+    "all"
+  ],
+  "epochs": 10,
+  "max_train_windows": 0,
+  "batch_size": 64,
+  "lr": 0.001,
+  "adapt_epochs": 30,
+  "adapt_lr_head": 0.001,
+  "adapt_lr_all": 0.0001,
+  "class_weight": "none",
+  "min_event_seconds": 0.5,
+  "merge_gap_seconds": 0.25,
+  "seed": 42,
+  "device": "auto",
+  "run_name": "fd1_personalization_cnn_fold6",
+  "folds_source": "FD1_7_fold_id_list.zip"
+}
